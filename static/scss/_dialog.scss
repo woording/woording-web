@@ -1,0 +1,99 @@
+.ngdialog-content {
+	font-family: helvetica;
+	color: #444;
+
+	h1 {
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+
+	.error {
+		color: $error_red;
+	}
+
+	.success {
+		color: #4F8A10;
+	}
+
+	// Text input style
+	input[type="text"], input[type="password"], input[type="email"], select {
+		transition: border-color 0.25s ease 0s;
+		background: rgba(0,0,0,0);
+		border-style: solid;
+		border-width: 0 0 2px 0;
+		border-radius: 0px;
+		border-color: #999;
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: inherit;
+		margin: 0 0 .25em;
+		min-height: 1.8em;
+		outline: 0px none transparent;
+		width: 100%;
+
+		&:-webkit-autofill, &:-webkit-autofill:focus {
+			-webkit-box-shadow: 0 0 0px 100vw #f0f0f0 inset;
+		}
+
+		&:focus {
+			outline: 0px none transparent;
+			box-shadow: none;
+			border-color: #444;
+		}
+
+		// Invalid input
+		&:invalid {
+			outline: 0px none transparent;
+			box-shadow: none;
+			border-color: $error_red;
+		}
+	}
+
+	// Submit button style
+	input[type="submit"], button {
+		transition: background-color 0.25s ease 0s;
+		border-radius: 5px;
+		border-width: 0px;
+		background-color: #AAA;
+		font-size: inherit;
+		font-family: inherit;
+		font-weight: inherit;
+		margin: 0 0 .15em;
+		min-height: 1.8em;
+		padding: .25em .67em;
+
+		&:hover {
+			background-color: #999;
+			cursor: pointer;
+		}
+
+		// When mouse down on button
+		&:active {
+			background-color: #888;
+		}
+	}
+
+	textarea {
+		resize: vertical;
+	}
+
+	table {
+		tr {
+			td {
+				padding-right: 1vw;
+				color: #444 !important;
+			}
+		}
+	}
+
+	a {
+		color: $url_blue;
+		font-size: .9em;
+		cursor: pointer;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+}

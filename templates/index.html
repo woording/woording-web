@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Wording</title>
+
+		<!-- stylesheets -->
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/icon-font.css') }}">
+
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ngDialog.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ngDialog-theme-default.min.css') }}">
+
+		<!-- scripts -->
+		<script src="{{ url_for('static', filename='js/frameworks/angular.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/frameworks/ngDialog.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/frameworks/angular-cookies.min.js') }}"></script>
+	</head>
+
+	<body ng-app="myApp">
+
+		<div ng-controller="MainController" id="main_controller">
+			<div id="overlay"></div>
+
+			<header>
+
+				<a href="/"><h1>Wording</h1></a>
+
+				<div id="log_info">
+					<div id="sign_or_log_in" ng-hide="loggedIn">
+						<button id="sign_up" ng-click="openSignUp()">[[ translations.login.signup ]]</button><!-- This comment is for removing the space between the sign up and login in button
+						--><button id="log_in" ng-click="openLogIn()">[[ translations.login.login ]]</button>
+					</div>
+					<div id="userinfo" ng-show="loggedIn">
+						<i class="material-icons" id="profile" ng-click="toggleShowProfile()">account_circle</i>
+					</div>
+				</div>
+
+			</header>
+
+			<!-- Profile dialog -->
+			<div id="profile_dialog" ng-show="showProfileInfo">
+				<h1>[[ user.username ]]</h1><br>
+				<div id="options_bar">
+					<button ng-click="openOptions()">[[ translations.options ]]</button>
+					<button ng-click="logoutUser()" name="logout">[[ translations.login.logout ]]</button>
+				</div>
+			</div><!-- Profile dialog -->
+
+			<!-- load data -->
+			{% if listname %}
+				<div ng-init="loadUser('/{{username}}'); loadList('/{{username}}/{{listname}}')" id="content">
+			{% else %}
+				<div ng-init="loadUser('/{{username}}')" id="content">
+			{% endif %}
+				<div id="practice_div">
+					<span id="close_button"><i class="material-icons">close</i></span>
+
+					<h1><b>[[ listData.listname ]]</b></h1>
+
+					<h2 id="current_word" ng-show="questionedLanguage">[[ randomWord.language_1_text ]]</h2>
+					<h2 id="current_word" ng-show="!questionedLanguage">[[ randomWord.language_2_text ]]</h2>
+					<h2 id="wrong_word"></h2>
+
+					<form ng-submit="submit()" id="word_input">
+						<table>
+							<tr>
+								<td><input type="text" ng-model="text" name="text" autocomplete="off" autocorrect="off"></td>
+								<td><button type="submit" id="submit">[[ translations.practice.next ]]</button></td>
+							</tr>
+						</table>
+					</form>
+					<br>
+					<p>[[ translations.practice.right ]] <span id="correct">0</span></p>
+					<br>
+					<p>[[ translations.practice.wrong ]] <span id="incorrect">0</span></p>
+					<br>
+					<p>[[ translations.practice.wordsLeft ]] <span id="words_left"></span></p>
+
+				</div> <!-- practice_div -->
+
+				<div id="left_content">
+
+					<a href="/[[user.username]]" class="user_link"><!--  ng-click="loadUser('/' + [[ user.username ]])"> -->
+						<div class="user_list_item selected">
+							[[ user.username ]]
+						</div>
+					</a>
+
+					<h3>[[ translations.friends ]]</h3>
+
+					<a ng-repeat="friend in friends" href="/[[friend.username]]" class="user_link"><!-- ng-click="loadUser('/' + [[ friend ]])>" -->
+						<div class="user_list_item">
+							[[ friend.username ]]
+						</div>
+					</a>
+
+					<a href="javascript:void(0)" ng-click="openFriendRequest()">
+						<div class="user_list_item">
+							+ [ Add friend ]
+						</div>
+					</a>
+
+				</div> <!-- left_content -->
+
+				<div id="middle_content">
+
+					<div id="list_header">
+						<h3>[[ translations.lists ]]</h3>
+					</div>
+
+					<table>
+						<tr> <!-- Search bar -->
+							<td colspan="2"><input ng-model="searchQuery" placeholder="[[ translations.search ]]"></td>
+						</tr>
+
+						<tr>
+							<td colspan="2">
+								<div id="practice_all" ng-click="getSelectedLists()">[ Practice selected ]</div>
+							</td>
+						</tr>
+
+						<tr class="list_list-item" ng-repeat="list in userData.lists | filter:searchQuery">
+							<td>
+								<input type="checkbox" name="list_select" onchange="selectList(this)"> <a href="/[[userData.username]]/[[list.listname]]" class="list_link" onclick="showList()">
+									[[ list.listname ]]
+								</a>
+							</td>
+						</tr>
+					</table>
+
+					<div id="new_list" ng-click="createList()" onclick="showEditor()">
+						[[ translations.newList ]]
+					</div>
+					<div id="import_list" ng-click="importList()" onclick="">
+						[[ translations.importList ]]
+					</div>
+					<div id="undo_delete" ng-click="undoDelete()">
+						[[ translations.undoDelete ]]
+					</div>
+
+				</div> <!-- middle_content -->
+
+				<div id="right_content">
+					<div id="list_items" class="word_list">
+						<button id="practice_button" ng-click="startList()" onclick="">
+							[[ translations.listControls.practice ]]
+						</button><!--
+						--><button id="edit_button" ng-click="editList()" onclick="showEditor()">
+							[[ translations.listControls.edit ]]
+						</button><!--
+						--><button id="delete_button" ng-click="deleteList(listData.listname)" ng-show="isOwner">
+							[[ translations.listControls.delete ]]
+						</button>
+
+						<div id="list_header">
+							<h3>[[ listData.listname ]]</h3>
+						</div>
+
+						<table>
+							<tr>
+								<th ng-repeat="language in translations.languages | filter:listData.language_1_tag"> [[ language.displayText ]] </th>
+								<th ng-repeat="language in translations.languages | filter:listData.language_2_tag"> [[ language.displayText ]] </th>
+							</tr>
+							<tr ng-repeat="word in listData.words">
+								<td> [[ word.language_1_text ]] </td>
+								<td> [[ word.language_2_text ]] </td>
+							</tr>
+						</table>
+
+
+
+					</div> <!-- list_items -->
+
+					<div id="edit_list" class="word_list">
+
+						<div id="list_header">
+							<h3><input type="text" placeholder="[[ translations.listControls.listName ]]" ng-model="editData.listname"></h3>
+						</div>
+
+						<table id="edit_list_table">
+							<tr>
+								<th>
+									<select ng-model="editData.language_1_tag" value="">
+										<option value="">[[ translations.listControls.language1 ]]</option>
+										<option ng-repeat="language in translations.languages" value="[[ language.iso ]]">[[ language.displayText ]]</option>
+									</select>
+								</th>
+								<th>
+									<select ng-model="editData.language_2_tag" value="">
+										<option value="">[[ translations.listControls.language2 ]]</option>
+										<option ng-repeat="language in translations.languages" value="[[ language.iso ]]">[[ language.displayText ]]</option>
+									</select>
+								</th>
+							</tr>
+							<tr ng-repeat="word in editData.words">
+								<td><input type="text" placeholder="[[ translations.listControls.sentence ]]" ng-model="word.language_1_text" name="edit_input"></td>
+								<td><input type="text" placeholder="[[ translations.listControls.translation ]]" ng-model="word.language_2_text" name="edit_input"></td>
+							</tr>
+						</table>
+						<table>
+							<tr>
+								<td colspan="2">
+									<select ng-model="editData.shared_with" value="">
+										<option value="">[[ translations.sharing.sharedWith ]]?</option>
+										<option value="0">[[ translations.sharing.nobody ]]</option>
+										<option value="1">[[ translations.friends ]]</option>
+										<option value="2">[[ translations.sharing.everybody ]]</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+
+						<button id="save_button" ng-click="saveList()">
+							[[ translations.listControls.save ]]
+						</button><!--
+						--><button id="add_rows" onclick="addRow()">
+							[[ translations.listControls.addRow ]]
+						</button><!--
+						--><button id="delete_button" ng-click="deleteList(editData.listname)" ng-show="isOwner">
+							[[ translations.listControls.delete ]]
+						</button>
+
+					</div> <!-- edit_list -->
+
+					<div id="results">
+						<table ng-if="incorrectWords.length != 0">
+							<h3> [[ translations.results.results ]]: </h3>
+							<p id="incorrect_words_paragraph">[[ translations.results.incorrectWords ]]:</p>
+							<tr>
+								<th> [[ translations.results.correct ]] </th>
+								<th> [[ translations.results.typed ]] </th>
+							</tr>
+							<tr ng-repeat="word in incorrectWords">
+								<td> [[ word.correctWord ]] </td>
+								<td> [[ word.incorrectWord ]] </td>
+							</tr>
+						</table>
+
+						<button id="practice_incorrect" ng-click="practiceIncorrect()">[[ translations.results.incorrectWordsAgain ]]</button>
+
+						<div id="results_bar">
+							<p id="correct_bar"></p><p id="incorrect_bar"></p>
+						</div>
+					</div>
+				</div> <!-- right_content -->
+			</div> <!-- ng-init --><!-- content -->
+		</div> <!-- MainController -->
+	</body>
+
+	<!-- Scripts -->
+	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+	<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/controllers/MainController.js') }}"></script>
+</html>

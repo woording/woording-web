@@ -1,0 +1,193 @@
+body {
+	background: url('https://images.unsplash.com/photo-1438216983993-cdcd7dea84ce?q=80&fm=jpg&s=4141165d8e8eed56b8d9012740c4b503.jpeg');
+	background-size: cover;
+}
+
+header {
+	$header-height: 60px;
+
+	h1 {
+		position: absolute;
+		font-size: 30px;
+		font-weight: 120;
+		width: 300px;
+		padding-left: 16px;
+		color: #F5F6F6;
+	}
+
+	form {
+		float: right;
+		color: white;
+		position: absolute;
+		right: 0;
+		top: 0;
+		padding: 0;
+		margin: 0;
+		height: $header-height;
+		line-height: $header-height;
+
+		span {
+			height: $header-height;
+			display: inline-block;
+		}
+
+		input[type="text"], input[type="password"] {
+			display: inline-block;
+			padding: 4px;
+		}
+
+		input[type="submit"] {
+			outline: none;
+			min-width: 80px;
+			padding: 0 8px;
+			height: $header-height;
+			font-size: 15px;
+			cursor: pointer;
+			border: none;
+			transition: background .1s;
+			background: #48BFD1;
+			color: #F5F6F6;
+			display: inline-block;
+			line-height: unset;
+
+			&:hover {
+				background: #39D5ED;
+			}
+		}
+
+	}
+
+	p {
+		color: red;
+		margin: 0 8px;
+		display: inline;
+	}
+}
+
+#content {
+	width: 100%;
+	height: calc(100% - 60px);
+	background-color: transparent;
+	position: absolute;
+	bottom: 0;
+	top: 60px;
+	overflow: auto;
+
+	.error {
+		color: #f44336;
+	}
+
+	.success {
+		color: #4F8A10;
+	}
+
+	#slogan {
+		position: absolute;
+		top: 50%;
+		font-size: 30px;
+		height: 30px;
+		padding: 10px 0 10px 0;
+		background: rgba(0,0,0,0.4);
+		color: white;
+		padding-left: 500px;
+		left: 0;
+		right: 0;
+
+		p {
+			margin-left: 30px;
+		}
+	}
+
+	#register_div, #login_div {
+		width: 400px;
+		height: 430px;
+		background: white;
+		-webkit-box-shadow: 0px 1px 6px 2px rgba(0,0,0,0.47);
+		-moz-box-shadow: 0px 1px 6px 2px rgba(0,0,0,0.47);
+		box-shadow: 0px 1px 6px 2px rgba(0,0,0,0.47);
+		margin: 40px;
+
+		h1 {
+			background: #48BFD1;
+			padding: 8px;
+			text-align: center;
+			font-weight: 100;
+			color: white;
+			font-size: 25px;
+		}
+
+		form {
+			width: 80%;
+			padding: 5%;
+			margin: 5%;
+
+			input[type='text'], input[type='password'], input[type='email'] {
+				width: 100%;
+				font-size: 18px;
+				padding: 5px;
+				margin: 5px;
+			}
+
+			input[type='submit'] {
+				text-align: center;
+				width: 100%;
+				padding: 8px;
+				background: #48BFD1;
+				border: none;
+				font-size: 25px;
+				color: white;
+				cursor: pointer;
+			}
+
+			a {
+				color: #3B96FF;
+			}
+		}
+	}
+
+	/* entire container, keeps perspective */
+	.flip-container {
+		perspective: 1200;
+		-webkit-perspective: 1200; // Safari
+
+	}
+
+	.flip-container, #register_div, #login_div {
+		width: 400px;
+		height: 500px;
+	}
+	
+
+	/* flip speed goes here */
+	.flipper {
+		transition: 0.6s;
+		transform-style: preserve-3d;
+		-webkit-transform-style: preserve-3d;
+		position: relative;
+	}
+
+	/* hide back of pane during swap */
+	#register_div, #login_div {
+		transition: 0.6s;
+		backface-visibility: hidden;
+		position: absolute;
+		top: 0;
+	}
+
+	/*#register_div pane, placed above back */
+	#register_div {
+		//left: calc(200% - 40px);
+		z-index: 2;
+		/* for firefox 31 */
+		transform: rotateY(0deg);
+		-webkit-transform: rotateY(0deg);
+	}
+
+	/* back, initially hidden pane */
+	#login_div {
+		//left: calc(-200% - 40px - 80px);
+		transform: rotateY(180deg);
+		-webkit-transform: rotateY(180deg);
+		margin-left: -40px;
+	}
+}

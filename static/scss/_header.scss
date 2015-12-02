@@ -1,0 +1,84 @@
+header {
+	height: $header-height;
+	background-color: $dark_color;
+	line-height: $header-height;
+
+	a {
+		text-decoration: none;
+	}
+
+	h1 {
+		font-size: 30px;
+		font-weight: 120;
+		width: 300px;
+		padding-left: 16px;
+		color: $white_color;
+	}
+
+	#log_info {
+		right: 0;
+		position: absolute;
+		height: $header-height;
+		top: 0;
+		text-align: right;
+		color: $white_color;
+
+		#sign_up, #log_in, #log_out {
+			min-width: 80px;
+			padding: 0 $padding-unit;
+			height: $header-height;
+			font-size: 15px;
+			cursor: pointer;
+			border: none;
+			right: 0;
+			transition: background $timing-unit;
+		}
+
+		#user_profile {
+			height: $header-height;
+			font-size: 15px;
+			cursor: pointer;
+			border: none;
+			padding-left: $padding-unit;
+			padding-right: $padding-unit;
+			transition: background $timing-unit;
+			display: inline-block;
+		}
+
+		#profile {
+			display: block;
+			cursor: pointer;
+			height: $header-height;
+			padding-left: 2 * $padding-unit;
+			padding-right: 2 * $padding-unit;
+			line-height: unset;
+			font-size: 36px;
+
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		#sign_up, #user_profile {
+			background: $dark_blue_color;
+			color: $white_color;
+			outline: none;
+
+			&:hover {
+				background: #3298AB;
+			}
+		}
+
+
+		#log_in, #log_out {
+			background: $light_blue_color;
+			color: $white_color;
+			outline: none;
+
+			&:hover {
+				background: #39D5ED;
+			}
+		}
+	}
+}
