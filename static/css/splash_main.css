@@ -1,0 +1,141 @@
+body {
+  background: url("https://images.unsplash.com/photo-1438216983993-cdcd7dea84ce?q=80&fm=jpg&s=4141165d8e8eed56b8d9012740c4b503.jpeg");
+  background-size: cover; }
+
+header h1 {
+  position: absolute;
+  font-size: 30px;
+  font-weight: 120;
+  width: 300px;
+  padding-left: 16px;
+  color: #F5F6F6; }
+
+header form {
+  float: right;
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0;
+  margin: 0;
+  height: 60px;
+  line-height: 60px; }
+  header form span {
+    height: 60px;
+    display: inline-block; }
+  header form input[type="text"], header form input[type="password"] {
+    display: inline-block;
+    padding: 4px; }
+  header form input[type="submit"] {
+    outline: none;
+    min-width: 80px;
+    padding: 0 8px;
+    height: 60px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    -webkit-transition: background .1s;
+    transition: background .1s;
+    background: #48BFD1;
+    color: #F5F6F6;
+    display: inline-block;
+    line-height: unset; }
+    header form input[type="submit"]:hover {
+      background: #39D5ED; }
+
+header p {
+  color: red;
+  margin: 0 8px;
+  display: inline; }
+
+#content {
+  width: 100%;
+  height: calc(100% - 60px);
+  background-color: transparent;
+  position: absolute;
+  bottom: 0;
+  top: 60px;
+  overflow: auto;
+  /* entire container, keeps perspective */
+  /* flip speed goes here */
+  /* hide back of pane during swap */
+  /*#register_div pane, placed above back */
+  /* back, initially hidden pane */ }
+  #content .error {
+    color: #f44336; }
+  #content .success {
+    color: #4F8A10; }
+  #content #slogan {
+    position: absolute;
+    top: 50%;
+    font-size: 30px;
+    height: 30px;
+    padding: 10px 0 10px 0;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding-left: 500px;
+    left: 0;
+    right: 0; }
+    #content #slogan p {
+      margin-left: 30px; }
+  #content #register_div, #content #login_div {
+    width: 400px;
+    height: 430px;
+    background: white;
+    box-shadow: 0px 1px 6px 2px rgba(0, 0, 0, 0.47);
+    margin: 40px; }
+    #content #register_div h1, #content #login_div h1 {
+      background: #48BFD1;
+      padding: 8px;
+      text-align: center;
+      font-weight: 100;
+      color: white;
+      font-size: 25px; }
+    #content #register_div form, #content #login_div form {
+      width: 80%;
+      padding: 5%;
+      margin: 5%; }
+      #content #register_div form input[type='text'], #content #register_div form input[type='password'], #content #register_div form input[type='email'], #content #login_div form input[type='text'], #content #login_div form input[type='password'], #content #login_div form input[type='email'] {
+        width: 100%;
+        font-size: 18px;
+        padding: 5px;
+        margin: 5px; }
+      #content #register_div form input[type='submit'], #content #login_div form input[type='submit'] {
+        text-align: center;
+        width: 100%;
+        padding: 8px;
+        background: #48BFD1;
+        border: none;
+        font-size: 25px;
+        color: white;
+        cursor: pointer; }
+      #content #register_div form a, #content #login_div form a {
+        color: #3B96FF; }
+  #content .flip-container {
+    perspective: 1200;
+    -webkit-perspective: 1200; }
+  #content .flip-container, #content #register_div, #content #login_div {
+    width: 400px;
+    height: 500px; }
+  #content .flipper {
+    -webkit-transition: 0.6s;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    position: relative; }
+  #content #register_div, #content #login_div {
+    -webkit-transition: 0.6s;
+    transition: 0.6s;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    position: absolute;
+    top: 0; }
+  #content #register_div {
+    z-index: 2;
+    /* for firefox 31 */
+    transform: rotateY(0deg);
+    -webkit-transform: rotateY(0deg); }
+  #content #login_div {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    margin-left: -40px; }

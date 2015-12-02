@@ -1,0 +1,12 @@
+{
+	"name": "woording-web",
+	"version": "0.0.1",
+	"description": "woording frontend site",
+	"repository": "woording/woording-web",
+	"devDependencies": {
+	  	"gulp": "^3.9.0",
+	  	"gulp-sass": "^2.1.0",
+	  	"gulp-shell": "^0.5.1",
+	  	"gulp-autoprefixer": "^3.1.0"
+	}
+}
