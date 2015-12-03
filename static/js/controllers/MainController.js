@@ -1,7 +1,7 @@
 app.controller('MainController', function($scope, $http, $window, ngDialog, $interval, $cookies, $timeout) {
 	$scope.title = 'Wording';
 	$scope.Object = Object;
-	$scope.apiAdress = 'http://127.0.0.1:5000';
+	$scope.apiAdress = 'http://api.woording.com';
 	$scope.requests = 0;
 
 	window.onload = function() {
