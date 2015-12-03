@@ -1,6 +1,7 @@
 app.controller('MainController', function($scope, $http, $window, ngDialog, $interval, $cookies, $timeout) {
 	$scope.title = 'Wording';
 	$scope.Object = Object;
+	// Change to "http://127.0.0.1:5000" when debugging
 	$scope.apiAdress = 'http://api.woording.com';
 	$scope.requests = 0;
 
