@@ -1,6 +1,7 @@
 # all the imports
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, send_from_directory
+from flask.ext.cors import CORS
 
 # configuration
 DATABASE = '/tmp/flaskr.db'
@@ -10,6 +11,7 @@ USERNAME = 'admin'
 PASSWORD = 'default'
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object(__name__)
 
 @app.route('/')
@@ -33,4 +35,4 @@ def show_user_list(username, listname):
     return render_template("index.html", username=username, listname=listname)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=False)
+    app.run(host='0.0.0.0', port=5001, debug=False)
