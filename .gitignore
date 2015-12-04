@@ -17,3 +17,4 @@ env/*
 env/
 env/**/*
 **/env/**/*
+build/build.js
