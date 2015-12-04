@@ -1,4 +1,5 @@
 app.controller('MainController', function($scope, $http, $window, ngDialog, $interval, $cookies, $timeout) {
+	
 	$scope.title = 'Wording';
 	$scope.Object = Object;
 	$scope.apiAdress = 'http://test.woording.com';
