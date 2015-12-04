@@ -2,6 +2,8 @@ woording-web
 ============
 The front end SPA for woording
 
+A new, VueJS based version of this SPA is being created under the `vue` branch as an experiment.
+
 ## Setup
 ```bash
 npm install
