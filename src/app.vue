@@ -56,9 +56,9 @@ export default {
 				'password' : 'Hunter2'
 			}
 
-			this.$http.post('http://test.woording.com/authenticate', data, function(data, status, request) {
+			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
 
-				this.$http.post('http://test.woording.com/cor', data, function(data, status, request) {
+				this.$http.post('http://api.woording.com/cor', data, function(data, status, request) {
 					this.user = data
 					console.log(this.user)
 				})
