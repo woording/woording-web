@@ -1,15 +1,17 @@
 <style lang="sass">
+
+$border-style: 0.125rem solid #27333E;
+
 #user-list {
-	background-color: #74CA97;
 	padding: 0.5rem;
 
 	@media (max-width: 768px) {
-		border-bottom: 0.25rem solid #27333E;
+		border-bottom: $border-style;
 	}
 	@media (min-width: 768px) {
 		flex: 0 0 auto;
-		border-right: 0.25rem solid #27333E;
-		min-width: 8rem;
+		border-right: $border-style;
+		min-width: 10rem;
 	}
 }
 	

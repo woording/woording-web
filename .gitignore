@@ -18,3 +18,4 @@ env/
 env/**/*
 **/env/**/*
 build/build.js
+npm-debug.log
