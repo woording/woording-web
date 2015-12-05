@@ -1,6 +1,6 @@
 woording-web
 ============
-The experimental, VueJS versioin of woording
+The experimental, VueJS version of woording
 
 ## How to run
 ```bash
