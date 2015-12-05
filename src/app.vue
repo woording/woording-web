@@ -14,18 +14,24 @@
 	   font-family: Inconsolata;
 
 	}
+
+	#app {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
 </style>
 
 <template>
 
 <div id="app"> 
 	<site-header></site-header>
-	<p>username: {{user.username}}</p>
-	<p>email: {{user.email}}</p>
-	<a v-link="{ path: '/cor' }">Go to Cor</a>
-	<list-list></list-list>
-	<p>JSON result for user:</p>
-	<pre>{{ user | json }}</pre>
+	<site-body>
+		<user-list></user-list>
+		<list-list></list-list>
+		<translation-list></translation-list>
+	</site-body>
+	<site-footer></site-footer>
 </div>
 
 </template>
@@ -34,31 +40,24 @@
 <script>
 
 import SiteHeader from './components/ui/header.vue'
+import SiteBody from './components/ui/body.vue'
+import SiteFooter from './components/ui/footer.vue'
+
 import ListList from './components/ui/list-list.vue'
+import UserList from './components/ui/user-list.vue'
+import TranslationList from './components/ui/translation-list.vue'
 
 export default {
-	ready: function() {
-		this.getUser()
-
-	},
 
 	components: {
 		SiteHeader,
-		ListList
+		SiteBody,
+		SiteFooter,
+		UserList,
+		ListList,
+		TranslationList
 	},
 
-	data: function() {
-		return {
-			user : {
-
-			}
-		}
-	},
-
-	methods : {
-		getUser : function() {
-		}
-	}
 }
 
 </script>

@@ -11,7 +11,7 @@
 		font-size: 3rem;
 		padding: 1rem;
 
-		border-bottom: 1px solid #27333E;
+		border-bottom: 0.25rem solid #27333E;
 
 	}
 </style>
