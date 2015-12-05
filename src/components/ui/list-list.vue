@@ -8,6 +8,7 @@
 	@media (min-width: 768px) {
 		flex: 0 0 auto;
 		border-right: 0.25rem solid #27333E;
+		min-width: 8rem;
 	}
 
 }
