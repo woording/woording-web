@@ -12,6 +12,7 @@ web.pid
 api.pid
 node_modules/
 node_modules/*
+build/
 
 env/*
 env/
