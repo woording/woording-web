@@ -25,8 +25,9 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="list-list">
 		<ul>
+			<pre>{{ lists | json }}</pre>
 			<li><h2>Your lists</h2></li>
-			<li v-for='list in lists'>{{ list.listname }}</li>
+			<li v-for='list in lists'><a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>{{ list.listname }}</a></li>
 		</ul>
 	</div>
 
@@ -36,7 +37,7 @@ $border-style: 0.125rem solid #27333E;
 export default {
 
 	ready: function() {
-		this.fetchLists('cor')
+		this.updateContents()
 	},
 
 	data: function () {
@@ -46,6 +47,11 @@ export default {
 	},
 
 	methods: {
+		updateContents: function() {
+			var username = this.$parent.$route.params.username
+			this.fetchLists(username)
+		},
+
 		fetchLists : function(username) {
 			var data =  {
 				'username' : 'cor',

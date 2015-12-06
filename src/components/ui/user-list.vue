@@ -36,7 +36,7 @@ $border-style: 0.125rem solid #27333E;
 <script>
 export default {
 	ready: function() {
-		this.fetchFriends('cor')
+		this.updateContents()
 	},
 
 	data: function () {
@@ -45,7 +45,18 @@ export default {
 		}
 	},
 
+	events : {
+		'url-update' : function() {
+			this.updateContents()
+		}
+	},
+
 	methods: {
+		updateContents: function() {
+			var username = this.$parent.$route.params.username
+			this.fetchFriends(username)
+		},
+
 		fetchFriends: function(username) {
 
 			var data =  {
@@ -72,9 +83,9 @@ export default {
 					console.log("status: " + status)
 					console.log("request: " + request)
 			})
-	
-		}
+		},
 	}
+
 
 }	
 </script>

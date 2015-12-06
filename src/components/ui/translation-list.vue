@@ -83,7 +83,7 @@ $border-style: 0.125rem solid #27333E;
 export default {
 
 	ready: function() {
-		this.fetchList("cor","duitse_woorden")
+		this.updateContents()
 	},
 
 	data: function() {
@@ -93,6 +93,13 @@ export default {
 	},
 
 	methods : {
+
+		updateContents: function(){
+			var username = this.$parent.$route.params.username
+			var listname = this.$parent.$route.params.listname
+			this.fetchList(username, listname)
+		},
+
 		fetchList: function(username, listname) {
 			var data = {
 				'username' : 'cor',
