@@ -1,8 +1,9 @@
 woording-web
 ============
-The front end SPA for woording
+The front web based single page application for woording
 
-A new, VueJS based version of this SPA is being created under the `vue` branch as an experiment.
+## A new, VueJS based version of this SPA is being created under the `vue` branch.
+## This is the version that is currently live at http://woording.com, but we're working towards a release of the VueJS version.
 
 ## Setup
 ```bash
