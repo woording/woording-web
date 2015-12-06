@@ -14,9 +14,6 @@ $border-style: 0.125rem solid #27333E;
 		min-width: 10rem;
 	}
 
-	h2 {
-		font-weight: bold;
-	}
 }
 	
 </style>
@@ -24,10 +21,10 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="user-list">
 		<ul>
-			<li><h2>You</h2></li>
+			<li>You</li>
 			<li><a v-link='{ path: "/cor" }' >cor</a></li>
 			<li><br></li>
-			<li><h2>Friends</h2></li>
+			<li>Friends</li>
 			<li v-for="friend in friends"><a v-link='{ path: "/" + friend.username}'>{{ friend.username }}</a></li>
 		</ul>
 	</div>

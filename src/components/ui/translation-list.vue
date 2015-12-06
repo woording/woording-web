@@ -11,13 +11,12 @@ $border-style: 0.125rem solid #27333E;
 
 	h1 {
 		font-size: 1.8rem;
-		font-weight: bold;
+		font-weight: 300;
 		padding: 0.25rem;
 	}
 
 	h2 {
 		font-size: 1.2rem;
-		font-weight: bold;
 	}
 
 	.translation-record {
