@@ -53,6 +53,7 @@ $border-style: 0.125rem solid #27333E;
 	<div id="translation-list">
 
 		<div class="list-header">
+
 			<h1>{{ list.listname }}</h1>
 
 			<div class="language-name-container">
@@ -82,7 +83,7 @@ $border-style: 0.125rem solid #27333E;
 export default {
 
 	ready: function() {
-		this.fetchList("cor","engelse_woorden")
+		this.fetchList("cor","duitse_woorden")
 	},
 
 	data: function() {
@@ -102,10 +103,21 @@ export default {
 
 				this.$http.post('http://api.woording.com/' + username + '/' + listname, data, function(data, status, request) {
 					this.list = data
-				})
-			})
-		}
+				}).error(function(data, status, request) {
+					console.log("data: " + data)
+					console.log("status: " + status)
+					console.log("request: " + request)
 
+				})
+
+			}).error(function(data, status, request) {
+				console.log("data: " + data)
+				console.log("status: " + status)
+				console.log("request: " + request)
+
+			})
+
+		}
 	}
 }
 

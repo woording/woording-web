@@ -14,6 +14,10 @@ $border-style: 0.125rem solid #27333E;
 		min-width: 10rem;
 	}
 
+	h2 {
+		font-weight: bold;
+	}
+
 }
 
 </style>
@@ -21,6 +25,7 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="list-list">
 		<ul>
+			<li><h2>Your lists</h2></li>
 			<li v-for='list in lists'>{{ list.listname }}</li>
 		</ul>
 	</div>
@@ -31,7 +36,7 @@ $border-style: 0.125rem solid #27333E;
 export default {
 
 	ready: function() {
-		this.fetchLists()
+		this.fetchLists('cor')
 	},
 
 	data: function () {
@@ -41,7 +46,7 @@ export default {
 	},
 
 	methods: {
-		fetchLists : function() {
+		fetchLists : function(username) {
 			var data =  {
 				'username' : 'cor',
 				'password' : 'Hunter2'
@@ -49,9 +54,19 @@ export default {
 
 			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
 
-				this.$http.post('http://api.woording.com/cor', data, function(data, status, request) {
+				this.$http.post('http://api.woording.com/' + username, data, function(data, status, request) {
 					this.lists = data.lists
+				}).error(function(data, status, request) {
+					console.log("data: " + data)
+					console.log("status: " + status)
+					console.log("request: " + request)
+
 				})
+
+			}).error(function(data, status, request) {
+					console.log("data: " + data)
+					console.log("status: " + status)
+					console.log("request: " + request)
 			})
 
 		}

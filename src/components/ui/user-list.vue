@@ -13,6 +13,10 @@ $border-style: 0.125rem solid #27333E;
 		border-right: $border-style;
 		min-width: 10rem;
 	}
+
+	h2 {
+		font-weight: bold;
+	}
 }
 	
 </style>
@@ -20,9 +24,57 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="user-list">
 		<ul>
-			<li>Cor</li>
-			<li>Philip</li>
-			<li>Leon</li>
+			<li><h2>You</h2></li>
+			<li>cor</li>
+			<li><br></li>
+			<li><h2>Friends</h2></li>
+			<li v-for="friend in friends">{{ friend.username }}</li>
 		</ul>
 	</div>
 </template>
+
+<script>
+export default {
+	ready: function() {
+		this.fetchFriends('cor')
+	},
+
+	data: function () {
+		return {
+			friends: []
+		}
+	},
+
+	methods: {
+		fetchFriends: function(username) {
+
+			var data =  {
+				'username' : 'cor',
+				'password' : 'Hunter2'
+			}
+
+			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
+
+				// Add the username parameter to the retrieved json data object containing the token
+				data.username = username
+
+				this.$http.post('http://api.woording.com/getFriends', data, function(data, status, request) {
+					this.friends = data
+				}).error(function(data, status, request) {
+					console.log("data: " + data)
+					console.log("status: " + status)
+					console.log("request: " + request)
+
+				})
+
+			}).error(function(data, status, request) {
+					console.log("data: " + data)
+					console.log("status: " + status)
+					console.log("request: " + request)
+			})
+	
+		}
+	}
+
+}	
+</script>
