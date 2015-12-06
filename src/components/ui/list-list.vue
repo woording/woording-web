@@ -25,7 +25,6 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="list-list">
 		<ul>
-			<pre>{{ lists | json }}</pre>
 			<li><h2>Your lists</h2></li>
 			<li v-for='list in lists'><a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>{{ list.listname }}</a></li>
 		</ul>
