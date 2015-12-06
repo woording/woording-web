@@ -51,6 +51,7 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="translation-list">
 
+		<pre>{{ urlParams | json }}</pre>
 		<div class="list-header">
 
 			<h1>{{ list.listname }}</h1>
@@ -81,24 +82,29 @@ $border-style: 0.125rem solid #27333E;
 <script>
 export default {
 
-	ready: function() {
-		this.updateContents()
-	},
-
 	data: function() {
 		return {
 			list : {}
 		}
 	},
 
+	events : {
+		// Call the updateContents() method when the url updates
+		"url-update" : function() {
+			this.updateContents()
+		}
+	},
+
 	methods : {
 
+		// Update the content based on the current url
 		updateContents: function(){
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
 			this.fetchList(username, listname)
 		},
 
+		// fetch a list from the Woording API server
 		fetchList: function(username, listname) {
 			var data = {
 				'username' : 'cor',

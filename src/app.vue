@@ -25,6 +25,9 @@
 <template>
 
 <div id="app"> 
+
+	<!-- usage of the urlParameters computed property to make the url-update event hack work !-->
+	<div id='{{ urlParameters }}'></div>
 	<site-header></site-header>
 	<site-body>
 		<user-list></user-list>
@@ -49,6 +52,7 @@ import TranslationList from './components/ui/translation-list.vue'
 
 export default {
 
+
 	components: {
 		SiteHeader,
 		SiteBody,
@@ -57,6 +61,15 @@ export default {
 		ListList,
 		TranslationList
 	},
+
+	computed: {
+		//HACK: fire an url-update event when this property gets computed
+		urlParameters: function() {
+			var temp = this.$route.params
+			this.$broadcast('url-update')
+			return temp
+		}
+	}
 
 }
 

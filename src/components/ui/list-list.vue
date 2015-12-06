@@ -25,7 +25,7 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="list-list">
 		<ul>
-			<li>Your lists</li>
+			<li>{{ $route.params.username + "'s lists"}}</li>
 			<li v-for='list in lists'><a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>{{ list.listname }}</a></li>
 		</ul>
 	</div>
@@ -35,13 +35,16 @@ $border-style: 0.125rem solid #27333E;
 <script>
 export default {
 
-	ready: function() {
-		this.updateContents()
-	},
-
 	data: function () {
 		return {
 			lists: []
+		}
+	},
+
+	events : {
+		// Call the updateContents() method when the url updates
+		'url-update' : function() {
+			this.updateContents()
 		}
 	},
 

@@ -32,9 +32,6 @@ $border-style: 0.125rem solid #27333E;
 
 <script>
 export default {
-	ready: function() {
-		this.updateContents()
-	},
 
 	data: function () {
 		return {
@@ -43,6 +40,7 @@ export default {
 	},
 
 	events : {
+		// Call the updateContents() method when the url updates
 		'url-update' : function() {
 			this.updateContents()
 		}

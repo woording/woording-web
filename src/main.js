@@ -5,6 +5,7 @@ var VueResource = require('vue-resource')
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.config.debug = true
 
 var router = new VueRouter({
 })
