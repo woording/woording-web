@@ -51,9 +51,7 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="translation-list">
 
-		<pre>{{ urlParams | json }}</pre>
 		<div class="list-header">
-
 			<h1>{{ list.listname }}</h1>
 
 			<div class="language-name-container">
@@ -126,7 +124,6 @@ export default {
 				console.log("data: " + data)
 				console.log("status: " + status)
 				console.log("request: " + request)
-
 			})
 
 		}
