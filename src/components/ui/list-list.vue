@@ -1,22 +1,39 @@
 <style lang="sass" scoped>
 
-$border-style: 0.125rem solid #27333E;
 
 #list-list {
-	padding: 0.5rem;
+	background-color: #4CAF50;
 
-	@media (max-width: 768px) {
-		border-bottom: $border-style;
+	color: #FFFFFF;	
+	padding-top: .5rem;
+
+	a {
+		color: #FFFFFF;
+		&:visited {
+			color: #FFFFFF;
+		}
 	}
+
+	li {
+		padding-left: .5rem;
+		padding-top: .25rem;
+		padding-bottom: .25rem;
+	}
+
 	@media (min-width: 768px) {
 		flex: 0 0 auto;
-		border-right: $border-style;
 		min-width: 10rem;
 	}
 
 	h2 {
 		font-weight: bold;
 	}
+
+
+
+}
+
+.list-listitem {
 
 }
 
@@ -25,8 +42,8 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="list-list">
 		<ul>
-			<li>{{ $route.params.username + "'s lists"}}</li>
-			<li v-for='list in lists'><a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>{{ list.listname }}</a></li>
+			<li>{{ $route.params.username + "'s lists" | uppercase }}</li>
+			<li v-for='list in lists' class="list-listitem"><a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>{{ list.listname }}</a></li>
 		</ul>
 	</div>
 

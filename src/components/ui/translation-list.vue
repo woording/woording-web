@@ -1,6 +1,6 @@
 <style lang="sass" scoped>
 
-$border-style: 0.125rem solid #27333E;
+$border-style: 0.125rem solid #B6B6B6;
 #translation-list {
 	display: block;
 

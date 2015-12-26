@@ -8,17 +8,21 @@
 		}
 
 		color: #F5F5F6;
-		background-color: #56AD7A;
+		// background-color: #56AD7A;
 
-		padding: 1rem;
+		padding: 0.25rem;
 
-		border-bottom: 0.125rem solid #27333E;
+		border-bottom: 0.125rem solid #B6B6B6;
+
+		img  {
+			height: 4rem;
+		}
 
 	}
 </style>
 
 <template>
 	<header>
-		<h1>Woording</h1>
+		<img src="img/logo.png" alt="Woording Logo">
 	</header>
 </template>

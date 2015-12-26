@@ -1,16 +1,30 @@
 <style lang="sass">
 
-$border-style: 0.125rem solid #27333E;
-
 #user-list {
-	padding: 0.5rem;
+	background-color: #388E3C;
+	color: #FFFFFF;	
+	padding-top: .5rem;
 
-	@media (max-width: 768px) {
-		border-bottom: $border-style;
+	a {
+		color: #FFFFFF;
+		&:visited {
+			color: #FFFFFF;
+		}
 	}
+
+	li {
+		padding-left: .5rem;
+		padding-top: .25rem;
+		padding-bottom: .25rem;
+	}
+
+	#active {
+		background-color: #4CAF50;
+
+	}
+
 	@media (min-width: 768px) {
 		flex: 0 0 auto;
-		border-right: $border-style;
 		min-width: 10rem;
 	}
 
@@ -21,10 +35,10 @@ $border-style: 0.125rem solid #27333E;
 <template>
 	<div id="user-list">
 		<ul>
-			<li>You</li>
-			<li><a v-link='{ path: "/cor" }' >cor</a></li>
+			<li>YOU</li>
+			<li id="active"><a v-link='{ path: "/cor" }' >cor</a></li>
 			<li><br></li>
-			<li>Friends</li>
+			<li>FRIENDS</li>
 			<li v-for="friend in friends"><a v-link='{ path: "/" + friend.username}'>{{ friend.username }}</a></li>
 		</ul>
 	</div>
@@ -50,6 +64,10 @@ export default {
 		updateContents: function() {
 			var username = this.$parent.$route.params.username
 			this.fetchFriends(username)
+		},
+
+		updateActiveUser: function() {
+			var username = this.$parent.$route.params.username
 		},
 
 		fetchFriends: function(username) {
