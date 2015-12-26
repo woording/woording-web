@@ -2,7 +2,8 @@
 
 $border-style: 0.125rem solid #B6B6B6;
 #translation-list {
-	display: block;
+	color: #212121;
+	display: flex;
 
 	@media (min-width: 768px) {
 		flex: 1;
@@ -46,33 +47,62 @@ $border-style: 0.125rem solid #B6B6B6;
 		}
 	}
 }
+
+/* the message that is shown when a user hasn't selected a list */
+.message-container {
+	display: flex;
+	align-items: center;
+	flex: 1;
+	.message {
+		flex: 1;
+		p {
+			text-align: center;
+			flex: 1;
+		}
+	}
+}
+
 </style>
 
 <template>
 	<div id="translation-list">
+		<template v-if="list != null">
+		<div style="flex: 1;">
+			<div class="list-header">
+				<h1>{{ list.listname }}</h1>
 
-		<div class="list-header">
-			<h1>{{ list.listname }}</h1>
+				<div class="language-name-container">
+					<div class="language-name">
+						<h2>{{list.language_1_tag}}</h2>
+					</div>
 
-			<div class="language-name-container">
-				<div class="language-name">
-					<h2>{{list.language_1_tag}}</h2>
-				</div>
-
-				<div class="language-name">
-					<h2>{{list.language_2_tag}}</h2>
+					<div class="language-name">
+						<h2>{{list.language_2_tag}}</h2>
+						
+					</div>
 					
 				</div>
-				
+
+
 			</div>
 
-
+			<div class="translation-record" v-for="word in list.words">
+				<div class="translation-item">{{word.language_1_text}}</div>
+				<div class="translation-item">{{word.language_2_text}}</div>
+			</div>
+			<div id="translation-bottom"></div>
+			
 		</div>
+		</template>
 
-		<div class="translation-record" v-for="word in list.words">
-			<div class="translation-item">{{word.language_1_text}}</div>
-			<div class="translation-item">{{word.language_2_text}}</div>
-		</div>
+		<!-- Show this when there isn't a list selected -->
+		<template v-else>
+			<div class="message-container">
+				<div class="message">
+					<p>Select a list on the right to open it.</p>
+				</div>
+			</div>
+		</template>
 	</div>
 
 </template>
@@ -99,7 +129,14 @@ export default {
 		updateContents: function(){
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
-			this.fetchList(username, listname)
+
+			// If the listname is null, then the user hasn't selected a list and
+			// list should be null, so that we can use it with v-if's
+			if (listname == null) {
+				this.list = null;
+			} else {
+				this.fetchList(username, listname)
+			}
 		},
 
 		// fetch a list from the Woording API server
