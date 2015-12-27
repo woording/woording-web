@@ -27,12 +27,50 @@
 
 	#account-menu {
 		position: absolute;
-		height: 16rem;
-		width: 16rem;
-		background-color: #B6B6B6;
+		display: flex;
+		flex-direction: column;
+		background-color: #FFFFFF;
+		border-left: 2px solid #B6B6B6;
+		border-bottom: 2px solid #B6B6B6;
 		right: 0;
 		top: 77px;
-		border-bottom-left-radius: 1rem;
+
+		p {
+			display: block;
+			margin-bottom: 0.1rem;
+			color: #212121;
+		}
+
+		button {
+			display: block;
+			font-family: Roboto;
+			font-size: 1rem;
+			width: 16rem;
+			border-radius: 0;
+			background-color: #4CAF50;
+			color: white;
+			padding: .25rem;
+			border: 0;
+		}
+
+		#sign-out-button {
+			background-color: #FF9800;
+
+		}
+		#account-info {
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+		}
+
+		select {
+			width: 16rem;
+			border-radius: 0;
+			border: 0;
+			outline: 0;
+			font-family: Roboto;
+			font-size: 1rem;
+			padding: 1rem;
+		}
 
 	}
 </style>
@@ -43,9 +81,21 @@
 	<p>Cor Pruijs</p>
 </div>
 <div id="account-menu" v-show="shouldShowAccountMenu">
-	
-	<button>Sign Out</button>
-
+	<div id="account-info">
+		<p>cor</p>
+		<p>cor@pruijs.nl</p>
+	</div>
+	<div>
+		<select name="Language">
+			<option value="eng">English</option>
+			<option value="dut">Dutch</option>
+			<option value="ger">German</option>
+		</select>	
+	</div>
+	<div>
+		<button v-on:click="changePassword">Change Password</button>
+		<button v-on:click="signOut" id="sign-out-button">Sign Out</button>
+	</div>
 </div>
 </template>
 
@@ -57,6 +107,12 @@ export default {
 		}
 	},
 	methods : {
+		signOut: function() {
+			alert("Handle signing out here")
+		},
+		changePassword: function() {
+			alert("Handle password changes here")
+		},
 		toggleAccountMenu: function() {
 			this.shouldShowAccountMenu = !this.shouldShowAccountMenu
 		}
