@@ -22,12 +22,13 @@
 
 	   color: #212121;
 	   font-family: 'Roboto';
-
 	}
 
 	#app {
 		display: flex;
 		flex-direction: column;
+
+		min-height: 100vh;
 		@media (min-width: 768px) {
 			height: 100vh;
 		}

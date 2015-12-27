@@ -99,7 +99,7 @@ $border-style: 0.125rem solid #B6B6B6;
 		<template v-else>
 			<div class="message-container">
 				<div class="message">
-					<p>Select a list on the right to open it.</p>
+					<p>Select a list on the left to open it.</p>
 				</div>
 			</div>
 		</template>
