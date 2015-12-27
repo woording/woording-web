@@ -28,7 +28,7 @@
 		}
 	}
 
-	#active {
+	.v-link-active > li {
 		background-color: #4CAF50;
 
 	}
@@ -48,10 +48,10 @@
 	<div id="user-list">
 		<ul>
 			<li>YOU</li>
-			<a v-link='{ path: "/cor" }' ><li id="active" class="user-link">cor</li></a>
+			<a v-link='{ path: "/cor" }' ><li class="user-link">cor</li></a>
 			<li><br></li>
 			<li>FRIENDS</li>
-			<a v-link='{ path: "/" + friend.username}' v-for="friend in friends"><li class="user-link">{{ friend.username }}</li></a>
+			<a v-link='{ path: "/" + friend.username}' v-for="friend in friends" ><li class="user-link">{{ friend.username }}</li></a>
 		</ul>
 	</div>
 </template>
@@ -69,6 +69,7 @@ export default {
 		// Call the updateContents() method when the url updates
 		'url-update' : function() {
 			this.updateContents()
+			this.updateActiveUserHighlight()
 		}
 	},
 
@@ -78,9 +79,10 @@ export default {
 			this.fetchFriends(username)
 		},
 
-		updateActiveUser: function() {
+		updateActiveUserHighlight: function() {
 			var username = this.$parent.$route.params.username
 		},
+
 
 		fetchFriends: function(username) {
 

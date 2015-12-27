@@ -1,6 +1,9 @@
 <style lang="sass" scoped>
 	header {
 		flex-shrink: 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 
 		h1 {
 			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
@@ -24,6 +27,22 @@
 
 <template>
 	<header>
-		<img src="img/logo.png" alt="Woording Logo">
+		<div id="wording-logo">
+			<img src="img/logo-alpha.png" alt="Woording Logo">
+		</div> 
+
+		<account-button>
+		</account-button>
 	</header>
 </template>
+
+<script>
+import AccountButton from './account-button.vue'
+
+export default {
+	components: {
+		AccountButton
+	}
+}
+
+</script>

@@ -20,6 +20,12 @@
 		padding-left: .5rem;
 		padding-top: .25rem;
 		padding-bottom: .25rem;
+		transition: 0.1s;
+
+	}
+	.list-link:hover {
+		background-color: #FFFFFF;
+		color: #212121;
 	}
 
 	@media (min-width: 768px) {
@@ -32,14 +38,13 @@
 	h2 {
 		font-weight: bold;
 	}
-
-
-
 }
 
-.list-listitem {
-
+.v-link-active li {
+	background-color: #FFFFFF;
+	color: #212121;
 }
+
 
 </style>
 
@@ -47,7 +52,7 @@
 	<div id="list-list">
 		<ul>
 			<li>{{ $route.params.username + "'s lists" | uppercase }}</li>
-			<li v-for='list in lists' class="list-listitem"><a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>{{ list.listname }}</a></li>
+			<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }'><li class="list-link">{{ list.listname }}</li></a>
 		</ul>
 	</div>
 

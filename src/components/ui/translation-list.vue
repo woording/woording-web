@@ -39,6 +39,7 @@ $border-style: 0.125rem solid #B6B6B6;
 
 		h2 {
 			font-size: 1.2rem;
+			color: #212121;
 		}
 
 		.language-name-container {
