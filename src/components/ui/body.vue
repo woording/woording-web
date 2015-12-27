@@ -4,6 +4,7 @@
 	display: flex;
 	flex-direction: column;
 	flex: 1;
+	min-height: 0;
 
 	@media (min-width: 768px) {
 		flex-direction: row;

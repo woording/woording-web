@@ -4,8 +4,10 @@
 	background-color: #388E3C;
 	color: #FFFFFF;	
 	padding-top: .5rem;
+	min-height: 0;
 
 	a {
+		text-decoration: none;
 		color: #FFFFFF;
 		&:visited {
 			color: #FFFFFF;
@@ -18,6 +20,14 @@
 		padding-bottom: .25rem;
 	}
 
+	.user-link {
+		transition: 0.1s;
+
+		&:hover {
+			background-color: #4CAF50;
+		}
+	}
+
 	#active {
 		background-color: #4CAF50;
 
@@ -26,6 +36,8 @@
 	@media (min-width: 768px) {
 		flex: 0 0 auto;
 		min-width: 10rem;
+		min-height: 0;
+		overflow: auto;
 	}
 
 }
@@ -36,10 +48,10 @@
 	<div id="user-list">
 		<ul>
 			<li>YOU</li>
-			<li id="active"><a v-link='{ path: "/cor" }' >cor</a></li>
+			<a v-link='{ path: "/cor" }' ><li id="active" class="user-link">cor</li></a>
 			<li><br></li>
 			<li>FRIENDS</li>
-			<li v-for="friend in friends"><a v-link='{ path: "/" + friend.username}'>{{ friend.username }}</a></li>
+			<a v-link='{ path: "/" + friend.username}' v-for="friend in friends"><li class="user-link">{{ friend.username }}</li></a>
 		</ul>
 	</div>
 </template>

@@ -1,5 +1,6 @@
 <style lang="sass" scoped>
 	header {
+		flex-shrink: 0;
 
 		h1 {
 			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 

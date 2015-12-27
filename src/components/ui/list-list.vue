@@ -6,8 +6,10 @@
 
 	color: #FFFFFF;	
 	padding-top: .5rem;
+	min-height: 0;
 
 	a {
+		text-decoration: none;
 		color: #FFFFFF;
 		&:visited {
 			color: #FFFFFF;
@@ -23,6 +25,8 @@
 	@media (min-width: 768px) {
 		flex: 0 0 auto;
 		min-width: 10rem;
+		min-height: 0;
+		overflow: auto;
 	}
 
 	h2 {

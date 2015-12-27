@@ -3,6 +3,7 @@
 footer {
 	color: white;
 	background-color: #212121;
+	flex-shrink: 0;
 
 	text-align: center;
 	font-size: 1rem;
