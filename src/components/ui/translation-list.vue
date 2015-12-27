@@ -4,6 +4,7 @@ $border-style: 0.125rem solid #B6B6B6;
 #translation-list {
 	color: #212121;
 	display: flex;
+	min-height: 0;
 
 	@media (min-width: 768px) {
 		flex: 1;
@@ -48,6 +49,13 @@ $border-style: 0.125rem solid #B6B6B6;
 	}
 }
 
+.container {
+	flex: 1;
+	@media(min-width: 768px) {
+		overflow: auto;
+	}
+}
+
 /* the message that is shown when a user hasn't selected a list */
 .message-container {
 	display: flex;
@@ -67,7 +75,7 @@ $border-style: 0.125rem solid #B6B6B6;
 <template>
 	<div id="translation-list">
 		<template v-if="list != null">
-		<div style="flex: 1;">
+		<div class="container">
 			<div class="list-header">
 				<h1>{{ list.listname }}</h1>
 
