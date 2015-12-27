@@ -11,19 +11,12 @@ $border-style: 0.125rem solid #B6B6B6;
 	}
 
 
-	h1 {
-		font-size: 1.8rem;
-		font-weight: 300;
-		padding: 0.25rem;
-	}
-
-	h2 {
-		font-size: 1.2rem;
-	}
 
 	.translation-record {
 		width: 100%;
 		display: flex;
+		padding-left: .5rem;
+		padding-right: .5rem;
 
 		.translation-item {
 			flex: 1;
@@ -36,6 +29,17 @@ $border-style: 0.125rem solid #B6B6B6;
 	}
 	.list-header {
 		width: 100%;
+
+		padding: .5rem .5rem 0 .5rem;
+		h1 {
+			font-size: 2rem;
+			color: #FF9800;
+			font-weight: normal;
+		}
+
+		h2 {
+			font-size: 1.2rem;
+		}
 
 		.language-name-container {
 			display: flex;
@@ -90,8 +94,6 @@ $border-style: 0.125rem solid #B6B6B6;
 					</div>
 					
 				</div>
-
-
 			</div>
 
 			<div class="translation-record" v-for="word in list.words">
