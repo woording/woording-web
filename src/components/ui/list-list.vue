@@ -2,41 +2,56 @@
 
 
 #list-list {
-	background-color: #4CAF50;
-
-	color: #FFFFFF;	
-	padding-top: .5rem;
-	min-height: 0;
-
-	a {
-		text-decoration: none;
-		color: #FFFFFF;
-		&:visited {
-			color: #FFFFFF;
-		}
-	}
-
-	li {
-		padding-left: .5rem;
-		padding-top: .25rem;
-		padding-bottom: .25rem;
-		transition: 0.1s;
-
-	}
-	.list-link:hover {
-		background-color: #FFFFFF;
-		color: #212121;
-	}
-
+	display: flex;
+	flex-direction: column;
 	@media (min-width: 768px) {
-		flex: 0 0 auto;
 		min-width: 10rem;
-		min-height: 0;
-		overflow: auto;
 	}
 
-	h2 {
-		font-weight: bold;
+	#lists {
+		background-color: #4CAF50;
+		color: #FFFFFF;	
+		padding-top: .5rem;
+		min-height: 0;
+		flex: 1;
+
+		a {
+			text-decoration: none;
+			color: #FFFFFF;
+			&:visited {
+				color: #FFFFFF;
+			}
+		}
+
+		li {
+			padding-left: .5rem;
+			padding-top: .25rem;
+			padding-bottom: .25rem;
+			transition: 0.1s;
+
+		}
+		.list-link:hover {
+			background-color: #FFFFFF;
+			color: #212121;
+		}
+
+		@media (min-width: 768px) {
+			min-height: 0;
+			overflow: auto;
+		}
+
+		h2 {
+			font-weight: bold;
+		}
+
+	}
+	#add-list-button {
+		background-color: #388E3C;
+		color: white;
+
+		text-align: center;
+		font-size: 2rem;
+		cursor: pointer;
 	}
 }
 
@@ -50,10 +65,15 @@
 
 <template>
 	<div id="list-list">
-		<ul>
-			<li>{{ $route.params.username + "'s lists" | uppercase }}</li>
-			<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }'><li class="list-link">{{ list.listname }}</li></a>
-		</ul>
+		<div id="lists">
+			<ul>
+				<li>{{ $route.params.username + "'s lists" | uppercase }}</li>
+				<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }'><li class="list-link">{{ list.listname }}</li></a>
+			</ul>
+		</div>
+		<div v-on:click="addList" id="add-list-button">
+			<p>+</p>
+		</div>
 	</div>
 
 </template>
@@ -80,6 +100,10 @@ export default {
 			this.fetchLists(username)
 		},
 
+		addList: function() {
+			alert("handle adding lists here")
+		},
+		
 		fetchLists : function(username) {
 			var data =  {
 				'username' : 'cor',

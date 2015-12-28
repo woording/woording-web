@@ -1,43 +1,59 @@
 <style lang="sass">
 
 #user-list {
-	background-color: #388E3C;
-	color: #FFFFFF;	
-	padding-top: .5rem;
-	min-height: 0;
-
-	a {
-		text-decoration: none;
-		color: #FFFFFF;
-		&:visited {
-			color: #FFFFFF;
-		}
-	}
-
-	li {
-		padding-left: .5rem;
-		padding-top: .25rem;
-		padding-bottom: .25rem;
-	}
-
-	.user-link {
-		transition: 0.1s;
-
-		&:hover {
-			background-color: #4CAF50;
-		}
-	}
-
-	.v-link-active > li {
-		background-color: #4CAF50;
-
-	}
-
+	display: flex;
+	flex-direction: column;
 	@media (min-width: 768px) {
-		flex: 0 0 auto;
 		min-width: 10rem;
+	}
+
+	#users {
+		background-color: #388E3C;
+		color: #FFFFFF;	
+		padding-top: .5rem;
 		min-height: 0;
-		overflow: auto;
+		flex: 1;
+
+		a {
+			text-decoration: none;
+			color: #FFFFFF;
+			&:visited {
+				color: #FFFFFF;
+			}
+		}
+
+		li {
+			padding-left: .5rem;
+			padding-top: .25rem;
+			padding-bottom: .25rem;
+		}
+
+		.user-link {
+			transition: 0.1s;
+
+			&:hover {
+				background-color: #4CAF50;
+			}
+		}
+
+		.v-link-active > li {
+			background-color: #4CAF50;
+
+		}
+
+		@media (min-width: 768px) {
+			min-height: 0;
+			overflow: auto;
+
+		}
+	}
+
+	#add-friend-button {
+		background-color: #4CAF50; 
+		color: white;
+		text-align: center;
+		font-size: 2rem;
+		cursor: pointer;
 	}
 
 }
@@ -46,13 +62,18 @@
 
 <template>
 	<div id="user-list">
-		<ul>
-			<li>YOU</li>
-			<a v-link='{ path: "/cor" }' ><li class="user-link">cor</li></a>
-			<li><br></li>
-			<li>FRIENDS</li>
-			<a v-link='{ path: "/" + friend.username}' v-for="friend in friends" ><li class="user-link">{{ friend.username }}</li></a>
-		</ul>
+		<div id="users">
+			<ul>
+				<li>YOU</li>
+				<a v-link='{ path: "/cor" }' ><li class="user-link">cor</li></a>
+				<li><br></li>
+				<li>FRIENDS</li>
+				<a v-link='{ path: "/" + friend.username}' v-for="friend in friends" ><li class="user-link">{{ friend.username }}</li></a>
+			</ul>
+		</div>
+		<div id="add-friend-button" v-on:click="addFriend">
+			<p>+</p>	
+		</div>
 	</div>
 </template>
 
@@ -83,6 +104,9 @@ export default {
 			var username = this.$parent.$route.params.username
 		},
 
+		addFriend: function() {
+			alert("Handle adding friends here")
+		},
 
 		fetchFriends: function(username) {
 
