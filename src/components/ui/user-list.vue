@@ -118,10 +118,10 @@ export default {
 			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
 
 				// Add the username parameter to the retrieved json data object containing the token
-				data.username = username
+				data.username = username;
 
 				this.$http.post('http://api.woording.com/getFriends', data, function(data, status, request) {
-					this.friends = data
+					this.friends = data.friends;
 				}).error(function(data, status, request) {
 					console.log("data: " + data)
 					console.log("status: " + status)
