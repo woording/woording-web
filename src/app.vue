@@ -17,11 +17,11 @@
 	*, *:before, *:after {
 		box-sizing: inherit;
 	}
-	
+
 	body {
 
-	   color: #212121;
-	   font-family: 'Roboto';
+		color: #212121;
+		font-family: 'Roboto';
 	}
 
 	#app {
@@ -37,7 +37,7 @@
 
 <template>
 
-<div id="app"> 
+<div id="app">
 
 	<!-- usage of the urlParameters computed property to make the url-update event hack work !-->
 	<div id='{{ urlParameters }}'></div>

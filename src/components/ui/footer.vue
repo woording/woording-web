@@ -18,8 +18,8 @@ footer {
 <template>
 
 <footer>
-	<p>&copy; Woording</p>
-	<p><a href="http://github.com/woording">github.com/woording</a></p>
+	<p>Woording &copy; 
+	<a href="http://github.com/woording">github.com/woording</a></p>
 </footer>
 
 </template>
