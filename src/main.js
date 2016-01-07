@@ -17,6 +17,9 @@ router.map({
 	':username/:listname' : {
 		component: App
 	}
+	':username/:listname/edit' : {
+		component: App
+	}
 
 })
 
