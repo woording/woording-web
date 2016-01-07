@@ -45,7 +45,9 @@
 	<site-body>
 		<user-list></user-list>
 		<list-list></list-list>
-		<translation-list></translation-list>
+		<translation-list v-if="!addList && !practiceBody"></translation-list>
+		<add-list v-if="addList"></add-list>
+		<practice-body v-show="practiceBody"></practice-body>
 	</site-body>
 	<site-footer></site-footer>
 </div>
@@ -62,9 +64,19 @@ import SiteFooter from './components/ui/footer.vue'
 import ListList from './components/ui/list-list.vue'
 import UserList from './components/ui/user-list.vue'
 import TranslationList from './components/ui/translation-list.vue'
+import PracticeBody from './components/ui/practice-body.vue'
+import AddList from './components/ui/add-list.vue'
+
 
 export default {
 
+	data: function() {
+		return {
+			addList : false,
+			practiceBody : false,
+			translationList : false
+		}
+	},
 
 	components: {
 		SiteHeader,
@@ -72,7 +84,9 @@ export default {
 		SiteFooter,
 		UserList,
 		ListList,
-		TranslationList
+		PracticeBody,
+		TranslationList,
+		AddList,
 	},
 
 	computed: {
@@ -82,8 +96,29 @@ export default {
 			this.$broadcast('url-update')
 			return temp
 		}
-	}
+	},
 
+	events: {
+		'show-template': function(template, list){
+			console.log(list)
+			this.addList = false
+			this.practiceBody = false
+			this.translationList = false
+
+			switch(template) {
+				case 'practice':
+					this.practiceBody = true
+					this.$broadcast('start-practice', list)
+					break
+				case 'translation':
+					this.translationList = true
+					break
+				case 'add':
+					this.addList = true
+					break
+			}
+		}
+	}
 }
 
 </script>

@@ -68,10 +68,10 @@
 		<div id="lists">
 			<ul>
 				<li>{{ $route.params.username + "'s lists" | uppercase }}</li>
-				<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }'><li class="list-link">{{ list.listname }}</li></a>
+				<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }' v-on:click="showTranslation"><li class="list-link">{{ list.listname }}</li></a>
 			</ul>
 		</div>
-		<div v-on:click="addList" id="add-list-button">
+		<div v-on:click="addList" v-link='{ path: "/" + $route.params.username + "/addList" }' id="add-list-button">
 			<p>+</p>
 		</div>
 	</div>
@@ -97,12 +97,15 @@ export default {
 	methods: {
 		updateContents: function() {
 			var username = this.$parent.$route.params.username
-			console.log(this.$parent.$route.params.username)
 			this.fetchLists(username)
 		},
 
 		addList: function() {
-			alert("handle adding lists here")
+			this.$dispatch('show-template', 'add')
+		},
+
+		showTranslation: function() {
+			this.$dispatch('show-template', 'translation')
 		},
 		
 		fetchLists : function(username) {

@@ -84,6 +84,10 @@ $border-style: 0.125rem solid #B6B6B6;
 			<div class="list-header">
 				<h1>{{ list.listname }}</h1>
 
+				<button v-on:click="practiceList" v-link='{ path: "/" + $route.params.username + "/practice" }'>Practice</button>
+				<button v-on:click="editList">Edit</button>
+				<button v-on:click="deleteList">Delete</button>
+
 				<div class="language-name-container">
 					<div class="language-name">
 						<h2>{{list.language_1_tag}}</h2>
@@ -102,7 +106,7 @@ $border-style: 0.125rem solid #B6B6B6;
 				<div class="translation-item">{{word.language_2_text}}</div>
 			</div>
 			<div id="translation-bottom"></div>
-			
+
 		</div>
 		</template>
 
@@ -131,10 +135,22 @@ export default {
 		// Call the updateContents() method when the url updates
 		"url-update" : function() {
 			this.updateContents()
-		}
+		},
 	},
 
 	methods : {
+		// Basic list methods:
+		practiceList: function() {
+			this.$dispatch('show-template', 'practice', this.list)
+		},
+
+		editList: function() {
+			alert('editList')
+		},	
+
+		deleteList: function() {
+			alert('deleteList')
+		},
 
 		// Update the content based on the current url
 		updateContents: function(){
