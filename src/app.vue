@@ -45,9 +45,10 @@
 	<site-body>
 		<user-list></user-list>
 		<list-list></list-list>
-		<translation-list v-if="!addList && !practiceBody"></translation-list>
+		<translation-list v-if="!addList && !practiceBody && !editBody"></translation-list>
 		<add-list v-if="addList"></add-list>
 		<practice-body v-show="practiceBody"></practice-body>
+		<edit-body v-show="editBody"></edit-body>
 	</site-body>
 	<site-footer></site-footer>
 </div>
@@ -66,6 +67,7 @@ import UserList from './components/ui/user-list.vue'
 import TranslationList from './components/ui/translation-list.vue'
 import PracticeBody from './components/ui/practice-body.vue'
 import AddList from './components/ui/add-list.vue'
+import EditBody from './components/ui/edit-body.vue'
 
 
 export default {
@@ -74,7 +76,8 @@ export default {
 		return {
 			addList : false,
 			practiceBody : false,
-			translationList : false
+			translationList : false,
+			editBody : false
 		}
 	},
 
@@ -87,12 +90,14 @@ export default {
 		PracticeBody,
 		TranslationList,
 		AddList,
+		EditBody
 	},
 
 	computed: {
 		//HACK: fire an url-update event when this property gets computed
 		urlParameters: function() {
 			var temp = this.$route.params
+			console.log(temp)
 			this.$broadcast('url-update')
 			return temp
 		}
@@ -104,6 +109,7 @@ export default {
 			this.addList = false
 			this.practiceBody = false
 			this.translationList = false
+			this.editBody = false
 
 			switch(template) {
 				case 'practice':
@@ -115,6 +121,10 @@ export default {
 					break
 				case 'add':
 					this.addList = true
+					break
+				case 'edit':
+					this.editBody = true
+					this.$broadcast('start-edit', list)
 					break
 			}
 		}
