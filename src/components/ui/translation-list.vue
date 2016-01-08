@@ -84,8 +84,8 @@ $border-style: 0.125rem solid #B6B6B6;
 			<div class="list-header">
 				<h1>{{ list.listname }}</h1>
 
-				<button v-on:click="practiceList" v-link='{ path: "/" + $route.params.username + "/practice" }'>Practice</button>
-				<button v-on:click="editList" v-link='{ path: "/" + $route.params.username + "/edit" }'>Edit</button>
+				<button v-on:click="practiceList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</button>
+				<button v-on:click="editList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</button>
 				<button v-on:click="deleteList">Delete</button>
 
 				<div class="language-name-container">

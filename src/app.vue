@@ -97,7 +97,6 @@ export default {
 		//HACK: fire an url-update event when this property gets computed
 		urlParameters: function() {
 			var temp = this.$route.params
-			console.log(temp)
 			this.$broadcast('url-update')
 			return temp
 		}

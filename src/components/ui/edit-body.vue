@@ -1,11 +1,16 @@
-<style lang="sass">
-
+<style lang="sass" scoped>
+.language-name-container {
+	display: flex;
+	.language-name {
+		flex: 1;
+	}
+}
 </style>
 
 <template>
 	<div class="container">
 		<div class="list-header">
-			<input type="text" value="{{ list.listname }}" placeholder="Listname">
+			<input type="text" placeholder="Listname" v-model='listname' value="{{ list.listname }}">
 
 			<div class="language-name-container">
 				<div class="language-name">
@@ -21,11 +26,13 @@
 		</div>
 
 		<div class="translation-record" v-for="word in list.words">
-			<input type="text" value="{{ word.language_1_text }}" placeholder="sentence" class="translation-item">
+			<input type="text" value="{{ word.language_1_text }}" placeholder="sentence" class="sentence-item">
 			<input type="text" value="{{ word.language_2_text }}" placeholder="translation" class="translation-item">
 		</div>
 		<div id="translation-bottom"></div>
 
+		<button v-on:click="saveList">Save list</button>
+		<span>{{ error }}</span>
 	</div>
 </template>
 
@@ -33,13 +40,74 @@
 export default {
 	data: function(){
 		return {
-			list: {}
+			list: {},
+			listname : '',
+			error: ''
 		}
 	},
 
 	events : {
 		'start-edit' : function(list){
 			this.list = list
+			this.listname = list.listname
+		}
+	},
+
+	methods: {
+		saveList: function() {
+			console.log('save list')
+			var words = []
+
+			var sentences = document.getElementsByClassName('sentence-item')
+			var translations = document.getElementsByClassName('translation-item');
+
+			for (var i = 0; i < sentences.length; i++) {
+				words.push({
+					language_1_text: sentences[i].value,
+					language_2_text: translations[i].value
+				})
+			};
+
+			if (this.listname == false){
+				this.error = 'Could not save list: Listname should not be empty.'
+			}
+
+			var list_data = {
+				listname: this.listname,
+				language_1_tag: this.list.language_1_tag,
+				language_2_tag: this.list.language_2_tag,
+				shared_with: this.list.shared_with,
+				words: words
+			}
+
+			var data = {
+				'username' : 'cor',
+				'password' : 'Hunter2'
+			}
+
+			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
+				console.log(data.token)
+
+				var data = {
+					'username' : 'cor',
+					'token' : data.token,
+					'list_data' : list_data
+				}
+
+				this.$http.post('http://api.woording.com/savelist', data, function(data, status, request){
+					console.log('saved list')
+					this.error = 'Successfully saved list.'
+				}).error(function(data, status, request) {
+					console.log("data: " + data)
+					console.log("status: " + status)
+					console.log("request: " + request)
+				})
+
+			}).error(function(data, status, request) {
+				console.log("data: " + data)
+				console.log("status: " + status)
+				console.log("request: " + request)
+			})
 		}
 	}
 }

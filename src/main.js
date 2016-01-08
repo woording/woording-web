@@ -14,10 +14,16 @@ router.map({
 	':username' : {
 		component: App
 	},
+
 	':username/:listname' : {
 		component: App
-	}
+	},
+
 	':username/:listname/edit' : {
+		component: App
+	},
+
+	':username/:listname/practice' : {
 		component: App
 	}
 
