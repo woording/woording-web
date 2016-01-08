@@ -6,9 +6,6 @@ $border-style: 0.125rem solid #B6B6B6;
 	display: flex;
 	min-height: 0;
 
-	
-
-
 
 	.translation-record {
 		width: 100%;
@@ -52,7 +49,10 @@ $border-style: 0.125rem solid #B6B6B6;
 	}
 }
 
-.container {
+#translation-list {
+	.container {
+		flex: 1;
+	}
 	flex: 1;
 	@media(min-width: 768px) {
 		overflow: auto;

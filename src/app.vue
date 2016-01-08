@@ -59,21 +59,21 @@
 <script>
 
 // Site structure
-import SiteHeader from './components/ui/header.vue'
-import SiteBody from './components/ui/body.vue'
-import SiteFooter from './components/ui/footer.vue'
+import SiteHeader from './components/site-structure/header.vue'
+import SiteBody from './components/site-structure/body.vue'
+import SiteFooter from './components/site-structure/footer.vue'
 
 // Side Bar
-import ListList from './components/ui/list-list.vue'
-import UserList from './components/ui/user-list.vue'
+import ListList from './components/side-bar/list-list.vue'
+import UserList from './components/side-bar/user-list.vue'
 
 // List viewer, editor and trainer (the third column)
-import ListEditor from './components/ui/list-editor.vue'
-import ListViewer from './components/ui/list-viewer.vue'
-import ListTrainer from './components/ui/list-trainer.vue'
+import ListEditor from './components/main-window/list-editor.vue'
+import ListViewer from './components/main-window/list-viewer.vue'
+import ListTrainer from './components/main-window/list-trainer.vue'
 
 // AddList is redundant, should be removed soon
-import AddList from './components/ui/add-list.vue'
+import AddList from './components/add-list.vue'
 
 
 export default {
