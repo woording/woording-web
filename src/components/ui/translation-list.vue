@@ -149,7 +149,33 @@ export default {
 		},	
 
 		deleteList: function() {
-			alert('deleteList')
+			var data = {
+				'username' : 'cor',
+				'password' : 'Hunter2'
+			}
+
+			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
+				console.log(data.token)
+
+				var data = {
+					'username': 'cor',
+					'token': data.token,
+					'listname': this.list.listname
+				}
+				this.$http.post('http://api.woording.com/deleteList', data, function(data, status, request) {
+					console.log('deleted list')
+					console.log(this.list)
+				}).error(function(data, status, request) {
+					console.log("data: " + data)
+					console.log("status: " + status)
+					console.log("request: " + request)
+				})
+
+			}).error(function(data, status, request) {
+				console.log("data: " + data)
+				console.log("status: " + status)
+				console.log("request: " + request)
+			})	
 		},
 
 		// Update the content based on the current url

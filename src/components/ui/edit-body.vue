@@ -86,7 +86,6 @@ export default {
 			}
 
 			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
-				console.log(data.token)
 
 				var data = {
 					'username' : 'cor',
