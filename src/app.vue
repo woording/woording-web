@@ -45,10 +45,10 @@
 	<site-body>
 		<user-list></user-list>
 		<list-list></list-list>
-		<translation-list v-if="!addList && !practiceBody && !editBody"></translation-list>
+		<list-viewer v-if="!addList && !listTrainer && !listEditor"></list-viewer>
 		<add-list v-if="addList"></add-list>
-		<practice-body v-show="practiceBody"></practice-body>
-		<edit-body v-show="editBody"></edit-body>
+		<list-trainer v-show="practiceBody"></list-trainer>
+		<list-editor v-show="listEditor"></list-editor>
 	</site-body>
 	<site-footer></site-footer>
 </div>
@@ -58,16 +58,22 @@
 
 <script>
 
+// Site structure
 import SiteHeader from './components/ui/header.vue'
 import SiteBody from './components/ui/body.vue'
 import SiteFooter from './components/ui/footer.vue'
 
+// Side Bar
 import ListList from './components/ui/list-list.vue'
 import UserList from './components/ui/user-list.vue'
-import TranslationList from './components/ui/translation-list.vue'
-import PracticeBody from './components/ui/practice-body.vue'
+
+// List viewer, editor and trainer (the third column)
+import ListEditor from './components/ui/list-editor.vue'
+import ListViewer from './components/ui/list-viewer.vue'
+import ListTrainer from './components/ui/list-trainer.vue'
+
+// AddList is redundant, should be removed soon
 import AddList from './components/ui/add-list.vue'
-import EditBody from './components/ui/edit-body.vue'
 
 
 export default {
@@ -75,9 +81,9 @@ export default {
 	data: function() {
 		return {
 			addList : false,
-			practiceBody : false,
-			translationList : false,
-			editBody : false
+			listTrainer: false,
+			listViewer : false,
+			listEditor : false
 		}
 	},
 
@@ -87,10 +93,10 @@ export default {
 		SiteFooter,
 		UserList,
 		ListList,
-		PracticeBody,
-		TranslationList,
-		AddList,
-		EditBody
+		ListViewer,
+		ListEditor,
+		ListTrainer,
+		AddList
 	},
 
 	computed: {
@@ -106,23 +112,23 @@ export default {
 		'show-template': function(template, list){
 			console.log(list)
 			this.addList = false
-			this.practiceBody = false
-			this.translationList = false
-			this.editBody = false
+			this.listTrainer= false
+			this.listViewer = false
+			this.listEditor = false
 
 			switch(template) {
 				case 'practice':
-					this.practiceBody = true
+					this.listTrainer= true
 					this.$broadcast('start-practice', list)
 					break
 				case 'translation':
-					this.translationList = true
+					this.listViewer = true
 					break
 				case 'add':
 					this.addList = true
 					break
 				case 'edit':
-					this.editBody = true
+					this.listEditor = true
 					this.$broadcast('start-edit', list)
 					break
 			}

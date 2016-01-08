@@ -6,9 +6,7 @@ $border-style: 0.125rem solid #B6B6B6;
 	display: flex;
 	min-height: 0;
 
-	@media (min-width: 768px) {
-		flex: 1;
-	}
+	
 
 
 
@@ -127,7 +125,8 @@ export default {
 
 	data: function() {
 		return {
-			list : {}
+			list : {},
+			editMode: false,
 		}
 	},
 
