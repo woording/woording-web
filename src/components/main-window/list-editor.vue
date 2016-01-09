@@ -84,6 +84,39 @@ export default {
 				shared_with: this.list.shared_with,
 				words: words
 			}
+
+			if (this.listname != this.list.listname){
+				console.log('name changed')
+				this.$dispatch('get-username')
+
+				var data = {
+					'username' : this.username,
+					'password' : 'Hunter2'
+				}
+
+				this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
+					console.log(data.token)
+
+					var data = {
+						'username' : this.username,
+						'token': data.token,
+						'listname': this.list.listname
+					}
+					this.$http.post('http://api.woording.com/deleteList', data, function(data, status, request) {
+						console.log('deleted list')
+						console.log(this.list)
+					}).error(function(data, status, request) {
+						console.log("data: " + data)
+						console.log("status: " + status)
+						console.log("request: " + request)
+					})
+
+				}).error(function(data, status, request) {
+					console.log("data: " + data)
+					console.log("status: " + status)
+					console.log("request: " + request)
+				})	
+			}
 			
 			this.$dispatch('get-username')
 
@@ -103,7 +136,9 @@ export default {
 				this.$http.post('http://api.woording.com/savelist', data, function(data, status, request){
 					console.log('saved list')
 					this.error = 'Successfully saved list.'
-					this.$dispatch('force-url-update')
+					this.list = list_data
+					this.$parent.$route.router.go({ path: "cor/" + list_data.listname })
+					this.$dispatch('show-template', 'translation')
 				}).error(function(data, status, request) {
 					console.log("data: " + data)
 					console.log("status: " + status)
