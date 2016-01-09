@@ -31,6 +31,8 @@
 		</div>
 		<div id="translation-bottom"></div>
 
+		<input type="checkbox" v-model='duplicate'> Duplicate list
+		
 		<button v-on:click="saveList" v-link='{ path: "/" + $route.params.username }'>Save list</button>
 		<span>{{ error }}</span>
 	</div>
@@ -43,7 +45,8 @@ export default {
 			list: {},
 			listname : '',
 			error: '',
-			username: ''
+			username: '',
+			duplicate: false
 		}
 	},
 
@@ -85,7 +88,7 @@ export default {
 				words: words
 			}
 
-			if (this.listname != this.list.listname){
+			if (this.listname != this.list.listname && this.listname && !this.duplicate){
 				console.log('name changed')
 				this.$dispatch('get-username')
 
