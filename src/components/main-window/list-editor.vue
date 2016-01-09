@@ -31,7 +31,7 @@
 		</div>
 		<div id="translation-bottom"></div>
 
-		<button v-on:click="saveList">Save list</button>
+		<button v-on:click="saveList" v-link='{ path: "/" + $route.params.username }'>Save list</button>
 		<span>{{ error }}</span>
 	</div>
 </template>
@@ -42,7 +42,8 @@ export default {
 		return {
 			list: {},
 			listname : '',
-			error: ''
+			error: '',
+			username: ''
 		}
 	},
 
@@ -50,12 +51,16 @@ export default {
 		'start-edit' : function(list){
 			this.list = list
 			this.listname = list.listname
+			this.error = ''
+		},
+
+		'return-user' : function(user){
+			this.username = user
 		}
 	},
 
 	methods: {
 		saveList: function() {
-			console.log('save list')
 			var words = []
 
 			var sentences = document.getElementsByClassName('sentence-item')
@@ -79,16 +84,18 @@ export default {
 				shared_with: this.list.shared_with,
 				words: words
 			}
+			
+			this.$dispatch('get-username')
 
 			var data = {
-				'username' : 'cor',
+				'username' : this.username,
 				'password' : 'Hunter2'
 			}
 
 			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
 
 				var data = {
-					'username' : 'cor',
+					'username' : this.username,
 					'token' : data.token,
 					'list_data' : list_data
 				}
@@ -96,6 +103,7 @@ export default {
 				this.$http.post('http://api.woording.com/savelist', data, function(data, status, request){
 					console.log('saved list')
 					this.error = 'Successfully saved list.'
+					this.$dispatch('force-url-update')
 				}).error(function(data, status, request) {
 					console.log("data: " + data)
 					console.log("status: " + status)

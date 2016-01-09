@@ -127,6 +127,7 @@ export default {
 		return {
 			list : {},
 			editMode: false,
+			username: ''
 		}
 	},
 
@@ -135,6 +136,10 @@ export default {
 		"url-update" : function() {
 			this.updateContents()
 		},
+
+		'return-user' : function(user){
+			this.username = user
+		}
 	},
 
 	methods : {
@@ -148,8 +153,10 @@ export default {
 		},	
 
 		deleteList: function() {
+			this.$dispatch('get-username')
+
 			var data = {
-				'username' : 'cor',
+				'username' : this.username,
 				'password' : 'Hunter2'
 			}
 
@@ -157,13 +164,15 @@ export default {
 				console.log(data.token)
 
 				var data = {
-					'username': 'cor',
+					'username' : this.username,
 					'token': data.token,
 					'listname': this.list.listname
 				}
 				this.$http.post('http://api.woording.com/deleteList', data, function(data, status, request) {
 					console.log('deleted list')
 					console.log(this.list)
+					this.list = null
+					this.$route.router.go({ path: '/cor' })
 				}).error(function(data, status, request) {
 					console.log("data: " + data)
 					console.log("status: " + status)
@@ -193,8 +202,10 @@ export default {
 
 		// fetch a list from the Woording API server
 		fetchList: function(username, listname) {
+			this.$dispatch('get-username')
+
 			var data = {
-				'username' : 'cor',
+				'username' : this.username,
 				'password' : 'Hunter2'
 			}
 

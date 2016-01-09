@@ -83,7 +83,8 @@ export default {
 
 	data: function () {
 		return {
-			lists: []
+			lists: [],
+			username: ''
 		}
 	},
 
@@ -91,6 +92,10 @@ export default {
 		// Call the updateContents() method when the url updates
 		'url-update' : function() {
 			this.updateContents()
+		},
+
+		'return-user' : function(user){
+			this.username = user
 		}
 	},
 
@@ -109,8 +114,10 @@ export default {
 		},
 		
 		fetchLists : function(username) {
-			var data =  {
-				'username' : 'cor',
+			this.$dispatch('get-username')
+
+			var data = {
+				'username' : this.username,
 				'password' : 'Hunter2'
 			}
 

@@ -82,7 +82,8 @@ export default {
 
 	data: function () {
 		return {
-			friends: []
+			friends: [],
+			username: ''
 		}
 	},
 
@@ -91,6 +92,10 @@ export default {
 		'url-update' : function() {
 			this.updateContents()
 			this.updateActiveUserHighlight()
+		},
+
+		'return-user' : function(user){
+			this.username = user
 		}
 	},
 
@@ -109,9 +114,10 @@ export default {
 		},
 
 		fetchFriends: function(username) {
+			this.$dispatch('get-username')
 
-			var data =  {
-				'username' : 'cor',
+			var data = {
+				'username' : this.username,
 				'password' : 'Hunter2'
 			}
 

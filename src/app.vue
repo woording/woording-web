@@ -47,7 +47,7 @@
 		<list-list></list-list>
 		<list-viewer v-if="!addList && !listTrainer && !listEditor"></list-viewer>
 		<add-list v-if="addList"></add-list>
-		<list-trainer v-show="practiceBody"></list-trainer>
+		<list-trainer v-show="listTrainer"></list-trainer>
 		<list-editor v-show="listEditor"></list-editor>
 	</site-body>
 	<site-footer></site-footer>
@@ -132,6 +132,14 @@ export default {
 					this.$broadcast('start-edit', list)
 					break
 			}
+		},
+
+		'get-username': function(){
+			this.$broadcast('return-user', 'cor')
+		},
+
+		'force-url-update': function(){
+			this.$broadcast('url-update')
 		}
 	}
 }
