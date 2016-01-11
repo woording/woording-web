@@ -79,6 +79,9 @@
 </template>
 
 <script>
+
+import store from '../../store'
+
 export default {
 
 	data: function () {
@@ -114,28 +117,15 @@ export default {
 		},
 		
 		fetchLists : function(username) {
-			this.$dispatch('get-username')
 
-			var data = {
-				'username' : this.username,
-				'password' : 'Hunter2'
+			var updateLists = lists => {
+				this.lists = lists
 			}
 
-			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
-
-				this.$http.post('http://api.woording.com/' + username, data, function(data, status, request) {
-					this.lists = data.lists
-				}).error(function(data, status, request) {
-					console.log("data: " + data)
-					console.log("status: " + status)
-					console.log("request: " + request)
-
+			store.fetchToken("cor", "Hunter2").then(token => {
+				store.fetchUser("cor", token).then(user => {
+					updateLists(user.lists)
 				})
-
-			}).error(function(data, status, request) {
-					console.log("data: " + data)
-					console.log("status: " + status)
-					console.log("request: " + request)
 			})
 
 		}

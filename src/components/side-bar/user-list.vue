@@ -79,7 +79,6 @@
 
 <script>
 
-
 export default {
 
 	data: function () {
@@ -120,6 +119,7 @@ export default {
 		},
 
 		fetchFriends: function(username) {
+
 			this.$dispatch('get-username')
 
 			var data = {
