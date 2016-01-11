@@ -121,6 +121,9 @@ $border-style: 0.125rem solid #B6B6B6;
 </template>
 
 <script>
+
+import store from '../../store'
+
 export default {
 
 	data: function() {
@@ -195,6 +198,8 @@ export default {
 		updateContents: function(){
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
+
+			alert(store.fetchList(username, listname).list)
 
 			// If the listname is null, then the user hasn't selected a list and
 			// list should be null, so that we can use it with v-if's

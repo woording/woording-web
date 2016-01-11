@@ -5,11 +5,14 @@ const store = new EventEmitter()
 export default store
 
 /**
- * @param  {String} listname
+ * Fetch a list based on username and listname
+ * 
+ * @param {String} username 
+ * @param {String} listname
  * @return list data
  */
-store.fetchList = listname => {
+store.fetchList = (username, listname) => {
 	return {
-		message: "Test list"
+		list: username + "/" + listname
 	}
 }
