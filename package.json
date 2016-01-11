@@ -22,7 +22,9 @@
     "vue-hot-reload-api": "^1.2.1",
     "vueify": "^6.0.0",
     "vueify-insert-css": "^1.0.0",
-    "watchify": "^3.6.1"
+    "watchify": "^3.6.1",
+	"utf-8-validate": "^1.2.1",
+	"bufferutil": "^1.2.1"
   },
   "dependencies": {
     "vue": "^1.0.7",
