@@ -127,7 +127,7 @@ export default {
 		return {
 			list : {},
 			editMode: false,
-			username: ''
+			username: '',
 		}
 	},
 
@@ -139,6 +139,10 @@ export default {
 
 		'return-user' : function(user){
 			this.username = user
+		},
+
+		'set-list-null' : function(){
+			this.list = null
 		}
 	},
 
@@ -149,6 +153,7 @@ export default {
 		},
 
 		editList: function() {
+			console.log(this.test)
 			this.$dispatch('show-template', 'edit', this.list)
 		},	
 
@@ -195,6 +200,7 @@ export default {
 			// list should be null, so that we can use it with v-if's
 			if (listname == null) {
 				this.list = null;
+				console.log(this.list)
 			} else {
 				this.fetchList(username, listname)
 			}

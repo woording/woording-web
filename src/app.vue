@@ -75,9 +75,7 @@ import ListTrainer from './components/main-window/list-trainer.vue'
 // AddList is redundant, should be removed soon
 import AddList from './components/add-list.vue'
 
-
 export default {
-
 	data: function() {
 		return {
 			addList : false,
@@ -138,8 +136,8 @@ export default {
 			this.$broadcast('return-user', 'cor')
 		},
 
-		'force-url-update': function(){
-			this.$broadcast('url-update')
+		'set-list-null': function(){
+			this.$broadcast('set-list-null')
 		}
 	}
 }

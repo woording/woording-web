@@ -65,10 +65,10 @@
 		<div id="users">
 			<ul>
 				<li>YOU</li>
-				<a v-link='{ path: "/cor" }' ><li class="user-link">cor</li></a>
+				<a v-link='{ path: "/cor" }' v-on:click="setListNull"><li class="user-link">cor</li></a>
 				<li><br></li>
 				<li>FRIENDS</li>
-				<a v-link='{ path: "/" + friend.username}' v-for="friend in friends" ><li class="user-link">{{ friend.username }}</li></a>
+				<a v-link='{ path: "/" + friend.username}' v-on:click="setListNull" v-for="friend in friends" ><li class="user-link">{{ friend.username }}</li></a>
 			</ul>
 		</div>
 		<div id="add-friend-button" v-on:click="addFriend">
@@ -100,6 +100,10 @@ export default {
 	},
 
 	methods: {
+		setListNull: function() {
+			this.$dispatch('set-list-null')
+		},
+
 		updateContents: function() {
 			var username = this.$parent.$route.params.username
 			this.fetchFriends(username)
