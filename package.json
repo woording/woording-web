@@ -1,30 +1,48 @@
 {
   "name": "woording-web",
-  "version": "0.0.1",
-  "description": "woording frontend site",
+  "version": "0.0.2",
+  "description": "Woording front end SPA",
   "author": "Cor Pruijs",
   "main": "index.js",
   "repository": "woording/woording-web",
   "scripts": {
-    "dev": "watchify -vd -p browserify-hmr -t vueify -e src/main.js -o build/build.js & http-server -c 1 -a localhost",
-    "start": "watchify -vd -p browserify-hmr -t vueify -e src/main.js -o build/build.js & http-server -c 1 -a localhost",
-    "build": "NODE_ENV=production ./node_modules/watchify/node_modules/.bin/browserify -t vueify -e src/main.js | uglifyjs -c warnings=false -m > build/build.js"
+    "dev": "watchify -vd -p browserify-hmr -e src/main.js -o dist/build.js & http-server -c 1 -a localhost",
+    "build": "cross-env NODE_ENV=production browserify -e src/main.js | uglifyjs -c warnings=false -m > dist/build.js",
+    "lint": "eslint --ext .js,.vue src test/unit",
+    "test": "karma start karma.conf.js"
+  },
+  "browserify": {
+    "transform": [
+      "vueify",
+      "babelify"
+    ]
   },
   "devDependencies": {
-    "babel-plugin-transform-runtime": "^6.2.4",
-    "babel-preset-es2015": "^6.2.4",
-    "babel-runtime": "^6.2.4",
+    "babel-core": "^6.0.0",
+    "babel-plugin-transform-runtime": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
+    "babel-preset-stage-2": "^6.0.0",
+    "babel-runtime": "^5.8.0",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
     "browserify-hmr": "^0.3.1",
+    "cross-env": "^1.0.5",
+    "eslint": "^1.10.3",
+    "eslint-plugin-html": "^1.1.0",
     "http-server": "^0.8.5",
-    "jade": "^1.11.0",
-    "node-sass": "^3.4.2",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.15",
+    "karma-browserify": "^4.4.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-spec-reporter": "0.0.23",
+    "phantomjs": "^1.9.19",
+    "proxyquireify": "^3.0.1",
     "uglify-js": "^2.5.0",
-    "vue-hot-reload-api": "^1.2.1",
-    "vueify": "^6.0.0",
+    "vue-hot-reload-api": "^1.2.2",
+    "vueify": "^8.0.0",
     "vueify-insert-css": "^1.0.0",
-    "watchify": "^3.6.1",
-	"utf-8-validate": "^1.2.1",
-	"bufferutil": "^1.2.1"
+    "watchify": "^3.4.0"
   },
   "dependencies": {
     "vue": "^1.0.7",

@@ -18,4 +18,5 @@ env/
 env/**/*
 **/env/**/*
 build/build.js
+dist/build.js
 npm-debug.log
