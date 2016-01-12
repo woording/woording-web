@@ -42,7 +42,8 @@
     "vue-hot-reload-api": "^1.2.2",
     "vueify": "^8.0.0",
     "vueify-insert-css": "^1.0.0",
-    "watchify": "^3.4.0"
+    "watchify": "^3.4.0",
+    "node-sass": "^3.4.2"
   },
   "dependencies": {
     "vue": "^1.0.7",
