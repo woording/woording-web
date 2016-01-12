@@ -88,66 +88,18 @@ export default {
 
 			if (this.listname != this.list.listname && this.listname && !this.duplicate){
 				console.log('name changed')
-				var data = {
-					'username' : store.username,
-					'password' : 'Hunter2'
-				}
 
-				this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
-					console.log(data.token)
-
-					var data = {
-						'username' : store.username,
-						'token': data.token,
-						'listname': this.list.listname
-					}
-					this.$http.post('http://api.woording.com/deleteList', data, function(data, status, request) {
-						console.log('deleted list')
-						console.log(this.list)
-					}).error(function(data, status, request) {
-						console.log("data: " + data)
-						console.log("status: " + status)
-						console.log("request: " + request)
-					})
-
-				}).error(function(data, status, request) {
-					console.log("data: " + data)
-					console.log("status: " + status)
-					console.log("request: " + request)
-				})	
+				store.deleteList(store.username, this.list).then((response) => {
+					console.log(response)
+				})
 			}
 			
-			this.$dispatch('get-username')
-
-			var data = {
-				'username' : store.username,
-				'password' : 'Hunter2'
-			}
-
-			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
-
-				var data = {
-					'username' : store.username,
-					'token' : data.token,
-					'list_data' : list_data
-				}
-
-				this.$http.post('http://api.woording.com/savelist', data, function(data, status, request){
-					console.log('saved list')
-					this.error = 'Successfully saved list.'
-					this.list = list_data
-					this.$parent.$route.router.go({ path: "cor/" + list_data.listname })
-					this.$dispatch('show-template', 'translation')
-				}).error(function(data, status, request) {
-					console.log("data: " + data)
-					console.log("status: " + status)
-					console.log("request: " + request)
-				})
-
-			}).error(function(data, status, request) {
-				console.log("data: " + data)
-				console.log("status: " + status)
-				console.log("request: " + request)
+			store.saveList(store.username, list_data).then((response) => {
+				console.log(response)
+				this.error = 'Successfully saved list.'
+				this.list = list_data
+				this.$parent.$route.router.go({ path: "cor/" + list_data.listname })
+		 		this.$dispatch('show-template', 'translation')	
 			})
 		}
 	}

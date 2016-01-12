@@ -51,6 +51,18 @@ $border-style: 0.125rem solid #B6B6B6;
 #translation-list {
 	.container {
 		flex: 1;
+
+		button {
+			padding: 10px;
+			cursor: pointer;
+			background: black;
+			color: white;
+			border: none;
+
+			&:hover {
+				background: green;
+			}
+		}
 	}
 
 	flex: 1;
@@ -84,7 +96,7 @@ $border-style: 0.125rem solid #B6B6B6;
 				<button v-on:click="practiceList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</button>
 				<button v-on:click="editList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</button>
 				<button v-on:click="deleteList">Delete</button>
-				<button v-on:click="debugList"></button>
+				<button v-on:click="debugList">Debug</button>
 
 				<div class="language-name-container">
 					<div class="language-name">

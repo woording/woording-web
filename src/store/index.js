@@ -149,13 +149,31 @@ store.deleteList = (username, list) => {
 			request.open(method, url, true)
 			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 
-			console.log({
-				"username" : username,
-				"listname" : list.listname,
-				"token" : token
-			})
-
 			request.send('{ "username" : "' + username + '", "token" : "' + token + '", "listname" : "' + list.listname + '" }')
+		})
+	})
+}
+
+store.saveList = (username, list_data) => {
+	return new Promise((resolve, reject) => {
+		store.fetchToken().then( token => {
+
+			var request = new XMLHttpRequest()
+			var method = "POST"
+			var url = "http://api.woording.com/savelist"
+
+			request.onload = function() {
+				const parsedResponse = request.response
+				resolve(parsedResponse)
+			}
+
+			request.open(method, url, true)
+			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+
+			console.log(username)
+			console.log(token)
+			console.log(list_data)
+			request.send('{ "username" : "' + username + '", "token" : "' + token + '", "list_data" : ' + JSON.stringify(list_data) + ' }')
 		})
 	})
 }
