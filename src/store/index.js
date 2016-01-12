@@ -6,6 +6,7 @@ export default store
 
 store.username = "cor"
 store.password = "Hunter2"
+store.cachedToken = null
 
 /**
  * Fetch a token based on username and listname
@@ -16,23 +17,29 @@ store.password = "Hunter2"
 store.fetchToken = () => {
 	return new Promise((resolve, reject) => {
 
-		// Create a request, setup the corerct method and URL
-		var request = new XMLHttpRequest()
-		var method = "POST"
-		var url = "http://api.woording.com/authenticate"
+		if (store.cachedToken != null) {
+			resolove(cachedToken)
+		} else {
+			// Create a request, setup the corerct method and URL
+			var request = new XMLHttpRequest()
+			var method = "POST"
+			var url = "http://api.woording.com/authenticate"
 
-		// Add the completion handler for the async network call
-		request.onload = function() {
-			const parsedResponse = JSON.parse(request.response)
-			resolve(parsedResponse.token)
+			// Add the completion handler for the async network call
+			request.onload = function() {
+				const parsedResponse = JSON.parse(request.response)
+				store.cachedToken = parsedResponse.token
+				resolve(parsedResponse.token)
+			}
+
+			// Open the request, set the correct content type
+			request.open('POST', url, true)
+			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+
+			// Add the username and password parameters to the data
+			request.send('{"username": "' + store.username + '", "password" : "' + store.password + '" }')
 		}
 
-		// Open the request, set the correct content type
-		request.open('POST', url, true)
-		request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
-
-		// Add the username and password parameters to the data
-		request.send('{"username": "' + store.username + '", "password" : "' + store.password + '" }')
 	})
 }
 
@@ -67,3 +74,4 @@ store.fetchUser = (username) => {
 		})
 	})
 }
+
