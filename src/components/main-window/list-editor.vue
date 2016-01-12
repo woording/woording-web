@@ -87,8 +87,6 @@ export default {
 			}
 
 			if (this.listname != this.list.listname && this.listname && !this.duplicate){
-				console.log('name changed')
-
 				store.deleteList(store.username, this.list).then((response) => {
 					console.log(response)
 				})

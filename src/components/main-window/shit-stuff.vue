@@ -168,10 +168,12 @@ export default {
 		},	
 
 		deleteList: function() {
+			store.deletedList = this.list
 			store.deleteList(store.username, this.list).then((response) => {
 				console.log(response)
 				this.list = null
 				this.$route.router.go({ path: '/cor' })
+				console.log(store.deletedList)
 			})
 		},
 
