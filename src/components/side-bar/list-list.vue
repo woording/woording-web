@@ -71,6 +71,7 @@
 				<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }' v-on:click="showTranslation"><li class="list-link">{{ list.listname }}</li></a>
 			</ul>
 		</div>
+		<button v-on:click="undoDelete">Undo delete</button>
 		<div v-on:click="addList" v-link='{ path: "/" + $route.params.username + "/addList" }' id="add-list-button">
 			<p>+</p>
 		</div>
@@ -120,6 +121,19 @@ export default {
 				updateLists(user.lists)
 			})
 
+		},
+
+		undoDelete: function(){
+			if (store.deletedList){
+				store.saveList(store.username, store.deletedList).then((response) => {
+					console.log(response)
+					//this.list = store.deletedList
+					this.$parent.$route.router.go({ path: "cor/" + store.deletedList.listname })
+					store.deletedList = null
+				})
+			} else {
+				console.log('Null')
+			}
 		}
 	}
 }

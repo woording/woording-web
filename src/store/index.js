@@ -5,6 +5,7 @@ export default store
 store.username = "cor"
 store.password = "Hunter2"
 store.cachedToken = null
+store.deletedList = null
 
 /**
  * Fetch a token based on username and listname
@@ -133,14 +134,21 @@ store.fetchList = (username, listname) => {
 	})
 }
 
+/**
+ * @param  {username}
+ * @param  {list}
+ * @return {Promise}, a confirmation message
+ */
 store.deleteList = (username, list) => {
 	return new Promise((resolve, reject) => {
 		store.fetchToken().then( token => {
 
+			//create request
 			var request = new XMLHttpRequest()
 			var method = "POST"
 			var url = "http://api.woording.com/deleteList"
 
+			// magic
 			request.onload = function() {
 				const parsedResponse = request.response
 				resolve(parsedResponse)
@@ -149,11 +157,17 @@ store.deleteList = (username, list) => {
 			request.open(method, url, true)
 			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 
+			// Send request
 			request.send('{ "username" : "' + username + '", "token" : "' + token + '", "listname" : "' + list.listname + '" }')
 		})
 	})
 }
 
+/**
+ * @param  {username}
+ * @param  {list_data}
+ * @return {Promise}, a confirmation message
+ */
 store.saveList = (username, list_data) => {
 	return new Promise((resolve, reject) => {
 		store.fetchToken().then( token => {
