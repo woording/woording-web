@@ -152,12 +152,15 @@ export default {
 		},
 
 		editList: function() {
-			console.log(this.test)
 			this.$dispatch('show-template', 'edit', this.list)
 		},	
 
 		deleteList: function() {
-			// need implementation in store
+			store.deleteList(store.username, this.list).then((response) => {
+				console.log(response)
+				this.list = null
+				this.$route.router.go({ path: '/cor' })
+			})
 		},
 
 		// Update the content based on the current url
