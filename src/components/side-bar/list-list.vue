@@ -100,6 +100,7 @@ export default {
 	methods: {
 		updateContents: function() {
 			var username = this.$parent.$route.params.username
+
 			this.fetchLists(username)
 		},
 

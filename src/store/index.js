@@ -1,3 +1,5 @@
+
+var store = {}
 export default store
 
 store.username = "cor"
@@ -15,7 +17,7 @@ store.fetchToken = () => {
 	return new Promise((resolve, reject) => {
 
 		if (store.cachedToken != null) {
-			resolove(cachedToken)
+			resolve(store.cachedToken)
 		} else {
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
@@ -26,6 +28,7 @@ store.fetchToken = () => {
 			request.onload = function() {
 				const parsedResponse = JSON.parse(request.response)
 				store.cachedToken = parsedResponse.token
+				console.log ("FRESH TOKEN: " + parsedResponse.token)
 				resolve(parsedResponse.token)
 			}
 
@@ -72,6 +75,9 @@ store.fetchUser = (username) => {
 }
 
 
+/**
+ * @return {Promise}, containg friends[]
+ */
 store.fetchFriends = () => {
 	return new Promise((resolve, reject) => {
 		store.fetchToken().then( token => {
@@ -95,5 +101,36 @@ store.fetchFriends = () => {
 			// Add the username and token to the data
 			request.send('{ "username": "' + store.username + '", "token" : "' + token + '" }')
 		})
+	})
+}
+
+/**
+ * @param  {username}
+ * @param  {listname}
+ * @return {Promise}, containing a list
+ */
+store.fetchList = (username, listname) => {
+	return new Promise((resolve, reject) => {
+		store.fetchToken().then( token => {
+
+			// Create a request, setup the corerct method and URL
+			var request = new XMLHttpRequest()
+			var method = "POST"
+			var url = "http://api.woording.com/" + username + "/" + listname
+
+			// Add the completion handler for the async network call
+			request.onload = function() {
+				const parsedResponse = JSON.parse(request.response)
+				resolve(parsedResponse)
+			}
+
+			// Open the request, set the correct content type
+			request.open('POST', url, true)
+			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+
+			// Add the username and token to the data
+			request.send('{ "token" : "' + token + '" }')
+
+		})	
 	})
 }

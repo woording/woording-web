@@ -120,7 +120,7 @@ $border-style: 0.125rem solid #B6B6B6;
 
 <script>
 
-import store from '../../store'
+import store from "../../store";
 
 export default {
 
@@ -154,37 +154,7 @@ export default {
 		},	
 
 		deleteList: function() {
-			this.$dispatch('get-username')
-
-			var data = {
-				'username' : store.username,
-				'password' : 'Hunter2'
-			}
-
-			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
-				console.log(data.token)
-
-				var data = {
-					'username' : store.username,
-					'token': data.token,
-					'listname': this.list.listname
-				}
-				this.$http.post('http://api.woording.com/deleteList', data, function(data, status, request) {
-					console.log('deleted list')
-					console.log(this.list)
-					this.list = null
-					this.$route.router.go({ path: '/cor' })
-				}).error(function(data, status, request) {
-					console.log("data: " + data)
-					console.log("status: " + status)
-					console.log("request: " + request)
-				})
-
-			}).error(function(data, status, request) {
-				console.log("data: " + data)
-				console.log("status: " + status)
-				console.log("request: " + request)
-			})	
+			// need implementation in store
 		},
 
 		// Update the content based on the current url
@@ -192,42 +162,19 @@ export default {
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
 
-
-			// If the listname is null, then the user hasn't selected a list and
-			// list should be null, so that we can use it with v-if's
-			if (listname == null) {
-				this.list = null;
-				console.log(this.list)
-			} else {
-				this.fetchList(username, listname)
-			}
+			this.fetchList(username, listname)
 		},
 
 		// fetch a list from the Woording API server
 		fetchList: function(username, listname) {
-			var data = {
-				'username' : store.username,
-				'password' : 'Hunter2'
-			}
 
-			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
+			var updateList = list => { this.list = list }
 
-				this.$http.post('http://api.woording.com/' + username + '/' + listname, data, function(data, status, request) {
-					this.list = data
-				}).error(function(data, status, request) {
-					console.log("data: " + data)
-					console.log("status: " + status)
-					console.log("request: " + request)
-
-				})
-
-			}).error(function(data, status, request) {
-				console.log("data: " + data)
-				console.log("status: " + status)
-				console.log("request: " + request)
+			store.fetchList(username, listname).then((list) => {
+				updateList(list)
 			})
-
 		}
+
 	}
 }
 
