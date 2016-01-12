@@ -11,6 +11,7 @@ store.cachedToken = null
 /**
  * Fetch a token based on username and listname
  * used internally
+ * will try to use cachedToken first, otherwise request a new one from the server
  * 
  * @return {Promise} token
  */
