@@ -34,4 +34,8 @@ router.afterEach(function () {
 	// this.$dispatch('url-update')	
 }),
 
+router.redirect({
+	'*': '/cor'
+})
+
 router.start(App, 'app')
