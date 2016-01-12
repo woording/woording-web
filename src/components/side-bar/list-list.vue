@@ -118,14 +118,10 @@ export default {
 		
 		fetchLists : function(username) {
 
-			var updateLists = lists => {
-				this.lists = lists
-			}
-
-			store.fetchToken("cor", "Hunter2").then(token => {
-				store.fetchUser("cor", token).then(user => {
-					updateLists(user.lists)
-				})
+			var updateLists = lists => { this.lists = lists }
+			
+			store.fetchUser("cor").then(user => {
+				updateLists(user.lists)
 			})
 
 		}
