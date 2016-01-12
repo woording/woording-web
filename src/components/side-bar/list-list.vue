@@ -86,8 +86,7 @@ export default {
 
 	data: function () {
 		return {
-			lists: [],
-			username: ''
+			lists: []
 		}
 	},
 
@@ -95,10 +94,6 @@ export default {
 		// Call the updateContents() method when the url updates
 		'url-update' : function() {
 			this.updateContents()
-		},
-
-		'return-user' : function(user){
-			this.username = user
 		}
 	},
 
@@ -120,7 +115,7 @@ export default {
 
 			var updateLists = lists => { this.lists = lists }
 			
-			store.fetchUser("cor").then(user => {
+			store.fetchUser(store.username).then(user => {
 				updateLists(user.lists)
 			})
 

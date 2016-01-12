@@ -132,10 +132,6 @@ export default {
 			}
 		},
 
-		'get-username': function(){
-			this.$broadcast('return-user', 'cor')
-		},
-
 		'set-list-null': function(){
 			this.$broadcast('set-list-null')
 		}

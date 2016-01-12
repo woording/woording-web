@@ -85,8 +85,7 @@ export default {
 
 	data: function () {
 		return {
-			friends: [],
-			username: ''
+			friends: []
 		}
 	},
 
@@ -95,10 +94,6 @@ export default {
 		'url-update' : function() {
 			this.updateContents()
 			this.updateActiveUserHighlight()
-		},
-
-		'return-user' : function(user){
-			this.username = user
 		}
 	},
 
@@ -121,7 +116,6 @@ export default {
 		},
 
 		fetchFriends: function(username) {
-
 
 			var updateFriends = friends => { this.friends = friends }
 
