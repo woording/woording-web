@@ -1,5 +1,4 @@
 <style lang="sass" scoped>
-
 $border-style: 0.125rem solid #B6B6B6;
 #translation-list {
 	color: #212121;
@@ -72,7 +71,6 @@ $border-style: 0.125rem solid #B6B6B6;
 		}
 	}
 }
-
 </style>
 
 <template>
@@ -129,8 +127,7 @@ export default {
 	data: function() {
 		return {
 			list : {},
-			editMode: false,
-			username: '',
+			editMode: false
 		}
 	},
 
@@ -138,10 +135,6 @@ export default {
 		// Call the updateContents() method when the url updates
 		"url-update" : function() {
 			this.updateContents()
-		},
-
-		'return-user' : function(user){
-			this.username = user
 		},
 
 		'set-list-null' : function(){
@@ -164,7 +157,7 @@ export default {
 			this.$dispatch('get-username')
 
 			var data = {
-				'username' : this.username,
+				'username' : store.username,
 				'password' : 'Hunter2'
 			}
 
@@ -172,7 +165,7 @@ export default {
 				console.log(data.token)
 
 				var data = {
-					'username' : this.username,
+					'username' : store.username,
 					'token': data.token,
 					'listname': this.list.listname
 				}
@@ -212,10 +205,8 @@ export default {
 
 		// fetch a list from the Woording API server
 		fetchList: function(username, listname) {
-			this.$dispatch('get-username')
-
 			var data = {
-				'username' : this.username,
+				'username' : store.username,
 				'password' : 'Hunter2'
 			}
 

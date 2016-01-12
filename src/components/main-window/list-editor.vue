@@ -39,13 +39,15 @@
 </template>
 
 <script>
+
+import store from '../../store'
+
 export default {
 	data: function(){
 		return {
 			list: {},
 			listname : '',
 			error: '',
-			username: '',
 			duplicate: false
 		}
 	},
@@ -55,10 +57,6 @@ export default {
 			this.list = list
 			this.listname = list.listname
 			this.error = ''
-		},
-
-		'return-user' : function(user){
-			this.username = user
 		}
 	},
 
@@ -90,10 +88,8 @@ export default {
 
 			if (this.listname != this.list.listname && this.listname && !this.duplicate){
 				console.log('name changed')
-				this.$dispatch('get-username')
-
 				var data = {
-					'username' : this.username,
+					'username' : store.username,
 					'password' : 'Hunter2'
 				}
 
@@ -101,7 +97,7 @@ export default {
 					console.log(data.token)
 
 					var data = {
-						'username' : this.username,
+						'username' : store.username,
 						'token': data.token,
 						'listname': this.list.listname
 					}
@@ -124,14 +120,14 @@ export default {
 			this.$dispatch('get-username')
 
 			var data = {
-				'username' : this.username,
+				'username' : store.username,
 				'password' : 'Hunter2'
 			}
 
 			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
 
 				var data = {
-					'username' : this.username,
+					'username' : store.username,
 					'token' : data.token,
 					'list_data' : list_data
 				}

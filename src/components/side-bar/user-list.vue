@@ -79,12 +79,13 @@
 
 <script>
 
+import store from '../../store'
+
 export default {
 
 	data: function () {
 		return {
-			friends: [],
-			username: ''
+			friends: []
 		}
 	},
 
@@ -93,10 +94,6 @@ export default {
 		'url-update' : function() {
 			this.updateContents()
 			this.updateActiveUserHighlight()
-		},
-
-		'return-user' : function(user){
-			this.username = user
 		}
 	},
 
@@ -123,7 +120,7 @@ export default {
 			this.$dispatch('get-username')
 
 			var data = {
-				'username' : this.username,
+				'username' : store.username,
 				'password' : 'Hunter2'
 			}
 
