@@ -99,6 +99,7 @@ export default {
 
 	methods: {
 		setListNull: function() {
+			console.log('set list null')
 			this.$dispatch('set-list-null')
 		},
 

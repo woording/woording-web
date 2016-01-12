@@ -28,7 +28,6 @@ store.fetchToken = () => {
 			request.onload = function() {
 				const parsedResponse = JSON.parse(request.response)
 				store.cachedToken = parsedResponse.token
-				console.log ("FRESH TOKEN: " + parsedResponse.token)
 				resolve(parsedResponse.token)
 			}
 

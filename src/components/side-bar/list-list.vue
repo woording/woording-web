@@ -116,7 +116,7 @@ export default {
 
 			var updateLists = lists => { this.lists = lists }
 			
-			store.fetchUser(store.username).then(user => {
+			store.fetchUser(username).then(user => {
 				updateLists(user.lists)
 			})
 
