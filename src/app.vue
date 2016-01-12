@@ -45,7 +45,7 @@
 	<site-body>
 		<user-list></user-list>
 		<list-list></list-list>
-		<list-viewer v-if="!addList && !listTrainer && !listEditor"></list-viewer>
+		<shit-stuff v-if="!addList && !listTrainer && !listEditor"></shit-stuff>
 		<add-list v-if="addList"></add-list>
 		<list-trainer v-show="listTrainer"></list-trainer>
 		<list-editor v-show="listEditor"></list-editor>
@@ -69,8 +69,8 @@ import UserList from './components/side-bar/user-list.vue'
 
 // List viewer, editor and trainer (the third column)
 import ListEditor from './components/main-window/list-editor.vue'
-import ListViewer from './components/main-window/list-viewer.vue'
 import ListTrainer from './components/main-window/list-trainer.vue'
+import ShitStuff from './components/main-window/shit-stuff.vue'
 
 // AddList is redundant, should be removed soon
 import AddList from './components/add-list.vue'
@@ -91,7 +91,7 @@ export default {
 		SiteFooter,
 		UserList,
 		ListList,
-		ListViewer,
+		ShitStuff,
 		ListEditor,
 		ListTrainer,
 		AddList

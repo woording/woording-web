@@ -1,10 +1,9 @@
-<style lang="sass" scoped>
+<style lang="sass">
 $border-style: 0.125rem solid #B6B6B6;
 #translation-list {
 	color: #212121;
 	display: flex;
-	min-height: 0;
-
+	min-height: 0px;
 
 	.translation-record {
 		width: 100%;
@@ -21,6 +20,7 @@ $border-style: 0.125rem solid #B6B6B6;
 			}
 		}
 	}
+
 	.list-header {
 		width: 100%;
 
@@ -52,6 +52,7 @@ $border-style: 0.125rem solid #B6B6B6;
 	.container {
 		flex: 1;
 	}
+
 	flex: 1;
 	@media(min-width: 768px) {
 		overflow: auto;
@@ -74,7 +75,7 @@ $border-style: 0.125rem solid #B6B6B6;
 </style>
 
 <template>
-	<div id="translation-list">
+<div id="translation-list">
 		<template v-if="list != null">
 		<div class="container">
 			<div class="list-header">
@@ -115,11 +116,9 @@ $border-style: 0.125rem solid #B6B6B6;
 			</div>
 		</template>
 	</div>
-
 </template>
 
 <script>
-
 import store from "../../store";
 
 export default {
@@ -177,5 +176,4 @@ export default {
 
 	}
 }
-
 </script>
