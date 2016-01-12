@@ -71,8 +71,33 @@ store.fetchUser = (username) => {
 
 			// Add the username and token to the data
 			request.send('{ "token" : "' + token + '" }')
-
 		})
 	})
 }
 
+
+store.fetchFriends = () => {
+	return new Promise((resolve, reject) => {
+		store.fetchToken().then( token => {
+
+			// Create a request, setup the corerct method and URL
+			var request = new XMLHttpRequest()
+			var method = "POST"
+			var url = "http://api.woording.com/getFriends"
+
+			// Add the completion handler for the async network call
+			request.onload = function() {
+				const parsedResponse = JSON.parse(request.response)
+				resolve(parsedResponse.friends)
+			}
+
+			// Open the request, set the correct content type
+			request.open('POST', url, true)
+			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+
+
+			// Add the username and token to the data
+			request.send('{ "username": "' + store.username + '", "token" : "' + token + '" }')
+		})
+	})
+}

@@ -79,6 +79,8 @@
 
 <script>
 
+import store from '../../store'
+
 export default {
 
 	data: function () {
@@ -120,33 +122,15 @@ export default {
 
 		fetchFriends: function(username) {
 
-			this.$dispatch('get-username')
 
-			var data = {
-				'username' : this.username,
-				'password' : 'Hunter2'
-			}
+			var updateFriends = friends => { this.friends = friends }
 
-			this.$http.post('http://api.woording.com/authenticate', data, function(data, status, request) {
-
-				// Add the username parameter to the retrieved json data object containing the token
-				data.username = username;
-
-				this.$http.post('http://api.woording.com/getFriends', data, function(data, status, request) {
-					this.friends = data.friends;
-				}).error(function(data, status, request) {
-					console.log("data: " + data)
-					console.log("status: " + status)
-					console.log("request: " + request)
-
-				})
-
-			}).error(function(data, status, request) {
-					console.log("data: " + data)
-					console.log("status: " + status)
-					console.log("request: " + request)
+			store.fetchFriends().then( friends => {
+				updateFriends(friends)
 			})
-		},
+
+
+		}
 	}
 
 
