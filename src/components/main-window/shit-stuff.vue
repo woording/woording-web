@@ -165,7 +165,12 @@ export default {
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
 
-			this.fetchList(username, listname)
+			if (listname){
+				this.fetchList(username, listname)
+			} else {
+				this.list = null
+			}
+
 		},
 
 		// fetch a list from the Woording API server

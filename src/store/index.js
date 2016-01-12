@@ -129,7 +129,6 @@ store.fetchList = (username, listname) => {
 
 			// Add the username and token to the data
 			request.send('{ "token" : "' + token + '" }')
-
 		})	
 	})
 }
