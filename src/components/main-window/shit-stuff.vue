@@ -173,7 +173,6 @@ export default {
 				console.log(response)
 				this.list = null
 				this.$route.router.go({ path: '/cor' })
-				console.log(store.deletedList)
 			})
 		},
 

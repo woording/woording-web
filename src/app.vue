@@ -46,7 +46,6 @@
 		<user-list></user-list>
 		<list-list></list-list>
 		<shit-stuff v-if="!addList && !listTrainer && !listEditor"></shit-stuff>
-		<add-list v-if="addList"></add-list>
 		<list-trainer v-show="listTrainer"></list-trainer>
 		<list-editor v-show="listEditor"></list-editor>
 	</site-body>
@@ -72,13 +71,9 @@ import ListEditor from './components/main-window/list-editor.vue'
 import ListTrainer from './components/main-window/list-trainer.vue'
 import ShitStuff from './components/main-window/shit-stuff.vue'
 
-// AddList is redundant, should be removed soon
-import AddList from './components/add-list.vue'
-
 export default {
 	data: function() {
 		return {
-			addList : false,
 			listTrainer: false,
 			listViewer : false,
 			listEditor : false
@@ -93,8 +88,7 @@ export default {
 		ListList,
 		ShitStuff,
 		ListEditor,
-		ListTrainer,
-		AddList
+		ListTrainer
 	},
 
 	computed: {
@@ -109,7 +103,6 @@ export default {
 	events: {
 		'show-template': function(template, list){
 			console.log(list)
-			this.addList = false
 			this.listTrainer= false
 			this.listViewer = false
 			this.listEditor = false
@@ -121,9 +114,6 @@ export default {
 					break
 				case 'translation':
 					this.listViewer = true
-					break
-				case 'add':
-					this.addList = true
 					break
 				case 'edit':
 					this.listEditor = true
