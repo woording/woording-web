@@ -169,6 +169,7 @@ export default {
 
 		deleteList: function() {
 			store.deletedList = this.list
+			// Delete current list and go back to empty list-viewer (shit-stuff)
 			store.deleteList(store.username, this.list).then((response) => {
 				console.log(response)
 				this.list = null

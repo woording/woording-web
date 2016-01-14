@@ -103,6 +103,7 @@ export default {
 		updateContents: function() {
 			var username = this.$parent.$route.params.username
 
+			// If there is a deleted list in the store show the undo button
 			if (store.deletedList){
 				this.undoButton = true
 			}
@@ -111,6 +112,7 @@ export default {
 		},
 
 		addList: function() {
+			// Create empty list with a few standard settings and empty rows
 			var list = {
 				listname: '',
 				language_1_tag: 'dut',
@@ -146,13 +148,14 @@ export default {
 
 		undoDelete: function(){
 			if (store.deletedList){
+				// Call savelist on saved data from last delete
 				store.saveList(store.username, store.deletedList).then((response) => {
 					this.$parent.$route.router.go({ path: "cor/" + store.deletedList.listname })
 					store.deletedList = null
 					this.undoButton = false
 				})
 			} else {
-				console.log('Null')
+				console.log('Welp, we messed up')
 			}
 		}
 	}

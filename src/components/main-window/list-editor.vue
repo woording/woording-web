@@ -33,7 +33,7 @@
 
 		<div class="translation-record" v-for="word in list.words">
 			<input type="text" value="{{ word.language_1_text }}" placeholder="sentence" class="sentence-item">
-			<input type="text" value="{{ word.language_2_text }}" placeholder="translation" class="translation-item">
+			<input type="text" value="{{ word.language_2_text }}" placeholder="translation" class="translation-item" v-on:keyup.tab.prevent="newTabRow" name="edit_input">
 		</div>
 		<button v-on:click="addRow">Add Row</button>
 		<div id="translation-bottom"></div>
@@ -81,7 +81,15 @@ export default {
 
 	methods: {
 		addRow: function() {
+			// Create new empty row
 			this.list.words.push({language_1_text: '', language_2_text: ''})
+		},
+
+		newTabRow: function(e) {
+			// If there is no row below current row create a new one
+			if(!e.target.parentElement.nextSibling.innerHTML){
+				this.addRow()
+			}
 		},
 
 		saveList: function() {
@@ -90,6 +98,7 @@ export default {
 			var sentences = document.getElementsByClassName('sentence-item')
 			var translations = document.getElementsByClassName('translation-item');
 
+			// Add all words from form into words array
 			for (var i = 0; i < sentences.length; i++) {
 				words.push({
 					language_1_text: sentences[i].value,
@@ -97,10 +106,13 @@ export default {
 				})
 			};
 
-			if (this.listname == false){
+			// Stop function when listname is empty
+			if (!this.listname){
 				this.error = 'Could not save list: Listname should not be empty.'
+				return false
 			}
 
+			// Create new list data from form
 			var list_data = {
 				listname: this.listname,
 				language_1_tag: this.language_1_tag,
@@ -109,12 +121,14 @@ export default {
 				words: words
 			}
 
-			if (this.listname != this.list.listname && this.listname && !this.duplicate){
+			// Check if listname changed and user doesn't want to duplicate it. Also checks if listname was empty (new list)
+			if (this.listname != this.list.listname && this.listname && !this.duplicate && this.list.listname){
 				store.deleteList(store.username, this.list).then((response) => {
 					console.log(response)
 				})
 			}
 			
+			// Call savelist in store and after that show the new/edited list
 			store.saveList(store.username, list_data).then((response) => {
 				console.log(response)
 				this.error = 'Successfully saved list.'
