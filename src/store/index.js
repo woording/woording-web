@@ -1,11 +1,15 @@
 
 var store = {}
+const config = {
+	ip: 'http://api.woording.com/'
+}
 export default store
 
 store.username = "cor"
 store.password = "Hunter2"
 store.cachedToken = null
 store.deletedList = null
+
 
 /**
  * Fetch a token based on username and listname
@@ -23,7 +27,7 @@ store.fetchToken = () => {
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = "http://api.woording.com/authenticate"
+			var url = config.ip + "/authenticate"
 
 			// Add the completion handler for the async network call
 			request.onload = function() {
@@ -33,7 +37,7 @@ store.fetchToken = () => {
 			}
 
 			// Open the request, set the correct content type
-			request.open('POST', url, true)
+			request.open(method, url, true)
 			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 
 			// Add the username and password parameters to the data
@@ -55,7 +59,7 @@ store.fetchUser = (username) => {
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = "http://api.woording.com/" + username
+			var url = config.ip + username
 
 			// Add the completion handler for the async network call
 			request.onload = function() {
@@ -64,7 +68,7 @@ store.fetchUser = (username) => {
 			}
 
 			// Open the request, set the correct content type
-			request.open('POST', url, true)
+			request.open(method, url, true)
 			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 
 
@@ -85,7 +89,7 @@ store.fetchFriends = () => {
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = "http://api.woording.com/getFriends"
+			var url = config.ip + "/getFriends"
 
 			// Add the completion handler for the async network call
 			request.onload = function() {
@@ -116,7 +120,7 @@ store.fetchList = (username, listname) => {
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = "http://api.woording.com/" + username + "/" + listname
+			var url = config.ip + username + "/" + listname
 
 			// Add the completion handler for the async network call
 			request.onload = function() {
@@ -146,7 +150,7 @@ store.deleteList = (username, list) => {
 			//create request
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = "http://api.woording.com/deleteList"
+			var url = config.ip + "/deleteList"
 
 			// magic
 			request.onload = function() {
@@ -174,7 +178,7 @@ store.saveList = (username, list_data) => {
 
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = "http://api.woording.com/savelist"
+			var url = config.ip + "/savelist"
 
 			request.onload = function() {
 				const parsedResponse = request.response
@@ -193,7 +197,7 @@ store.friendRequest = (username, friendname) => {
 	return new Promise((resolve, reject) => {
 		var request = new XMLHttpRequest()
 		var method = "POST"
-		var url = "http://api.woording.com/friendRequest"
+		var url = config.ip + "/friendRequest"
 
 		request.onload = function() {
 			const parsedResponse = request.response
