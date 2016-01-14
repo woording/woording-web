@@ -27,7 +27,7 @@ store.fetchToken = () => {
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = config.ip + "/authenticate"
+			var url = config.ip + "authenticate"
 
 			// Add the completion handler for the async network call
 			request.onload = function() {
@@ -89,7 +89,7 @@ store.fetchFriends = () => {
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = config.ip + "/getFriends"
+			var url = config.ip + "getFriends"
 
 			// Add the completion handler for the async network call
 			request.onload = function() {
@@ -150,7 +150,7 @@ store.deleteList = (username, list) => {
 			//create request
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = config.ip + "/deleteList"
+			var url = config.ip + "deleteList"
 
 			// magic
 			request.onload = function() {
@@ -178,7 +178,7 @@ store.saveList = (username, list_data) => {
 
 			var request = new XMLHttpRequest()
 			var method = "POST"
-			var url = config.ip + "/savelist"
+			var url = config.ip + "savelist"
 
 			request.onload = function() {
 				const parsedResponse = request.response
@@ -197,7 +197,7 @@ store.friendRequest = (username, friendname) => {
 	return new Promise((resolve, reject) => {
 		var request = new XMLHttpRequest()
 		var method = "POST"
-		var url = config.ip + "/friendRequest"
+		var url = config.ip + "friendRequest"
 
 		request.onload = function() {
 			const parsedResponse = request.response
