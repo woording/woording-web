@@ -31,7 +31,7 @@ router.map({
 
 
 router.afterEach(function () {
-	// this.$dispatch('url-update')	
+	// this.$dispatch('url-update')
 }),
 
 router.redirect({

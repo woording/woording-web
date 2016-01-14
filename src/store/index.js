@@ -11,7 +11,7 @@ store.deletedList = null
  * Fetch a token based on username and listname
  * used internally
  * will try to use cachedToken first, otherwise request a new one from the server
- * 
+ *
  * @return {Promise} token
  */
 store.fetchToken = () => {
@@ -45,7 +45,7 @@ store.fetchToken = () => {
 
 /**
  * Fetch a user based on username, requires token
- * 
+ *
  * @param  {String} username
  * @return {Promise} a promise containing the user data
  */
@@ -130,7 +130,7 @@ store.fetchList = (username, listname) => {
 
 			// Add the username and token to the data
 			request.send('{ "token" : "' + token + '" }')
-		})	
+		})
 	})
 }
 

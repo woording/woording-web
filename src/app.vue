@@ -1,6 +1,5 @@
 <style lang="sass">
-
-	/* Colors */
+/* Colors */
 	$primary-color-dark:   #388E3C;
 	$primary-color:        #4CAF50;
 	$primary-color-light:  #C8E6C9;
@@ -102,7 +101,6 @@ export default {
 
 	events: {
 		'show-template': function(template, list){
-			console.log(list)
 			this.listTrainer= false
 			this.listViewer = false
 			this.listEditor = false
@@ -124,7 +122,7 @@ export default {
 
 		'set-list-null': function(){
 			this.$broadcast('set-list-null')
-		}
+		},
 	}
 }
 

@@ -10,7 +10,7 @@
 
 	#lists {
 		background-color: #4CAF50;
-		color: #FFFFFF;	
+		color: #FFFFFF;
 		padding-top: .5rem;
 		min-height: 0;
 		flex: 1;
@@ -111,7 +111,22 @@ export default {
 		},
 
 		addList: function() {
-			this.$dispatch('show-template', 'add')
+			var list = {
+				listname: '',
+				language_1_tag: '',
+				language_2_tag: '',
+				words: [
+					{language_1_text: '', language_2_text: ''},
+					{language_1_text: '', language_2_text: ''},
+					{language_1_text: '', language_2_text: ''},
+					{language_1_text: '', language_2_text: ''},
+					{language_1_text: '', language_2_text: ''},
+					{language_1_text: '', language_2_text: ''},
+					{language_1_text: '', language_2_text: ''},
+					{language_1_text: '', language_2_text: ''}
+				]
+			}
+			this.$dispatch('show-template', 'edit', list)
 		},
 
 		showTranslation: function() {
