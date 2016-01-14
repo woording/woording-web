@@ -14,14 +14,20 @@
 
 			<div class="language-name-container">
 				<div class="language-name">
-					<h2>{{list.language_1_tag}}</h2>
+					<select name="language_1_tag" v-model="language_1_tag">
+						<option value="eng">Eng</option>
+						<option value="dut">Dut</option>
+						<option value="ger">Ger</option>
+					</select>
 				</div>
 
 				<div class="language-name">
-					<h2>{{list.language_2_tag}}</h2>
-					
+					<select name="language_2_tag" v-model="language_2_tag">
+						<option value="eng">Eng</option>
+						<option value="dut">Dut</option>
+						<option value="ger">Ger</option>
+					</select>
 				</div>
-				
 			</div>
 		</div>
 
@@ -31,8 +37,14 @@
 		</div>
 		<div id="translation-bottom"></div>
 
-		<input type="checkbox" v-model='duplicate'> Duplicate list
-		
+		Shared with <select name="shared_with" v-model="shared_with">
+			<option value="0">No one</option>
+			<option value="1">Friends</option>
+			<option value="2">Everyone</option>
+		</select>
+		<br>
+		Duplicate list <input type="checkbox" v-model='duplicate'>
+		<br><br>	
 		<button v-on:click="saveList" v-link='{ path: "/" + $route.params.username }'>Save list</button>
 		<span>{{ error }}</span>
 	</div>
@@ -48,7 +60,10 @@ export default {
 			list: {},
 			listname : '',
 			error: '',
-			duplicate: false
+			duplicate: false,
+			language_1_tag: '',
+			language_2_tag: '',
+			shared_with: ''
 		}
 	},
 
@@ -57,6 +72,9 @@ export default {
 			this.list = list
 			this.listname = list.listname
 			this.error = ''
+			this.language_1_tag = list.language_1_tag
+			this.language_2_tag = list.language_2_tag
+			this.shared_with = list.shared_with
 		}
 	},
 
@@ -80,9 +98,9 @@ export default {
 
 			var list_data = {
 				listname: this.listname,
-				language_1_tag: this.list.language_1_tag,
-				language_2_tag: this.list.language_2_tag,
-				shared_with: this.list.shared_with,
+				language_1_tag: this.language_1_tag,
+				language_2_tag: this.language_2_tag,
+				shared_with: this.shared_with,
 				words: words
 			}
 

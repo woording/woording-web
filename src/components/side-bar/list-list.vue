@@ -113,8 +113,9 @@ export default {
 		addList: function() {
 			var list = {
 				listname: '',
-				language_1_tag: '',
-				language_2_tag: '',
+				language_1_tag: 'dut',
+				language_2_tag: 'eng',
+				shared_with: '1',
 				words: [
 					{language_1_text: '', language_2_text: ''},
 					{language_1_text: '', language_2_text: ''},
