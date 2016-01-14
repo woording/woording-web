@@ -35,6 +35,7 @@
 			<input type="text" value="{{ word.language_1_text }}" placeholder="sentence" class="sentence-item">
 			<input type="text" value="{{ word.language_2_text }}" placeholder="translation" class="translation-item">
 		</div>
+		<button v-on:click="addRow">Add Row</button>
 		<div id="translation-bottom"></div>
 
 		Shared with <select name="shared_with" v-model="shared_with">
@@ -79,6 +80,10 @@ export default {
 	},
 
 	methods: {
+		addRow: function() {
+			this.list.words.push({language_1_text: '', language_2_text: ''})
+		},
+
 		saveList: function() {
 			var words = []
 
