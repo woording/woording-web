@@ -112,7 +112,12 @@ export default {
 		},
 
 		addFriend: function() {
-			alert("Handle adding friends here")
+			var friendname = prompt('Who would you like to be friends with?')
+
+			store.friendRequest(store.username, friendname).then(response => {
+				console.log(response)
+				alert(response)
+			})
 		},
 
 		fetchFriends: function(username) {

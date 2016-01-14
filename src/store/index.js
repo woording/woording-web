@@ -184,10 +184,25 @@ store.saveList = (username, list_data) => {
 			request.open(method, url, true)
 			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 
-			console.log(username)
-			console.log(token)
-			console.log(list_data)
 			request.send('{ "username" : "' + username + '", "token" : "' + token + '", "list_data" : ' + JSON.stringify(list_data) + ' }')
 		})
+	})
+}
+
+store.friendRequest = (username, friendname) => {
+	return new Promise((resolve, reject) => {
+		var request = new XMLHttpRequest()
+		var method = "POST"
+		var url = "http://api.woording.com/friendRequest"
+
+		request.onload = function() {
+			const parsedResponse = request.response
+			resolve(parsedResponse)
+		}
+
+		request.open(method, url, true)
+		request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+
+		request.send('{ "username" : "' + username + '", "friendname" : "' + friendname + '" }')
 	})
 }
