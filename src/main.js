@@ -19,11 +19,15 @@ router.map({
 		component: App
 	},
 
-	':username/:listname/edit' : {
+	':username/:listname/:mode' : {
 		component: App
 	},
 
-	':username/:listname/practice' : {
+	':username/:listname/:mode' : {
+		component: App
+	},
+
+	':username/:listname/:mode' : {
 		component: App
 	}
 

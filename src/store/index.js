@@ -103,7 +103,8 @@ store.fetchFriends = () => {
 
 
 			// Add the username and token to the data
-			request.send('{ "username": "' + store.username + '", "token" : "' + token + '" }')
+			request.send('{ "username": "' + store.username + 
+						'", "token" : "' + token + '" }')
 		})
 	})
 }
@@ -162,7 +163,9 @@ store.deleteList = (username, list) => {
 			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 
 			// Send request
-			request.send('{ "username" : "' + username + '", "token" : "' + token + '", "listname" : "' + list.listname + '" }')
+			request.send('{ "username" : "' + username + 
+						'", "token" : "' + token + 
+						'", "listname" : "' + list.listname + '" }')
 		})
 	})
 }
@@ -188,7 +191,9 @@ store.saveList = (username, list_data) => {
 			request.open(method, url, true)
 			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 
-			request.send('{ "username" : "' + username + '", "token" : "' + token + '", "list_data" : ' + JSON.stringify(list_data) + ' }')
+			request.send('{ "username" : "' + username + 
+						'", "token" : "' + token + 
+						'", "list_data" : ' + JSON.stringify(list_data) + ' }')
 		})
 	})
 }
@@ -207,6 +212,7 @@ store.friendRequest = (username, friendname) => {
 		request.open(method, url, true)
 		request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 
-		request.send('{ "username" : "' + username + '", "friendname" : "' + friendname + '" }')
+		request.send('{ "username" : "' + username + 
+					'", "friendname" : "' + friendname + '" }')
 	})
 }

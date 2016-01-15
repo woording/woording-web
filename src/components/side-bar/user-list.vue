@@ -127,8 +127,6 @@ export default {
 			store.fetchFriends().then( friends => {
 				updateFriends(friends)
 			})
-
-
 		}
 	}
 

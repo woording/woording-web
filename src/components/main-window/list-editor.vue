@@ -76,10 +76,23 @@ export default {
 			this.language_1_tag = list.language_1_tag
 			this.language_2_tag = list.language_2_tag
 			this.shared_with = list.shared_with
-		}
+		},
+
+		'url-update': function(){
+			this.updateContents()
+		},
 	},
 
 	methods: {
+		updateContents: function(){
+			var listname = this.$parent.$route.params.listname
+			var mode = this.$parent.$route.params.mode
+
+			if (!mode && !listname){
+				this.$dispatch('show-template', 'translation')
+			}
+		},
+
 		addRow: function() {
 			// Create new empty row
 			this.list.words.push({language_1_text: '', language_2_text: ''})
