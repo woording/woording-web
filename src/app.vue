@@ -40,11 +40,14 @@
 
 	<!-- usage of the urlParameters computed property to make the url-update event hack work !-->
 	<div id='{{ urlParameters }}'></div>
+
 	<site-header></site-header>
+
 	<site-body>
 		<user-list></user-list>
 		<list-list></list-list>
-		<list-viewer v-if="!addList && !listTrainer && !listEditor"></list-viewer>
+
+		<list-viewer v-show="listViewer"></list-viewer>
 		<list-trainer v-show="listTrainer"></list-trainer>
 		<list-editor v-show="listEditor"></list-editor>
 	</site-body>
