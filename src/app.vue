@@ -47,9 +47,9 @@
 		<user-list></user-list>
 		<list-list></list-list>
 
-		<list-viewer v-show="listViewer"></list-viewer>
-		<list-trainer v-show="listTrainer"></list-trainer>
-		<list-editor v-show="listEditor"></list-editor>
+		<list-viewer v-show="mode == 'viewer'"></list-viewer>
+		<list-trainer v-show="mode == 'trainer'"></list-trainer>
+		<list-editor v-show="mode == 'editor'"></list-editor>
 	</site-body>
 	<site-footer></site-footer>
 </div>
@@ -76,9 +76,7 @@ import ListTrainer from './components/main-window/list-trainer.vue'
 export default {
 	data: function() {
 		return {
-			listTrainer: false,
-			listViewer : false,
-			listEditor : false
+			mode : "viewer",
 		}
 	},
 
@@ -106,20 +104,17 @@ export default {
 
 	events: {
 		'show-template': function(template, list){
-			this.listTrainer= false
-			this.listViewer = false
-			this.listEditor = false
 
 			switch(template) {
 				case 'practice':
-					this.listTrainer= true
+					this.mode = "trainer"
 					this.$broadcast('start-practice', list)
 					break
 				case 'translation':
-					this.listViewer = true
+					this.mode = "viewer"
 					break
 				case 'edit':
-					this.listEditor = true
+					this.mode = "editor"
 					this.$broadcast('start-edit', list)
 					break
 			}
