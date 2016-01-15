@@ -116,7 +116,8 @@ export default {
 
 			store.friendRequest(store.username, friendname).then(response => {
 				console.log(response)
-				alert(response)
+			}, response => {
+				console.log(response)
 			})
 		},
 
