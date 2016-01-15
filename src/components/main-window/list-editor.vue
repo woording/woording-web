@@ -5,16 +5,117 @@
 		flex: 1;
 	}
 }
+
+$border-style: 0.125rem solid #B6B6B6;
+#translation-list {
+	color: #212121;
+	display: flex;
+	min-height: 0px;
+
+	.translation-record {
+		width: 100%;
+		display: flex;
+		padding-left: .5rem;
+		padding-right: .5rem;
+		padding: 0.5rem;
+
+		.list-item {
+			flex: 1;
+			padding: 0.25rem;
+			font-size: 16px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+
+			&:not(:last-child) {
+				margin-right: 0.5rem;
+			}
+		}
+	}
+
+	.list-header {
+		width: 100%;
+
+		padding: .5rem .5rem 0 .5rem;
+		input {
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			padding: 3px;
+			font-size: 1rem;
+			color: #FF9800;
+			font-weight: normal;
+			width: 100%;
+		}
+
+		h2 {
+			font-size: 1.2rem;
+			color: #212121;
+		}
+
+		.language-name-container {
+			display: flex;
+			.language-name {
+				flex: 1;
+				&:last-child {
+					margin-left: 10px;
+				}
+				select {
+					width: 100%;
+					background: white;
+					border-radius: 3px;
+					padding: 3px;
+				}
+			}
+
+			border-bottom: $border-style;
+			padding: 0.25rem;
+		}
+	}
+}
+
+#translation-list {
+	.container {
+		flex: 1;
+
+		button {
+			background: white;
+			color: black;
+			padding: 5px;
+			width: 10rem;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			cursor: pointer;
+			transition: background 0.3s;
+			&:hover {
+				background: #ccc;
+			}
+		}
+
+		select {
+			background: white;
+			border-radius: 3px;
+		}
+
+		input[type=checkbox] {
+			color: white;
+		}
+	}
+
+	flex: 1;
+	@media(min-width: 768px) {
+		overflow: auto;
+	}
+}
 </style>
 
 <template>
+<div id="translation-list">
 	<div class="container">
 		<div class="list-header">
-			<input type="text" placeholder="Listname" v-model='listname' value="{{ list.listname }}">
+			List name: <input type="text" placeholder="Listname" v-model='listname' value="{{ list.listname }}">
 
 			<div class="language-name-container">
 				<div class="language-name">
-					<select name="language_1_tag" v-model="language_1_tag">
+					Language one: <select name="language_1_tag" v-model="language_1_tag">
 						<option value="eng">Eng</option>
 						<option value="dut">Dut</option>
 						<option value="ger">Ger</option>
@@ -22,7 +123,7 @@
 				</div>
 
 				<div class="language-name">
-					<select name="language_2_tag" v-model="language_2_tag">
+					Language two: <select name="language_2_tag" v-model="language_2_tag">
 						<option value="eng">Eng</option>
 						<option value="dut">Dut</option>
 						<option value="ger">Ger</option>
@@ -32,8 +133,8 @@
 		</div>
 
 		<div class="translation-record" v-for="word in list.words">
-			<input type="text" value="{{ word.language_1_text }}" placeholder="sentence" class="sentence-item">
-			<input type="text" value="{{ word.language_2_text }}" placeholder="translation" class="translation-item" v-on:keyup.tab.prevent="newTabRow" name="edit_input">
+			<input type="text" value="{{ word.language_1_text }}" placeholder="sentence" class="sentence-item list-item">
+			<input type="text" value="{{ word.language_2_text }}" placeholder="translation" class="translation-item list-item" v-on:keyup.tab.prevent="newTabRow" name="edit_input">
 		</div>
 		<button v-on:click="addRow">Add Row</button>
 		<div id="translation-bottom"></div>
@@ -49,6 +150,7 @@
 		<button v-on:click="saveList" v-link='{ path: "/" + $route.params.username }'>Save list</button>
 		<span>{{ error }}</span>
 	</div>
+</div>
 </template>
 
 <script>
