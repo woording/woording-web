@@ -21,14 +21,6 @@ router.map({
 
 	':username/:listname/:mode' : {
 		component: App
-	},
-
-	':username/:listname/:mode' : {
-		component: App
-	},
-
-	':username/:listname/:mode' : {
-		component: App
 	}
 
 })
