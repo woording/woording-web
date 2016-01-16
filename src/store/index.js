@@ -5,6 +5,7 @@ const config = {
 }
 export default store
 
+store.loggedIn = true
 store.username = "cor"
 store.password = "Hunter2"
 store.cachedToken = null

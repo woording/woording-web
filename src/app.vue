@@ -43,11 +43,11 @@
 
 	<site-header></site-header>
 
-	<site-body>
+	<site-body v-if="loggedIn">
 		<user-list></user-list>
 		<list-list></list-list>
 
-		<list-viewer v-show="mode == 'viewer'"></list-viewer>
+		<list-viewer v-if="mode == 'viewer'"></list-viewer>
 		<list-trainer v-show="mode == 'trainer'"></list-trainer>
 		<list-editor v-show="mode == 'editor'"></list-editor>
 	</site-body>
@@ -58,6 +58,7 @@
 
 
 <script>
+import store from './store'
 
 // Site structure
 import SiteHeader from './components/site-structure/header.vue'
@@ -77,6 +78,7 @@ export default {
 	data: function() {
 		return {
 			mode : "viewer",
+			loggedIn: store.loggedIn
 		}
 	},
 
