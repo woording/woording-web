@@ -124,7 +124,7 @@ export default {
 
 		'set-list-null': function(){
 			this.$broadcast('set-list-null')
-		},
+		}
 	}
 }
 

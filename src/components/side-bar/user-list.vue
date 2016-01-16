@@ -9,7 +9,7 @@
 
 	#users {
 		background-color: #388E3C;
-		color: #FFFFFF;	
+		color: #FFFFFF;
 		padding-top: .5rem;
 		min-height: 0;
 		flex: 1;
@@ -49,7 +49,7 @@
 	}
 
 	#add-friend-button {
-		background-color: #4CAF50; 
+		background-color: #4CAF50;
 		color: white;
 		text-align: center;
 		font-size: 2rem;
@@ -57,7 +57,7 @@
 	}
 
 }
-	
+
 </style>
 
 <template>
@@ -72,7 +72,7 @@
 			</ul>
 		</div>
 		<div id="add-friend-button" v-on:click="addFriend">
-			<p>+</p>	
+			<p>+</p>
 		</div>
 	</div>
 </template>
@@ -132,5 +132,5 @@ export default {
 	}
 
 
-}	
+}
 </script>

@@ -105,9 +105,7 @@ $border-style: 0.125rem solid #B6B6B6;
 
 					<div class="language-name">
 						<h2>{{list.language_2_tag}}</h2>
-						
 					</div>
-					
 				</div>
 			</div>
 
@@ -165,7 +163,7 @@ export default {
 
 		editList: function() {
 			this.$dispatch('show-template', 'edit', this.list)
-		},	
+		},
 
 		deleteList: function() {
 			store.deletedList = this.list

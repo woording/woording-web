@@ -135,11 +135,11 @@ export default {
 		showTranslation: function() {
 			this.$dispatch('show-template', 'translation')
 		},
-		
+
 		fetchLists : function(username) {
 
 			var updateLists = lists => { this.lists = lists }
-			
+
 			store.fetchUser(username).then(user => {
 				updateLists(user.lists)
 			})
