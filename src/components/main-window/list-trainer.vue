@@ -51,15 +51,15 @@
 	<div id="options">
 
 		<h3>LANGUAGE</h3>
-		<input name="language" type="radio" id="1" v-model="options.selectedLanguage" value="{{ list.language_1_tag }}" />
+		<input name="language" type="radio" id="1" v-model="options.selectedLanguage" value="0" checked/>
 		<label for="1">{{ list.language_1_tag }} ➡ {{ list.language_2_tag }} </label>
 		<br>
 
-		<input name="language" type="radio" id="2" v-model="options.selectedLanguage" value="{{ list.language_2_tag }}" checked />
+		<input name="language" type="radio" id="2" v-model="options.selectedLanguage" value="1" />
 		<label for="2">{{ list.language_2_tag }} ➡ {{ list.language_1_tag }} </label>
 		<br>
 
-		<input name="language" type="radio" id="both" v-model="options.selectedLanguage" value="both" />
+		<input name="language" type="radio" id="both" v-model="options.selectedLanguage" value="2" />
 		<label for="both">both</label>
 
 		<h3>MODE</h3>
@@ -75,9 +75,10 @@
 		<label for="ignoreTremas">ignore tremas</label>
 		<br>
 
-		<button v-link='{ path: "/" + $route.params.username + "/" + $route.params.listname + "/practice/" + "quiz" }'>Start</button>
+		<button v-link='{ path: url }'>Start</button>
 
 		<pre>{{ options | json }}</pre>
+		<pre>{{ url }}</pre>
 	</div>
 </div>
 </template>
@@ -93,12 +94,28 @@ export default {
 			list: {},
 
 			options: {
-				selectedLanguage: '',
-				selectedMode: '',
-				caseSensitive: false,
-				ignoreTremas: false
+				selectedMode: "quiz",
+				selectedLanguage: 0, // 0 = language_1 first, 1 = language_2 first, 2 = both
+				caseSensitive: 0,
+				ignoreTremas: 0
 			}
 		}
+	},
+
+	computed: {
+		url: function() {
+			var username = this.$parent.$route.params.username
+			var listname = this.$parent.$route.params.listname
+			var gamemode = this.options.selectedMode
+
+			let base = '/' + username + '/' + listname + '/practice/' + gamemode + '/'
+
+			var caseSensitive = this.options.caseSensitive ? "1" : "0"
+			var caseSensitive = this.options.ignoreTremas ? "1" : "0"
+
+			return base
+		}
+
 	},
 
 	route: {
