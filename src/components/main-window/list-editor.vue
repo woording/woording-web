@@ -146,7 +146,7 @@ $border-style: 0.125rem solid #B6B6B6;
 		</select>
 		<br>
 		Duplicate list <input type="checkbox" v-model='duplicate'>
-		<br><br>	
+		<br><br>
 		<button v-on:click="saveList" v-link='{ path: "/" + $route.params.username }'>Save list</button>
 		<span>{{ error }}</span>
 	</div>
@@ -242,14 +242,14 @@ export default {
 					console.log(response)
 				})
 			}
-			
+
 			// Call savelist in store and after that show the new/edited list
 			store.saveList(store.username, list_data).then((response) => {
 				console.log(response)
 				this.error = 'Successfully saved list.'
 				this.list = list_data
 				this.$parent.$route.router.go({ path: "cor/" + list_data.listname })
-		 		this.$dispatch('show-template', 'translation')	
+				this.$dispatch('show-template', 'translation')
 			})
 		}
 	}
