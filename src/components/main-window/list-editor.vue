@@ -147,7 +147,7 @@ $border-style: 0.125rem solid #B6B6B6;
 		<br>
 		Duplicate list <input type="checkbox" v-model='duplicate'>
 		<br><br>
-		<button v-on:click="saveList" v-link='{ path: "/" + $route.params.username }'>Save list</button>
+		<button v-on:click="saveList" v-link='{ path: "/" + $route.params.username + "/" + listname }'>Save list</button>
 		<span>{{ error }}</span>
 	</div>
 </div>
@@ -170,31 +170,45 @@ export default {
 		}
 	},
 
-	events : {
-		'start-edit' : function(list){
-			this.list = list
-			this.listname = list.listname
-			this.error = ''
-			this.language_1_tag = list.language_1_tag
-			this.language_2_tag = list.language_2_tag
-			this.shared_with = list.shared_with
-		},
+	route: {
+		data () {
+			var username = this.$parent.$route.params.username
+			var listname = this.$parent.$route.params.listname
 
-		'url-update': function(){
-			this.updateContents()
-		},
+			if(listname){
+				var updateList = list => {
+					this.list = list
+					this.listname = list.listname
+					this.language_1_tag = list.language_1_tag
+					this.language_2_tag = list.language_2_tag
+					this.shared_with = list.shared_with
+				}
+
+				store.fetchList(username, listname).then((list) => {
+					updateList(list)
+				})
+			} else {
+				this.list = {
+					listname: '',
+					language_1_tag: 'dut',
+					language_2_tag: 'eng',
+					shared_with: '1',
+					words: [
+						{language_1_text: '', language_2_text: ''},
+						{language_1_text: '', language_2_text: ''},
+						{language_1_text: '', language_2_text: ''},
+						{language_1_text: '', language_2_text: ''},
+						{language_1_text: '', language_2_text: ''},
+						{language_1_text: '', language_2_text: ''},
+						{language_1_text: '', language_2_text: ''},
+						{language_1_text: '', language_2_text: ''}
+					]
+				}
+			}
+		}
 	},
 
 	methods: {
-		updateContents: function(){
-			var listname = this.$parent.$route.params.listname
-			var mode = this.$parent.$route.params.mode
-
-			if (!mode && !listname){
-				this.$dispatch('show-template', 'translation')
-			}
-		},
-
 		addRow: function() {
 			// Create new empty row
 			this.list.words.push({language_1_text: '', language_2_text: ''})
@@ -248,7 +262,6 @@ export default {
 				console.log(response)
 				this.error = 'Successfully saved list.'
 				this.list = list_data
-				this.$parent.$route.router.go({ path: "cor/" + list_data.listname })
 				this.$dispatch('show-template', 'translation')
 			})
 		}

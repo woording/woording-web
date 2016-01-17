@@ -81,20 +81,6 @@ $border-style: 0.125rem solid #B6B6B6;
 		overflow: auto;
 	}
 }
-
-/* the message that is shown when a user hasn't selected a list */
-.message-container {
-	display: flex;
-	align-items: center;
-	flex: 1;
-	.message {
-		flex: 1;
-		p {
-			text-align: center;
-			flex: 1;
-		}
-	}
-}
 </style>
 
 <template>
@@ -104,9 +90,9 @@ $border-style: 0.125rem solid #B6B6B6;
 			<div class="list-header">
 				<h1>{{ list.listname }}</h1>
 
-					<button id="practiceButton" v-on:click="practiceList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</button>
+					<button id="practiceButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</button>
 				<span v-show="ownList">
-					<button id="editButton" v-on:click="editList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</button>
+					<button id="editButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</button>
 					<button id="deleteButton" v-on:click="deleteList">Delete</button>
 					<button id="debugButton" v-on:click="debugList">Debug</button>
 				</span>
@@ -131,15 +117,6 @@ $border-style: 0.125rem solid #B6B6B6;
 			<div id="translation-bottom"></div>
 		</div>
 		</template>
-
-		<!-- Show this when there isn't a list selected -->
-		<template v-else>
-			<div class="message-container">
-				<div class="message">
-					<p>Select a list on the left to open it.</p>
-				</div>
-			</div>
-		</template>
 	</div>
 </template>
 
@@ -149,35 +126,32 @@ import store from "../../store";
 export default {
 
 	data: function() {
+
 		return {
-			list : {},
+			list : null,
 			editMode: false,
 			ownList: null
 		}
 	},
 
-	events : {
-		// Call the updateContents() method when the url updates
-		"url-update" : function() {
-			this.updateContents()
-		},
+	route: {
+		data () {
+			var username = this.$parent.$route.params.username
+			var listname = this.$parent.$route.params.listname
 
-		'set-list-null' : function(){
-			this.list = null
+			this.ownList = username == store.username ? true : false
+
+			if(listname){
+				this.fetchList(username, listname)
+			} else {
+				this.list = null
+			}
 		}
 	},
 
 	methods : {
 		debugList: function() {
 			console.log(this.list)
-		},
-		// Basic list methods:
-		practiceList: function() {
-			this.$dispatch('show-template', 'practice', this.list)
-		},
-
-		editList: function() {
-			this.$dispatch('show-template', 'edit', this.list)
 		},
 
 		deleteList: function() {
@@ -187,20 +161,6 @@ export default {
 				this.list = null
 				this.$route.router.go({ path: '/cor/' })
 			})
-		},
-
-		// Update the content based on the current url
-		updateContents: function(){
-			var username = this.$parent.$route.params.username
-			var listname = this.$parent.$route.params.listname
-
-			this.ownList = username == store.username ? true : false
-
-			if (listname){
-				this.fetchList(username, listname)
-			} else {
-				this.list = null
-			}
 		},
 
 		// fetch a list from the Woording API server

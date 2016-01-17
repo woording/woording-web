@@ -47,11 +47,11 @@
 		<user-list></user-list>
 		<list-list></list-list>
 
-		<list-viewer v-if="mode == 'viewer'"></list-viewer>
-		<list-trainer v-show="mode == 'trainer'"></list-trainer>
-		<list-editor v-show="mode == 'editor'"></list-editor>
+		<!-- <trainer-quiz v-show="mode == 'trainer-quiz'"></trainer-quiz> -->
+
+		<router-view>
 		
-		<trainer-quiz v-show="mode == 'trainer-quiz'"></trainer-quiz>
+		</router-view>
 
 	</site-body>
 	<site-footer></site-footer>
@@ -72,18 +72,11 @@ import SiteFooter from './components/site-structure/footer.vue'
 import ListList from './components/side-bar/list-list.vue'
 import UserList from './components/side-bar/user-list.vue'
 
-// List viewer, editor and trainer (the third column)
-import ListViewer from './components/main-window/list-viewer.vue'
-import ListEditor from './components/main-window/list-editor.vue'
-import ListTrainer from './components/main-window/list-trainer.vue'
 
-// Trainer Modes
-import TrainerQuiz from './components/practice-modes/quiz.vue'
 
 export default {
 	data: function() {
 		return {
-			mode : "viewer",
 			loggedIn: store.loggedIn
 		}
 	},
@@ -94,50 +87,17 @@ export default {
 		SiteFooter,
 
 		UserList,
-		ListList,
-
-		ListViewer,
-		ListEditor,
-		ListTrainer,
-
-		TrainerQuiz
+		ListList
 	},
 
 	computed: {
-		//HACK: fire an url-update event when this property gets computed
+		// Since list-list isn't routed we still need this to update list-list :(
 		urlParameters: function() {
 			var temp = this.$route.params
 			this.$broadcast('url-update')
 			return temp
 		}
 	},
-
-	events: {
-		'show-template': function(template, list){
-
-			switch(template) {
-				case 'practice':
-					this.mode = "trainer"
-					this.$broadcast('start-practice', list)
-					break
-				case 'translation':
-					this.mode = "viewer"
-					break
-				case 'edit':
-					this.mode = "editor"
-					this.$broadcast('start-edit', list)
-					break
-				case 'trainer-quiz':
-					this.mode = "trainer-quiz"
-					this.$broadcast('start-trainer-quiz', list)
-					break
-			}
-		},
-
-		'set-list-null': function(){
-			this.$broadcast('set-list-null')
-		}
-	}
 }
 
 </script>

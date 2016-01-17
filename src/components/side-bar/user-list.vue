@@ -65,10 +65,10 @@
 		<div id="users">
 			<ul>
 				<li>YOU</li>
-				<a v-link='{ path: "/cor" }' v-on:click="setListNull"><li class="user-link">cor</li></a>
+				<a v-link='{ path: username }'><li class="user-link">cor</li></a>
 				<li><br></li>
 				<li>FRIENDS</li>
-				<a v-link='{ path: "/" + friend.username}' v-on:click="setListNull" v-for="friend in friends" ><li class="user-link">{{ friend.username }}</li></a>
+				<a v-link='{ path: "/" + friend.username}' v-for="friend in friends" ><li class="user-link">{{ friend.username }}</li></a>
 			</ul>
 		</div>
 		<div id="add-friend-button" v-on:click="addFriend">
@@ -78,35 +78,20 @@
 </template>
 
 <script>
-
 import store from '../../store'
 
 export default {
 
 	data: function () {
+		var username = this.$parent.$route.params.username
+		this.fetchFriends(username)
 		return {
-			friends: []
-		}
-	},
-
-	events : {
-		// Call the updateContents() method when the url updates
-		'url-update' : function() {
-			this.updateContents()
-			this.updateActiveUserHighlight()
+			friends: [],
+			username: username
 		}
 	},
 
 	methods: {
-		setListNull: function() {
-			this.$dispatch('set-list-null')
-		},
-
-		updateContents: function() {
-			var username = this.$parent.$route.params.username
-			this.fetchFriends(username)
-		},
-
 		updateActiveUserHighlight: function() {
 			var username = this.$parent.$route.params.username
 		},
@@ -122,7 +107,6 @@ export default {
 		},
 
 		fetchFriends: function(username) {
-
 			var updateFriends = friends => { this.friends = friends }
 
 			store.fetchFriends().then( friends => {

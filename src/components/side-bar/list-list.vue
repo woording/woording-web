@@ -72,7 +72,7 @@
 			</ul>
 		</div>
 		<button v-on:click="undoDelete" v-if="undoButton">Undo delete</button>
-		<div v-on:click="addList" v-link='{ path: "/" + $route.params.username + "/addList" }' id="add-list-button">
+		<div v-link='{ path: "/" + $route.params.username + "/add" }' id="add-list-button">
 			<p>+</p>
 		</div>
 	</div>
@@ -86,31 +86,26 @@ import store from '../../store'
 export default {
 
 	data: function () {
+		var username = this.$parent.$route.params.username
+		this.fetchLists(username)
 		return {
 			lists: [],
 			undoButton: false
 		}
 	},
 
-	events : {
-		// Call the updateContents() method when the url updates
-		'url-update' : function() {
-			this.updateContents()
+	events: {
+		'url-update': function(){
+			var username = this.$parent.$route.params.username
+			this.fetchLists(username)
+
+			if (store.deletedList){
+				this.undoButton = true
+			}
 		}
 	},
 
 	methods: {
-		updateContents: function() {
-			var username = this.$parent.$route.params.username
-
-			// If there is a deleted list in the store show the undo button
-			if (store.deletedList){
-				this.undoButton = true
-			}
-
-			this.fetchLists(username)
-		},
-
 		addList: function() {
 			// Create empty list with a few standard settings and empty rows
 			var list = {
@@ -149,11 +144,13 @@ export default {
 		undoDelete: function(){
 			if (store.deletedList){
 				// Call savelist on saved data from last delete
+				console.log('test')
 				store.saveList(store.username, store.deletedList).then((response) => {
 					this.$parent.$route.router.go({ path: "cor/" + store.deletedList.listname })
 					store.deletedList = null
 					this.undoButton = false
 				})
+				this.$parent.$route.router.go({ path: "cor/" + store.deletedList.listname })
 			} else {
 				console.log('Welp, we messed up')
 			}

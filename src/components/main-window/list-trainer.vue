@@ -59,7 +59,7 @@
 		<label for="2">{{ list.language_2_tag }} ➡ {{ list.language_1_tag }} </label>
 		<br>
 
-		<input name="language" type="radio" id="both" v-model="options.selectedLanguage" value="both" />	
+		<input name="language" type="radio" id="both" v-model="options.selectedLanguage" value="both" />
 		<label for="both">both</label>
 
 		<h3>MODE</h3>
@@ -75,7 +75,12 @@
 		<label for="ignoreTremas">ignore tremas</label>
 		<br>
 
-		<button v-on:click="startTraining">Start</button>
+		<button v-link="">Start</button>
+		<!--
+		for cor: to use the routes we use v-link instead of the old show-template stuff
+		just use something like path: "/" router.username + "/" + router.listname + "/" + "practice" + "/" + options.selectedMode
+		and create a component for that mode and link it in main.js
+		-->
 
 		<pre>{{ options | json }}</pre>
 	</div>
@@ -83,10 +88,12 @@
 </template>
 
 <script>
+
+import store from '../../store'
+
 export default {
 
 	data: function() {
-
 		return {
 			list: {},
 
@@ -99,22 +106,25 @@ export default {
 		}
 	},
 
-	events : {
-		'start-practice' : function(list) {
-			this.startPractice(list)
+	route: {
+		data () {
+			var username = this.$parent.$route.params.username
+			var listname = this.$parent.$route.params.listname
+
+			this.fetchList(username, listname)
 		}
 	},
 
 	methods : {
-		startPractice: function(list) {
-			this.list = list
-		},
+		// fetch a list from the Woording API server
+		fetchList: function(username, listname) {
 
-		startTraining: function() {
-			this.$dispatch('show-template', 'trainer-quiz', this.list)
-		
+			var updateList = list => { this.list = list }
+
+			store.fetchList(username, listname).then((list) => {
+				updateList(list)
+			})
 		}
-
 	}
 }
 </script>

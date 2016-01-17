@@ -10,24 +10,41 @@ Vue.config.debug = true
 var router = new VueRouter({
 })
 
+// List viewer, editor, trainer and the default user view
+import ListViewer from './components/main-window/list-viewer.vue'
+import ListEditor from './components/main-window/list-editor.vue'
+import ListTrainer from './components/main-window/list-trainer.vue'
+import UserView from './components/main-window/user-view.vue'
+
+// Trainer Modes
+import TrainerQuiz from './components/practice-modes/quiz.vue'
+
 router.map({
 	':username' : {
-		component: App
+		component: UserView
 	},
 
 	':username/:listname' : {
-		component: App
+		component: ListViewer
 	},
 
-	':username/:listname/practice/:practicemode' : {
-		component: App
+	// For Cor: you should probably create some new components
+	// put them in a folder named practice-modes?
+	//':username/:listname/practice/:practicemode' : {
+		//component: ListTrainer
+	//},
+
+	':username/:listname/practice' : {
+		component: ListTrainer
 	},
 
-	':username/:listname/:mode' : {
-		component: App
+	':username/:listname/edit' : {
+		component: ListEditor
+	},
+
+	':username/add': {
+		component: ListEditor
 	}
-
-
 })
 
 
