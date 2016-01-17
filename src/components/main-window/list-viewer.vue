@@ -55,12 +55,23 @@ $border-style: 0.125rem solid #B6B6B6;
 		button {
 			padding: 10px;
 			cursor: pointer;
-			background: black;
 			color: white;
-			border: none;
+			border-radius: 3px;
+			border: 1px solid #ccc;
+			color: black;
+			background: white;
 
 			&:hover {
-				background: green;
+				background: #ccc;
+			}
+		}
+
+		#practiceButton {
+			background: green;
+			color: white;
+
+			&:hover {
+				background: #00C700;
 			}
 		}
 	}
@@ -93,11 +104,15 @@ $border-style: 0.125rem solid #B6B6B6;
 			<div class="list-header">
 				<h1>{{ list.listname }}</h1>
 
-				<button v-on:click="practiceList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</button>
-				<button v-on:click="editList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</button>
-				<button v-on:click="deleteList">Delete</button>
-				<button v-on:click="debugList">Debug</button>
-
+					<button id="practiceButton" v-on:click="practiceList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</button>
+				<span v-show="ownList">
+					<button id="editButton" v-on:click="editList" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</button>
+					<button id="deleteButton" v-on:click="deleteList">Delete</button>
+					<button id="debugButton" v-on:click="debugList">Debug</button>
+				</span>
+				<span v-show="!ownList">
+					<button v-on:click="saveList">Save</button>
+				</span>
 				<div class="language-name-container">
 					<div class="language-name">
 						<h2>{{list.language_1_tag}}</h2>
@@ -114,7 +129,6 @@ $border-style: 0.125rem solid #B6B6B6;
 				<div class="translation-item">{{word.language_2_text}}</div>
 			</div>
 			<div id="translation-bottom"></div>
-
 		</div>
 		</template>
 
@@ -137,7 +151,8 @@ export default {
 	data: function() {
 		return {
 			list : {},
-			editMode: false
+			editMode: false,
+			ownList: null
 		}
 	},
 
@@ -170,7 +185,7 @@ export default {
 			store.deleteList(store.username, this.list).then((response) => {
 				console.log(response)
 				this.list = null
-				this.$route.router.go({ path: '/cor' })
+				this.$route.router.go({ path: '/cor/' })
 			})
 		},
 
@@ -178,6 +193,8 @@ export default {
 		updateContents: function(){
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
+
+			this.ownList = username == store.username ? true : false
 
 			if (listname){
 				this.fetchList(username, listname)
@@ -193,6 +210,26 @@ export default {
 
 			store.fetchList(username, listname).then((list) => {
 				updateList(list)
+			})
+		},
+
+		saveList: function() {
+			// Create new list data from form
+			var list_data = {
+				listname: this.list.listname,
+				language_1_tag: this.list.language_1_tag,
+				language_2_tag: this.list.language_2_tag,
+				shared_with: this.list.shared_with,
+				words: this.list.words
+			}
+
+			// Call savelist in store and after that show the new/edited list
+			store.saveList(store.username, list_data).then((response) => {
+				console.log(response)
+				this.error = 'Successfully saved list.'
+				this.list = list_data
+				this.$parent.$route.router.go({ path: "/cor/" + list_data.listname })
+				this.$dispatch('show-template', 'translation')
 			})
 		}
 
