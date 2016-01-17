@@ -111,7 +111,8 @@ export default {
 		},
 
 		startTraining: function() {
-			alert('go go go')
+			this.$dispatch('show-template', 'trainer-quiz', this.list)
+		
 		}
 
 	}

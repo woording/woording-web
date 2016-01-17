@@ -50,6 +50,9 @@
 		<list-viewer v-if="mode == 'viewer'"></list-viewer>
 		<list-trainer v-show="mode == 'trainer'"></list-trainer>
 		<list-editor v-show="mode == 'editor'"></list-editor>
+		
+		<trainer-quiz v-show="mode == 'trainer-quiz'"></trainer-quiz>
+
 	</site-body>
 	<site-footer></site-footer>
 </div>
@@ -74,6 +77,9 @@ import ListViewer from './components/main-window/list-viewer.vue'
 import ListEditor from './components/main-window/list-editor.vue'
 import ListTrainer from './components/main-window/list-trainer.vue'
 
+// Trainer Modes
+import TrainerQuiz from './components/practice-modes/quiz.vue'
+
 export default {
 	data: function() {
 		return {
@@ -92,7 +98,9 @@ export default {
 
 		ListViewer,
 		ListEditor,
-		ListTrainer
+		ListTrainer,
+
+		TrainerQuiz
 	},
 
 	computed: {
@@ -118,6 +126,10 @@ export default {
 				case 'edit':
 					this.mode = "editor"
 					this.$broadcast('start-edit', list)
+					break
+				case 'trainer-quiz':
+					this.mode = "trainer-quiz"
+					this.$broadcast('start-trainer-quiz', list)
 					break
 			}
 		},
