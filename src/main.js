@@ -42,6 +42,10 @@ router.map({
 		component: TrainerQuiz
 	},
 
+	':username/:listname/practice/quiz/:modifiers' : {
+		component: TrainerQuiz
+	},
+
 	':username/:listname/edit' : {
 		component: ListEditor
 	},

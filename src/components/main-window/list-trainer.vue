@@ -108,12 +108,16 @@ export default {
 			var listname = this.$parent.$route.params.listname
 			var gamemode = this.options.selectedMode
 
-			let base = '/' + username + '/' + listname + '/practice/' + gamemode + '/'
 
+			var selectedLanguage = this.options.selectedLanguage + ""
 			var caseSensitive = this.options.caseSensitive ? "1" : "0"
-			var caseSensitive = this.options.ignoreTremas ? "1" : "0"
+			var ignoreTremas = this.options.ignoreTremas ? "1" : "0"
 
-			return base
+			var modifiers = selectedLanguage + caseSensitive + ignoreTremas
+
+			let result = '/' + username + '/' + listname + '/practice/' + gamemode + '/' + modifiers 
+
+			return result
 		}
 
 	},
