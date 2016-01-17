@@ -75,12 +75,7 @@
 		<label for="ignoreTremas">ignore tremas</label>
 		<br>
 
-		<button v-link="">Start</button>
-		<!--
-		for cor: to use the routes we use v-link instead of the old show-template stuff
-		just use something like path: "/" router.username + "/" + router.listname + "/" + "practice" + "/" + options.selectedMode
-		and create a component for that mode and link it in main.js
-		-->
+		<button v-link='{ path: "/" + $route.params.username + "/" + $route.params.listname + "/practice/" + "quiz" }'>Start</button>
 
 		<pre>{{ options | json }}</pre>
 	</div>

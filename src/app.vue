@@ -44,14 +44,12 @@
 	<site-header></site-header>
 
 	<site-body v-if="loggedIn">
+
 		<user-list></user-list>
 		<list-list></list-list>
 
-		<!-- <trainer-quiz v-show="mode == 'trainer-quiz'"></trainer-quiz> -->
-
-		<router-view>
-		
-		</router-view>
+		<!-- main window --!>
+		<router-view></router-view>
 
 	</site-body>
 	<site-footer></site-footer>
