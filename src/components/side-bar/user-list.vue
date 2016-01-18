@@ -91,6 +91,16 @@ export default {
 		}
 	},
 
+	events: {
+		'url-update': function(){
+			var username = this.$parent.$route.params.username
+			this.fetchFriends(username)
+			if(!username){
+				this.username = null
+			}
+		}
+	},
+
 	methods: {
 		updateActiveUserHighlight: function() {
 			var username = this.$parent.$route.params.username

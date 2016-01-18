@@ -43,7 +43,11 @@
 
 	<site-header></site-header>
 
+
 	<site-body v-if="loggedIn">
+
+		<user-list v-if="username"></user-list>
+		<list-list v-if="username"></list-list>
 
 		<!-- main window --!>
 		<router-view></router-view>
@@ -70,11 +74,13 @@ import UserList from './components/side-bar/user-list.vue'
 
 
 export default {
-	data: function() {
+	data () {
 		return {
-			loggedIn: store.loggedIn
+			loggedIn: store.loggedIn,
+			username: ''
 		}
 	},
+
 
 	components: {
 		SiteHeader,
@@ -88,6 +94,13 @@ export default {
 	computed: {
 		// Since list-list isn't routed we still need this to update list-list :(
 		urlParameters: function() {
+			var username = this.$route.params.username
+			console.log(username)
+			if (username){
+				this.username = username
+			} else {
+				this.username = ''
+			}
 			var temp = this.$route.params
 			this.$broadcast('url-update')
 			return temp
