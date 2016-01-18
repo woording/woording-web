@@ -16,7 +16,7 @@ cd ..
 zip -r woordbeta.zip woordbeta
 scp woordbeta.zip cor@woording.com:/home/cor/server/woording/woordbeta.zip
 
-ssh cor@woording.com -t 'cd /home/cor/server/woording/woording-web/;
+ssh cor@woording.com -t 'cd /home/cor/server/woording/;
 sudo rm -rf /home/cor/server/woording/woordbeta;
 sudo rm -rf /home/cor/server/woording/woording-web-old;
 sudo rm -rf /home/cor/server/woording/woording-web;
