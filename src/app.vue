@@ -95,7 +95,6 @@ export default {
 		// Since list-list isn't routed we still need this to update list-list :(
 		urlParameters: function() {
 			var username = this.$route.params.username
-			console.log(username)
 			if (username){
 				this.username = username
 			} else {
