@@ -45,9 +45,6 @@
 
 	<site-body v-if="loggedIn">
 
-		<user-list></user-list>
-		<list-list></list-list>
-
 		<!-- main window --!>
 		<router-view></router-view>
 

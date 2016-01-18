@@ -38,6 +38,8 @@
 </style>
 
 <template>
+<user-list></user-list>
+<list-list></list-list>
 <div id="list-trainer">
 
 
@@ -84,10 +86,17 @@
 </template>
 
 <script>
+// Side Bar
+import ListList from '../side-bar/list-list.vue'
+import UserList from '../side-bar/user-list.vue'
 
 import store from '../../store'
 
 export default {
+	components: {
+		UserList,
+		ListList
+	},
 
 	data: function() {
 		return {

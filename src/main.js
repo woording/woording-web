@@ -24,7 +24,6 @@ import TrainerQuiz from './components/practice-modes/quiz.vue'
 router.map({
 	'/': {
 		component: HomePage
-		// create new homepage component
 	},
 
 	':username' : {
@@ -34,12 +33,6 @@ router.map({
 	':username/:listname' : {
 		component: ListViewer
 	},
-
-	// For Cor: you should probably create some new components
-	// put them in a folder named practice-modes?
-	//':username/:listname/practice/:practicemode' : {
-		//component: ListTrainer
-	//},
 
 	':username/:listname/practice' : {
 		component: ListTrainer
