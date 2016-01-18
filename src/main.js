@@ -20,6 +20,11 @@ import UserView from './components/main-window/user-view.vue'
 import TrainerQuiz from './components/practice-modes/quiz.vue'
 
 router.map({
+	'/': {
+		component: HomePage
+		// create new homepage component
+	},
+
 	':username' : {
 		component: UserView
 	},
@@ -61,7 +66,7 @@ router.afterEach(function () {
 }),
 
 router.redirect({
-	'*': '/cor'
+	'*': '/'
 })
 
 router.start(App, 'app')
