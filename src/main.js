@@ -16,6 +16,8 @@ import ListEditor from './components/main-window/list-editor.vue'
 import ListTrainer from './components/main-window/list-trainer.vue'
 import UserView from './components/main-window/user-view.vue'
 
+import HomePage from './components/main-window/homepage.vue'
+
 // Trainer Modes
 import TrainerQuiz from './components/practice-modes/quiz.vue'
 
