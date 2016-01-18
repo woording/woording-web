@@ -56,35 +56,40 @@
 		<input name="mode" type="radio" id="mode-1" v-model="options.selectedMode" value="quiz"  checked/>
 		<label for="mode-1">quiz</label>
 
+		<input name="mode" type="radio" id="mode-2" v-model="options.selectedMode" value="multipleChoice"  checked/>
+		<label for="mode-2">multiple Choice</label>
+
 		<h3>OPTIONS</h3>
+		
+		<div v-show="options.selectedMode == 'quiz'">
+			<input name="language" type="radio" id="1" v-model="options.quiz.selectedLanguage" value="0" checked/>
+			<label for="1">{{ list.language_1_tag }} ➡ {{ list.language_2_tag }} </label>
+			<br>
 
-		<input name="language" type="radio" id="1" v-model="options.quiz.selectedLanguage" value="0" checked/>
-		<label for="1">{{ list.language_1_tag }} ➡ {{ list.language_2_tag }} </label>
-		<br>
+			<input name="language" type="radio" id="2" v-model="options.quiz.selectedLanguage" value="1" />
+			<label for="2">{{ list.language_2_tag }} ➡ {{ list.language_1_tag }} </label>
+			<br>
 
-		<input name="language" type="radio" id="2" v-model="options.quiz.selectedLanguage" value="1" />
-		<label for="2">{{ list.language_2_tag }} ➡ {{ list.language_1_tag }} </label>
-		<br>
+			<input name="language" type="radio" id="both" v-model="options.quiz.selectedLanguage" value="2" />
+			<label for="both">both</label>
+			<br>
 
-		<input name="language" type="radio" id="both" v-model="options.quiz.selectedLanguage" value="2" />
-		<label for="both">both</label>
-		<br>
+			<input type="checkbox" id="caseSensitive" v-model="options.quiz.caseSensitive" />
+			<label for="caseSensitive">case sensitive</label>
+			<br>
 
-		<input type="checkbox" id="caseSensitive" v-model="options.quiz.caseSensitive" />
-		<label for="caseSensitive">case sensitive</label>
-		<br>
+			<input type="checkbox" id="ignorePunctuation" v-model="options.quiz.ignorePunctuation" />
+			<label for="ignorePunctuation">ignore punctuation</label>
+			<br>
 
-		<input type="checkbox" id="ignorePunctuation" v-model="options.quiz.ignorePunctuation" />
-		<label for="ignorePunctuation">ignore punctuation</label>
-		<br>
+			<input type="checkbox" id="ignoreTremas" v-model="options.quiz.ignoreTremas" />
+			<label for="ignoreTremas">ignore tremas</label>
+			<br>
 
-		<input type="checkbox" id="ignoreTremas" v-model="options.quiz.ignoreTremas" />
-		<label for="ignoreTremas">ignore tremas</label>
-		<br>
-
-		<input type="checkbox" id="randomizeOrder" v-model="options.quiz.randomizeOrder" />
-		<label for="randomizeOrder">randomize order</label>
-		<br>
+			<input type="checkbox" id="randomizeOrder" v-model="options.quiz.randomizeOrder" />
+			<label for="randomizeOrder">randomize order</label>
+			<br>
+		</div>
 
 		<button v-link='{ path: url }'>Start</button>
 
