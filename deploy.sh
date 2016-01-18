@@ -14,14 +14,14 @@ npm run build
 
 cd ..
 zip -r woordbeta.zip woordbeta
-scp woordbeta.zip cor@woording.com:/home/cor/server/woording-beta/woordbeta.zip
+scp woordbeta.zip cor@woording.com:/home/cor/server/woording/woordbeta.zip
 
-ssh cor@woording.com -t 'cd /home/cor/server/woording-beta;
-sudo rm -rf /home/cor/server/woording-beta/woordbeta;
-sudo rm -rf /home/cor/server/woording-beta/woording-web-old;
-sudo rm -rf /home/cor/server/woording-beta/woording-web;
+ssh cor@woording.com -t 'cd /home/cor/server/woording/;
+sudo rm -rf /home/cor/server/woording/woordbeta;
+sudo rm -rf /home/cor/server/woording/woording-web-old;
+sudo rm -rf /home/cor/server/woording/woording-web;
 
-screen -S beta -X quit;
+screen -S web -X quit;
 
 echo unzipping woordbeta.zip...;
 sudo unzip woordbeta.zip;
@@ -29,7 +29,7 @@ sudo unzip woordbeta.zip;
 sudo mv woordbeta woording-web;
 
 cd woording-web;
-screen -S beta -m "/home/cor/server/woording-beta/woording-web/run-server.sh";'
+screen -S beta -m "/home/cor/server/woording/woording-web/run-server.sh";'
 
 endtime=`date +%s`
 
