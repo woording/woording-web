@@ -71,9 +71,14 @@
 		<label for="caseSensitive">case sensitive</label>
 		<br>
 
+		<input type="checkbox" id="ignorePunctuation" v-model="options.ignorePunctuation" />
+		<label for="ignoreTremas">ignore punctuation</label>
+		<br>
+
 		<input type="checkbox" id="ignoreTremas" v-model="options.ignoreTremas" />
 		<label for="ignoreTremas">ignore tremas</label>
 		<br>
+
 
 		<button v-link='{ path: url }'>Start</button>
 
@@ -97,6 +102,7 @@ export default {
 				selectedMode: "quiz",
 				selectedLanguage: 0, // 0 = language_1 first, 1 = language_2 first, 2 = both
 				caseSensitive: 0,
+				ignorePunctuation: 0,
 				ignoreTremas: 0
 			}
 		}
@@ -111,9 +117,10 @@ export default {
 
 			var selectedLanguage = this.options.selectedLanguage + ""
 			var caseSensitive = this.options.caseSensitive ? "1" : "0"
+			var ignorePunctuation = this.options.ignorePunctuation ? "1" : "0"
 			var ignoreTremas = this.options.ignoreTremas ? "1" : "0"
 
-			var modifiers = selectedLanguage + caseSensitive + ignoreTremas
+			var modifiers = selectedLanguage + caseSensitive + ignorePunctuation + ignoreTremas
 
 			let result = '/' + username + '/' + listname + '/practice/' + gamemode + '/' + modifiers 
 
