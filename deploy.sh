@@ -14,9 +14,10 @@ npm run build
 
 cd ..
 zip -r woordbeta.zip woordbeta
-scp woordbeta.zip cor@woording.com:/home/cor/server/woording/woordbeta.zip
+scp woordbeta.zip cor@woording.com:/home/cor/server/woordbeta.zip
 
-ssh cor@woording.com -t 'cd /home/cor/server/woording/;
+ssh cor@woording.com -t 'cd /home/cor/server/;
+sudo mv /home/cor/server/woordbeta.zip /home/cor/server/woording/woordbeta.zip
 sudo rm -rf /home/cor/server/woording/woordbeta;
 sudo rm -rf /home/cor/server/woording/woording-web-old;
 sudo rm -rf /home/cor/server/woording/woording-web;
