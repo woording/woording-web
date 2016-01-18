@@ -28,8 +28,8 @@
 <template>
 	<header>
 		<div id="wording-logo">
-			<img src="img/logo-alpha.png" alt="Woording Logo">
-		</div> 
+			<img v-link='{ path: "/" }'src="img/logo-alpha.png" alt="Woording Logo">
+		</div>
 
 		<account-button>
 		</account-button>

@@ -22,6 +22,8 @@ $border-style: 0.125rem solid #B6B6B6;
 </style>
 
 <template>
+<user-list></user-list>
+<list-list></list-list>
 <div id="translation-list">
 		<div class="message-container">
 			<div class="message">
@@ -31,4 +33,15 @@ $border-style: 0.125rem solid #B6B6B6;
 </div>
 </template>
 
-<script></script>
+<script>
+// Side Bar
+import ListList from '../side-bar/list-list.vue'
+import UserList from '../side-bar/user-list.vue'
+
+export default {
+	components: {
+		UserList,
+		ListList
+	},
+}
+</script>
