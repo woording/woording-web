@@ -148,38 +148,15 @@ export default {
 			let listname = this.$parent.$route.params.listname
 			let gamemode = this.options.selectedMode
 
-			let result = '/' + username + '/' + listname + '/practice/' + gamemode 
-			let modifiers = ""
-			let converteOption = x => x == 2 ? x + "" : ( x ? "1" : "0") 
+			// A function that converts "2", "1", "0", true and false to either "0", "1" or "2"
+			let converteOption = x => (typeof x === 'string' || x instanceof String) ? x + "" : ( x ? "1" : "0") 
 
-			switch (this.options.selectedMode) {
-
-				case 'quiz': 
-					var options = [ this.options.quiz.selectedLanguage, 
-					                this.options.quiz.caseSensitive, 
-					                this.options.quiz.randomizeOrder,
-					                this.options.quiz.ignorePunctuation,
-					                this.options.quiz.ignoreTremas]
-
-					var convertedOptions = options.map(converteOption)
-
-					modifiers = convertedOptions.join("")
-					break
-
-				case 'multipleChoice':
-					var options = [ this.options.multipleChoice.selectedLanguage,
-					                this.options.multipleChoice.randomizeOrder ]
-
-					var convertedOptions = options.map(converteOption)
-
-					modifiers = convertedOptions.join("")
-					break
-			}
-
+			// Create an array from the options related to the selected mode, and map the converteOption function on it.
+			// After that, convert it to a string using .join to append it to the url
+			let modifiers = Object.values(this.options[this.options.selectedMode]).map(converteOption).join("")
 
 			return '/' + username + '/' + listname + '/practice/' + gamemode + '/' + modifiers
 		}
-
 	},
 
 	route: {
