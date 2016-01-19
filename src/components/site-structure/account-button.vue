@@ -76,21 +76,21 @@
 </style>
 
 <template>
-<div id="account-button" v-on:click="toggleAccountMenu">
+<div id="account-button" v-on:click="toggleAccountMenu" v-if="username">
 	<img src="img/ui/account-button.png" alt="Account Button">
 	<p>Cor Pruijs</p>
 </div>
 <div id="account-menu" v-show="shouldShowAccountMenu">
 	<div id="account-info">
-		<p>cor</p>
-		<p>cor@pruijs.nl</p>
+		<p>{{ username }}</p>
+		<p>{{ email }}</p>
 	</div>
 	<div>
 		<select name="Language">
 			<option value="eng">English</option>
 			<option value="dut">Dutch</option>
 			<option value="ger">German</option>
-		</select>	
+		</select>
 	</div>
 	<div>
 		<button v-on:click="changePassword">Change Password</button>
@@ -100,12 +100,26 @@
 </template>
 
 <script>
+import store from '../../store'
 export default {
 	data : function() {
 		return {
-			shouldShowAccountMenu: false
+			shouldShowAccountMenu: false,
+            username: store.username,
+            email: ''
 		}
 	},
+
+    events: {
+        'url-update': function(){
+            this.username = store.username
+            store.fetchUser(store.username).then(response => { 
+                console.log(response)
+                this.email = response.email
+            })
+        }
+    },
+
 	methods : {
 		signOut: function() {
 			alert("Handle signing out here")
