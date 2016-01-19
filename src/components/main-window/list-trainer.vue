@@ -144,37 +144,35 @@ export default {
 
 	computed: {
 		url: function() {
-			var username = this.$parent.$route.params.username
-			var listname = this.$parent.$route.params.listname
-			var gamemode = this.options.selectedMode
+			let username = this.$parent.$route.params.username
+			let listname = this.$parent.$route.params.listname
+			let gamemode = this.options.selectedMode
 
-			var result = '/' + username + '/' + listname + '/practice/' + gamemode 
-
-			var modifiers = ""
-
+			let result = '/' + username + '/' + listname + '/practice/' + gamemode 
+			let modifiers = ""
 			let converteOption = x => x == 2 ? x + "" : ( x ? "1" : "0") 
 
 			switch (this.options.selectedMode) {
 
 				case 'quiz': 
-					let options = [ this.options.quiz.selectedLanguage, 
+					var options = [ this.options.quiz.selectedLanguage, 
 					                this.options.quiz.caseSensitive, 
-									this.options.quiz.randomizeOrder,
-									this.options.quiz.ignorePunctuation,
-									this.options.quiz.ignoreTremas]
+					                this.options.quiz.randomizeOrder,
+					                this.options.quiz.ignorePunctuation,
+					                this.options.quiz.ignoreTremas]
 
-					let convertedOptions = options.map(converteOption)
+					var convertedOptions = options.map(converteOption)
 
 					modifiers = convertedOptions.join("")
-
 					break
 
 				case 'multipleChoice':
-					// this should probbably be replaced using .map() 
-					var selectedLanguage = this.options.multipleChoice.selectedLanguage + ""
-					var randomizeOrder = this.options.multipleChoice.randomizeOrder ? "1" : "0"
+					var options = [ this.options.multipleChoice.selectedLanguage,
+					                this.options.multipleChoice.randomizeOrder ]
 
-					modifiers = selectedLanguage + randomizeOrder
+					var convertedOptions = options.map(converteOption)
+
+					modifiers = convertedOptions.join("")
 					break
 			}
 
