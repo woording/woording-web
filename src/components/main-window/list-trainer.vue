@@ -152,17 +152,21 @@ export default {
 
 			var modifiers = ""
 
+			let converteOption = x => x == 2 ? x + "" : ( x ? "1" : "0") 
+
 			switch (this.options.selectedMode) {
 
 				case 'quiz': 
-					// this should probbably be replaced using .map() 
-					var selectedLanguage = this.options.quiz.selectedLanguage + ""
-					var caseSensitive = this.options.quiz.caseSensitive ? "1" : "0"
-					var randomizeOrder = this.options.quiz.randomizeOrder ? "1" : "0"
-					var ignorePunctuation = this.options.quiz.ignorePunctuation ? "1" : "0"
-					var ignoreTremas = this.options.quiz.ignoreTremas ? "1" : "0"
+					let options = [ this.options.quiz.selectedLanguage, 
+					                this.options.quiz.caseSensitive, 
+									this.options.quiz.randomizeOrder,
+									this.options.quiz.ignorePunctuation,
+									this.options.quiz.ignoreTremas]
 
-					modifiers = selectedLanguage + caseSensitive + randomizeOrder + ignorePunctuation + ignoreTremas
+					let convertedOptions = options.map(converteOption)
+
+					modifiers = convertedOptions.join("")
+
 					break
 
 				case 'multipleChoice':
