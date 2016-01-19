@@ -1,59 +1,59 @@
 <style lang="sass">
 /* Colors */
-	$primary-color-dark:   #388E3C;
-	$primary-color:        #4CAF50;
-	$primary-color-light:  #C8E6C9;
-	$primary-color-text:   #FFFFFF;
-	$accent-color:         #FF9800;
-	$primary-text-color:   #212121;
-	$secondary-text-color: #727272;
-	$divider-color:        #B6B6B6;
+    $primary-color-dark:   #388E3C;
+    $primary-color:        #4CAF50;
+    $primary-color-light:  #C8E6C9;
+    $primary-color-text:   #FFFFFF;
+    $accent-color:         #FF9800;
+    $primary-text-color:   #212121;
+    $secondary-text-color: #727272;
+    $divider-color:        #B6B6B6;
 
-	html {
-		box-sizing: border-box;
-	}
+    html {
+        box-sizing: border-box;
+    }
 
-	*, *:before, *:after {
-		box-sizing: inherit;
-	}
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
 
-	body {
+    body {
 
-		color: #212121;
-		font-family: 'Roboto';
-	}
+        color: #212121;
+        font-family: 'Roboto';
+    }
 
-	#app {
-		display: flex;
-		flex-direction: column;
+    #app {
+        display: flex;
+        flex-direction: column;
 
-		min-height: 100vh;
-		@media (min-width: 768px) {
-			height: 100vh;
-		}
-	}
+        min-height: 100vh;
+        @media (min-width: 768px) {
+            height: 100vh;
+        }
+    }
 </style>
 
 <template>
 
 <div id="app">
 
-	<!-- usage of the urlParameters computed property to make the url-update event hack work !-->
-	<div id='{{ urlParameters }}'></div>
+    <!-- usage of the urlParameters computed property to make the url-update event hack work !-->
+    <div id='{{ urlParameters }}'></div>
 
-	<site-header></site-header>
+    <site-header></site-header>
 
 
-	<site-body v-if="loggedIn">
+    <site-body v-if="loggedIn">
 
-		<user-list v-if="username"></user-list>
-		<list-list v-if="username"></list-list>
+        <user-list v-if="username"></user-list>
+        <list-list v-if="username"></list-list>
 
-		<!-- main window --!>
-		<router-view></router-view>
+        <!-- main window --!>
+        <router-view></router-view>
 
-	</site-body>
-	<site-footer></site-footer>
+    </site-body>
+    <site-footer></site-footer>
 </div>
 
 </template>
@@ -74,37 +74,37 @@ import UserList from './components/side-bar/user-list.vue'
 
 
 export default {
-	data () {
-		return {
-			loggedIn: store.loggedIn,
-			username: ''
-		}
-	},
+    data () {
+        return {
+            loggedIn: store.loggedIn,
+            username: ''
+        }
+    },
 
 
-	components: {
-		SiteHeader,
-		SiteBody,
-		SiteFooter,
+    components: {
+        SiteHeader,
+        SiteBody,
+        SiteFooter,
 
-		UserList,
-		ListList
-	},
+        UserList,
+        ListList
+    },
 
-	computed: {
-		// Since list-list isn't routed we still need this to update list-list :(
-		urlParameters: function() {
-			var username = this.$route.params.username
-			if (username){
-				this.username = username
-			} else {
-				this.username = ''
-			}
-			var temp = this.$route.params
-			this.$broadcast('url-update')
-			return temp
-		}
-	},
+    computed: {
+        // Since list-list isn't routed we still need this to update list-list :(
+        urlParameters: function() {
+            var username = this.$route.params.username
+            if (username){
+                this.username = username
+            } else {
+                this.username = ''
+            }
+            var temp = this.$route.params
+            this.$broadcast('url-update')
+            return temp
+        }
+    },
 }
 
 </script>
