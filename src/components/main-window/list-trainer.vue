@@ -149,7 +149,7 @@ export default {
 			let gamemode = this.options.selectedMode
 
 			// A function that converts "2", "1", "0", true and false to either "0", "1" or "2"
-			let converteOption = x => (typeof x === 'string' || x instanceof String) ? x + "" : ( x ? "1" : "0") 
+			let converteOption = x => typeof x === 'string' ? x : ( x ? "1" : "0") 
 
 			// Create an array from the options related to the selected mode, and map the converteOption function on it.
 			// After that, convert it to a string using .join to append it to the url
