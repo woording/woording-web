@@ -9,6 +9,9 @@
 		padding: .5rem;
 		transition: background-color 0.1s ease;
 		border-radius: .5rem;
+        position: absolute;
+        right: 0px;
+        top: 15px;
 	}
 
 	img {
