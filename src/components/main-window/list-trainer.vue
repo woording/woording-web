@@ -148,12 +148,11 @@ export default {
 			let listname = this.$parent.$route.params.listname
 			let gamemode = this.options.selectedMode
 
-			// A function that converts "2", "1", "0", true and false to either "0", "1" or "2"
-			let converteOption = x => typeof x === 'string' ? x : ( x ? "1" : "0") 
-
 			// Create an array from the options related to the selected mode, and map the converteOption function on it.
 			// After that, convert it to a string using .join to append it to the url
-			let modifiers = Object.values(this.options[this.options.selectedMode]).map(converteOption).join("")
+			// convertOption converts "2", "1", "0", true and false to either "0", "1" or "2"
+			let converteOption = x => typeof x === 'string' ? x : ( x ? "1" : "0") 
+			let modifiers = Object.values(this.options[gamemode]).map(converteOption).join("")
 
 			return '/' + username + '/' + listname + '/practice/' + gamemode + '/' + modifiers
 		}
