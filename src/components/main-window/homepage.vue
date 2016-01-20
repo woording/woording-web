@@ -74,23 +74,28 @@ export default {
         }
     },
 
+    events: {
+        'url-update': function(){
+            if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
+        }  
+    },
+
     methods: {
         logIn: function(){
-            console.log(this.username)
-            console.log(this.password)
             if (!this.username || !this.password){
                 this.error = 'Username and password cannot be empty'
                 return
             }
 
-            store.fetchToken(this.username, this.password).then((response) => {
-                 console.log(response)
-                 store.username = this.username
-                 store.password = this.password
-                 this.error = ''
-                 this.$parent.$route.router.go({ path: "/" + this.username })
-            }, (error) => {
+            store.username = this.username
+            store.password = this.password
+            store.fetchToken().then((response) => {
+                this.error = ''
+                this.$parent.$route.router.go({ path: "/" + this.username })
+            }).catch((error) => {
                 console.log(error)
+                store.username = ''
+                store.password = ''
                 this.error = 'Username or password incorrect'
             })
         }

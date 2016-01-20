@@ -18,7 +18,7 @@ store.deletedList = null
  *
  * @return {Promise} token
  */
-store.fetchToken = (username, password) => {
+store.fetchToken = () => {
 	return new Promise((resolve, reject) => {
 
 		if (store.cachedToken != null) {
@@ -36,7 +36,7 @@ store.fetchToken = (username, password) => {
                     store.cachedToken = parsedResponse.token
                     resolve(parsedResponse.token)
                 } else {
-                    console.log(this.statusText)
+                    reject(request.response)
                 }
 			}
 
@@ -45,7 +45,7 @@ store.fetchToken = (username, password) => {
 			request.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
 
 			// Add the username and password parameters to the data
-			request.send('{"username": "' + username + '", "password" : "' + password + '" }')
+			request.send('{"username": "' + store.username + '", "password" : "' + store.password + '" }')
 		}
 
 	})
@@ -59,7 +59,7 @@ store.fetchToken = (username, password) => {
  */
 store.fetchUser = (username) => {
 	return new Promise((resolve, reject) => {
-		store.fetchToken(store.username, store.password).then( token => {
+		store.fetchToken().then( token => {
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
 			var method = "POST"
@@ -88,7 +88,7 @@ store.fetchUser = (username) => {
  */
 store.fetchFriends = () => {
 	return new Promise((resolve, reject) => {
-		store.fetchToken(store.username, store.password).then( token => {
+		store.fetchToken().then( token => {
 
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
@@ -120,7 +120,7 @@ store.fetchFriends = () => {
  */
 store.fetchList = (username, listname) => {
 	return new Promise((resolve, reject) => {
-		store.fetchToken(store.username, store.password).then( token => {
+		store.fetchToken().then( token => {
 
 			// Create a request, setup the corerct method and URL
 			var request = new XMLHttpRequest()
@@ -150,7 +150,7 @@ store.fetchList = (username, listname) => {
  */
 store.deleteList = (username, list) => {
 	return new Promise((resolve, reject) => {
-		store.fetchToken(store.username, store.password).then( token => {
+		store.fetchToken().then( token => {
 
 			//create request
 			var request = new XMLHttpRequest()
@@ -181,7 +181,7 @@ store.deleteList = (username, list) => {
  */
 store.saveList = (username, list_data) => {
 	return new Promise((resolve, reject) => {
-		store.fetchToken(store.username, store.password).then( token => {
+		store.fetchToken().then( token => {
 
 			var request = new XMLHttpRequest()
 			var method = "POST"

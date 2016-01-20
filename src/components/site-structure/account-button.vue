@@ -115,17 +115,22 @@ export default {
 
     events: {
         'url-update': function(){
-            this.username = store.username
-            store.fetchUser(store.username).then(response => { 
-                console.log(response)
-                this.email = response.email
-            })
+            if (store.username){
+                this.username = store.username
+                store.fetchUser(store.username).then(response => { 
+                    this.email = response.email
+                })
+            }            
         }
     },
 
 	methods : {
 		signOut: function() {
-			alert("Handle signing out here")
+            store.username = ''
+            store.password = ''
+            this.$parent.$route.router.go({ path: "/" })
+            this.shouldShowAccountMenu = false
+            this.username = ''
 		},
 		changePassword: function() {
 			alert("Handle password changes here")
