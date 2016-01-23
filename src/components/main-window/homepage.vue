@@ -1,12 +1,22 @@
 <style lang="sass">
 #homepage {
+    background: url('/img/hipsterbg.jpeg');
+    background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     flex: 1;
     @media(min-width: 768px) {
         overflow: auto;
     }
 
+    h1 {
+        font-size: 30px;
+    }
+
     #forms {
-        display: flex;
+        width: 300px;
+        margin: 10px;
 
         label {
             display: block;
@@ -14,9 +24,23 @@
             margin: 0;
         }
 
-        #login {
-            flex: 1;
+        form {
+            margin-top: 20px 0 20px 0;
+        }
+
+        input {
             width: 100%;
+        }
+
+        button {
+            margin: 20px 0 20px 0;
+            width: 100%;
+        }
+
+        .form {
+            flex: 1;
+            background: white;
+            padding: 20px;
 
             #error {
                 color: red;
@@ -24,8 +48,7 @@
         }
 
         #register {
-            flex: 1;
-            width: 100%;
+            display: none;
         }
     }
 }
@@ -34,26 +57,32 @@
 <div id="homepage">
     <h1>Welcome to Woording!</h1>
     <div id="forms">
-        <div id="login">
+        <div id="login" class='form'>
+            <span> Log in:</span>
             <form v-on:submit.prevent>
                 <label>Username: </label>
                 <input type="text" v-model='username'><br>
                 <label>Password: </label>
                 <input type="password" v-model='password'><br>
                 <button v-on:click="logIn">Log In</button> <span id="error">{{ error }}</span>
+                Or <a v-on:click='formToggle' href="" v-on:click.prevent>register</a>
             </form>
         </div>
 
-        <div id="register">
-            <label>Username: </label>
-            <input type="text" v-model='username'><br>
-            <label>E-mail: </label>
-            <input type="text" v-model='email'><br>
-            <label>Password: </label>
-            <input type="password" v-model='password'><br>
-            <label>Repeat password: </label>
-            <input type="password" v-model='repeated'><br>
-            <button>Register</button>
+        <div id='register' class='form'>
+            <span>Register: </span>
+            <form v-on:submit.prevent>
+                <label>Username: </label>
+                <input type="text" v-model='username'><br>
+                <label>Password: </label>
+                <input type="password" v-model='password'><br>
+                <label>Repeat password:</label>
+                <input type="password" v-model='repeated'><br>
+                <label>E-mail:</label>
+                <input type="text" v-model='email'><br>
+                <button v-on:click="logIn">Register</button> <span id="error">{{ error }}</span>
+                Or <a v-on:click='formToggle' href="" v-on:click.prevent>Log in</a>
+            </form>
         </div>
     </div>
 </div>
@@ -70,17 +99,30 @@ export default {
             password: '',
             repeated: '',
             email: '',
-            error: ''
+            error: '',
+            form: 1,
         }
     },
 
     events: {
         'url-update': function(){
             if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
-        }  
+        }
     },
 
     methods: {
+        formToggle: function(){
+            if(this.form){
+                document.getElementById('register').style.display = 'block'
+                document.getElementById('login').style.display = 'none'
+                this.form = 0
+            } else {
+                document.getElementById('register').style.display = 'none'
+                document.getElementById('login').style.display = 'block'
+                this.form = 1
+            }
+        },
+
         logIn: function(){
             if (!this.username || !this.password){
                 this.error = 'Username and password cannot be empty'

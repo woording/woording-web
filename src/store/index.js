@@ -36,7 +36,7 @@ store.fetchToken = () => {
                     store.cachedToken = parsedResponse.token
                     resolve(parsedResponse.token)
                 } else {
-                    reject(request.response)
+                    reject("ERROR")
                 }
 			}
 
