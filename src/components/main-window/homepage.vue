@@ -41,6 +41,9 @@
             flex: 1;
             background: white;
             padding: 20px;
+			border-radius: .5rem;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 
             #error {
                 color: red;
@@ -55,7 +58,7 @@
 </style>
 <template>
 <div id="homepage">
-    <h1>Welcome to Woording!</h1>
+    <!--<h1>Welcome to Woording!</h1>-->
     <div id="forms">
         <div id="login" class='form'>
             <span> Log in:</span>
