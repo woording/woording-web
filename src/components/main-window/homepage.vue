@@ -44,6 +44,7 @@
 			border-radius: .5rem;
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+			transition: max-height 1s ease-out; /* broken */
 
             #error {
                 color: red;
@@ -66,27 +67,30 @@
                 <label>Username: </label>
                 <input type="text" v-model='username'><br>
                 <label>Password: </label>
-                <input type="password" v-model='password'><br>
-                <button v-on:click="logIn">Log In</button> <span id="error">{{ error }}</span>
-                Or <a v-on:click='formToggle' href="" v-on:click.prevent>register</a>
+				<input type="password" v-model='password'><br>
+				<div v-show="registerMode">
+					<label>Repeatpassword:</label>
+					<input type="password" v-model='repeated'><br>
+					<label>E-mail:</label>
+					<input type="text" v-model='email'><br>
+				</div>
+				<div v-show="!registerMode">
+					<button v-on:click="logIn">Log In</button> <span id="error">{{ error }}</span>
+				</div>
+				<div v-show="registerMode">
+					<button v-on:click="logIn">Register</button> <span id="error">{{ error }}</span>
+				</div>
+
+				<div v-show="!registerMode">
+					Or <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>register</a>
+				</div>
+
+				<div v-show="registerMode">
+					Or <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Log in</a>
+				</div>
             </form>
         </div>
 
-        <div id='register' class='form'>
-            <span>Register: </span>
-            <form v-on:submit.prevent>
-                <label>Username: </label>
-                <input type="text" v-model='username'><br>
-                <label>Password: </label>
-                <input type="password" v-model='password'><br>
-                <label>Repeat password:</label>
-                <input type="password" v-model='repeated'><br>
-                <label>E-mail:</label>
-                <input type="text" v-model='email'><br>
-                <button v-on:click="logIn">Register</button> <span id="error">{{ error }}</span>
-                Or <a v-on:click='formToggle' href="" v-on:click.prevent>Log in</a>
-            </form>
-        </div>
     </div>
 </div>
 </template>
@@ -103,7 +107,7 @@ export default {
             repeated: '',
             email: '',
             error: '',
-            form: 1,
+			registerMode: false,
         }
     },
 
@@ -114,17 +118,9 @@ export default {
     },
 
     methods: {
-        formToggle: function(){
-            if(this.form){
-                document.getElementById('register').style.display = 'block'
-                document.getElementById('login').style.display = 'none'
-                this.form = 0
-            } else {
-                document.getElementById('register').style.display = 'none'
-                document.getElementById('login').style.display = 'block'
-                this.form = 1
-            }
-        },
+		toggleRegisterMode: function() {
+			this.registerMode = !this.registerMode
+		},
 
         logIn: function(){
             if (!this.username || !this.password){
@@ -134,6 +130,7 @@ export default {
 
             store.username = this.username
             store.password = this.password
+
             store.fetchToken().then((response) => {
                 this.error = ''
                 this.$parent.$route.router.go({ path: "/" + this.username })
