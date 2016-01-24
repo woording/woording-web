@@ -30,6 +30,8 @@
 
         input {
             width: 100%;
+			font-size: 16px;
+			padding: .2rem;
         }
 
         button {
@@ -38,6 +40,11 @@
         }
 
         .form {
+			h2 {
+				font-size: 1.2rem;
+				margin-bottom: .5rem;
+			}
+
             flex: 1;
             background: white;
             padding: 20px;
@@ -62,31 +69,26 @@
     <!--<h1>Welcome to Woording!</h1>-->
     <div id="forms">
         <div id="login" class='form'>
-            <span> Log in:</span>
+            <h2>Log in</h2>
             <form v-on:submit.prevent>
-                <label>Username: </label>
-                <input type="text" v-model='username'><br>
-                <label>Password: </label>
-				<input type="password" v-model='password'><br>
+                <input type="text" placeholder="Username" v-model='username'><br>
+				<input type="password" placeholder="Password" v-model='password'><br>
 				<div v-show="registerMode">
-					<label>Repeatpassword:</label>
-					<input type="password" v-model='repeated'><br>
-					<label>E-mail:</label>
-					<input type="text" v-model='email'><br>
+					<input type="password" placeholder="Repeat Password" v-model='repeated'><br>
+					<input type="text" placeholder="Email" v-model='email'><br>
 				</div>
+
 				<div v-show="!registerMode">
 					<button v-on:click="logIn">Log In</button> <span id="error">{{ error }}</span>
 				</div>
 				<div v-show="registerMode">
 					<button v-on:click="logIn">Register</button> <span id="error">{{ error }}</span>
 				</div>
-
 				<div v-show="!registerMode">
-					Or <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>register</a>
+					New here? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>register</a>
 				</div>
-
 				<div v-show="registerMode">
-					Or <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Log in</a>
+					Already have an account? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Log in</a>
 				</div>
             </form>
         </div>
