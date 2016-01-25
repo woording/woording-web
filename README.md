@@ -10,9 +10,11 @@ Built using VueJS
 - No refreshes 
 - configure list training
 - Create account and log in system
+- Insane speed
 
 ## Not implemented yet
 - Actually training lists
+- Build script
 - Localization
 - Beautifull landing page
 
