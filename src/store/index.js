@@ -1,3 +1,5 @@
+import globals from '../globals'
+
 var store = {}
 const config = {
 	ip: 'http://api.woording.com/'
@@ -183,6 +185,7 @@ store.saveList = (username, list_data) => {
 	return new Promise((resolve, reject) => {
 		store.fetchToken().then( token => {
 
+            console.log(list_data)
 			var request = new XMLHttpRequest()
 			var method = "POST"
 			var url = config.ip + "savelist"

@@ -111,7 +111,7 @@ $border-style: 0.125rem solid #B6B6B6;
 <div id="translation-list">
 	<div class="container">
 		<div class="list-header">
-			List name: <input type="text" placeholder="Listname" v-model='listname' value="{{ list.listname }}">
+			List name: <input type="text" placeholder="Listname" v-model='listname' value="{{ list.listname }}" maxlength="20">
 
 			<div class="language-name-container">
 				<div class="language-name">
@@ -155,6 +155,7 @@ $border-style: 0.125rem solid #B6B6B6;
 
 <script>
 import store from '../../store'
+import globals from '../../globals'
 
 export default {
 	data: function(){
@@ -173,6 +174,7 @@ export default {
 		data () {
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
+            console.log(store.cachedToken)
 
 			if(listname){
 				var updateList = list => {
@@ -239,6 +241,8 @@ export default {
 				this.error = 'Could not save list: Listname should not be empty.'
 				return false
 			}
+            
+            globals.validateInput(this.listname)
 
 			// Create new list data from form
 			var list_data = {
