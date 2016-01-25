@@ -241,32 +241,37 @@ export default {
 				this.error = 'Could not save list: Listname should not be empty.'
 				return false
 			}
-            
-            globals.validateInput(this.listname)
 
-			// Create new list data from form
-			var list_data = {
-				listname: this.listname,
-				language_1_tag: this.language_1_tag,
-				language_2_tag: this.language_2_tag,
-				shared_with: this.shared_with,
-				words: words
-			}
+            globals.validateInput(this.listname).then(response => {
+                console.log(response)
+                // Create new list data from form
+                var list_data = {
+                    listname: this.listname,
+                    language_1_tag: this.language_1_tag,
+                    language_2_tag: this.language_2_tag,
+                    shared_with: this.shared_with,
+                    words: words
+                }
 
-			// Check if listname changed and user doesn't want to duplicate it. Also checks if listname was empty (new list)
-			if (this.listname != this.list.listname && this.listname && !this.duplicate && this.list.listname){
-				store.deleteList(store.username, this.list).then((response) => {
-					console.log(response)
-				})
-			}
+                // Check if listname changed and user doesn't want to duplicate it. Also checks if listname was empty (new list)
+                if (this.listname != this.list.listname && this.listname && !this.duplicate && this.list.listname){
+                    store.deleteList(store.username, this.list).then((response) => {
+                        console.log(response)
+                    })
+                }
 
-			// Call savelist in store and after that show the new/edited list
-			store.saveList(store.username, list_data).then((response) => {
-				console.log(response)
-				this.error = 'Successfully saved list.'
-				this.list = list_data
-				this.$dispatch('show-template', 'translation')
-			})
+                // Call savelist in store and after that show the new/edited list
+                store.saveList(store.username, list_data).then((response) => {
+                    console.log(response)
+                    this.error = 'Successfully saved list.'
+                    this.list = list_data
+                    this.$dispatch('show-template', 'translation')
+                })
+            }).catch(error => {
+                this.error = 'List not saved, reason: Illegal character used. \nPlease only use letters, numbers, spaces, hyphen and emoji'
+                alert(this.error)
+                console.log(error)
+            })
 		}
 	}
 }
