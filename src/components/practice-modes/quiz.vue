@@ -40,7 +40,7 @@ export default {
 	methods : {
 
 		// fetch the list from the Woording API server
-		fetchList () {
+		fetchList() {
 
 			let username = this.$parent.$route.params.username
 			let listname = this.$parent.$route.params.listname
@@ -53,13 +53,20 @@ export default {
 		},
 
 		decodeModifiers() {
-			// Create an array from the modifiers in the URL
-			let modifiers = this.$parent.$route.params.modifiers.split("")
+
+			// A function that converts a modifier to false, true, or a number if it's bigger than 1
 			let converteModifier = x => x > 1 ? x : x == 1 
-			let convertedModifiers = modifiers.map(converteModifier)
 
-			this.modifiers = { nonConvertedModifiers: modifiers, convertedModifiers: convertedModifiers }
+			// Create an array from the modifier values in the URL
+			let modifierNumbers = this.$parent.$route.params.modifiers.split("")
+			let modifierValues = modifierNumbers.map(converteModifier)
+			let modifierKeys = ["selectedLanguage", "caseSensitive", "randomizeOrder", "ignorePunctuation", "ignoreTremas"]
 
+			// Merge the array of keys and the array of values into an object
+			let modifiers = modifierKeys.reduce((obj, key, i) => { obj[key] = modifierValues[i]; return obj; }, {})
+
+			// Assign the created object to the data of this component
+			this.modifiers = modifiers
 		}
 	}
 
