@@ -12,12 +12,15 @@
 
 <template>
 <div id="trainer-quiz">
-	<h1>top kek</h1>
-
-
 	<h2>{{ list.listname }}</h2>
+	<p>Words left: {{ wordStack.length }}</p>
+	<p>Current Word: {{ currentWord.language_1_text }}</p>
+	<button v-on:click="nextWord">next word</button>
+	
+
+
+	<h2>Debug info</h2>
 	<pre>{{ modifiers | json }}</pre>
-	<pre>{{ list | json  }}</pre>
 	<pre>{{ wordStack | json  }}</pre>
 </div>
 </template>
@@ -32,7 +35,8 @@ export default {
 		return {
 			list: {},
 			modifiers: {},
-			wordStack: []
+			wordStack: [],
+			currentWord: {language_1_text: "car", language_2_text: "auto"}
 		}
 	},
 
@@ -50,13 +54,20 @@ export default {
 			let listname = this.$parent.$route.params.listname
 
 			let updateList = list => { this.list = list }
-			let initStack = () => { this.initalizeWordStack() }
-			
+
+			let completion = () => {
+				this.initalizeWordStack()
+				this.nextWord()
+			}
 
 			store.fetchList(username, listname).then((list) => {
 				updateList(list)
-				initStack()
+				completion()
 			})
+		},
+
+		nextWord() {
+			this.currentWord = this.wordStack.pop()
 		},
 
 		initalizeWordStack() {
@@ -70,13 +81,18 @@ export default {
 					return o;
 				}
 
-				this.wordStack = shuffle(this.list.words)
+
+				// .slice() copies the array by value instead of by reference
+				this.wordStack = shuffle(this.list.words.slice())
 
 			} else {
-				this.wordStack = this.list.words
+
+				// .slice() copies the array by value instead of by reference
+				this.wordStack = this.list.words.slice()
 			}
 
 		},
+
 
 		decodeModifiers() {
 

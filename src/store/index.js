@@ -1,7 +1,7 @@
 import globals from '../globals'
 
 var store = {}
-let devMode = false // automatically logs cor in. should be false on deployment
+let devMode = true // automatically logs cor in. should be false on deployment
 
 const config = {
 	ip: 'http://api.woording.com/'
