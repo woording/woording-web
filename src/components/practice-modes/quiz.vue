@@ -13,9 +13,12 @@
 <template>
 <div id="trainer-quiz">
 	<h1>top kek</h1>
+
+
 	<h2>{{ list.listname }}</h2>
 	<pre>{{ modifiers | json }}</pre>
 	<pre>{{ list | json  }}</pre>
+	<pre>{{ wordStack | json  }}</pre>
 </div>
 </template>
 
@@ -28,28 +31,51 @@ export default {
 	data () {
 		return {
 			list: {},
-			modifiers: {}
+			modifiers: {},
+			wordStack: []
 		}
 	},
 
 	ready () {
-		this.fetchList()
 		this.decodeModifiers()
+		this.fetchListAndInitialize()
 	},
 
 	methods : {
 
 		// fetch the list from the Woording API server
-		fetchList() {
+		fetchListAndInitialize() {
 
 			let username = this.$parent.$route.params.username
 			let listname = this.$parent.$route.params.listname
 
-			var updateList = list => { this.list = list }
+			let updateList = list => { this.list = list }
+			let initStack = () => { this.initalizeWordStack() }
+			
 
 			store.fetchList(username, listname).then((list) => {
 				updateList(list)
+				initStack()
 			})
+		},
+
+		initalizeWordStack() {
+
+			// Shuffle the words if the user wants the words shuffled
+			if (this.modifiers.randomizeOrder) {
+
+				// from stackoverflow: http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array-in-javascript
+				function shuffle(o){
+					for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+					return o;
+				}
+
+				this.wordStack = shuffle(this.list.words)
+
+			} else {
+				this.wordStack = this.list.words
+			}
+
 		},
 
 		decodeModifiers() {
