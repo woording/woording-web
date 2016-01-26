@@ -34,6 +34,10 @@
 			padding: .2rem;
         }
 
+        input[type=checkbox]{
+            width: 20px;
+        }
+
         button {
             margin: 20px 0 20px 0;
             width: 100%;
@@ -78,6 +82,8 @@
 					<input type="text" placeholder="Email" v-model='email'><br>
 				</div>
 
+                <br>
+                <input type="checkbox" v-model="keepLoggedIn" v-show="!registerMode"> Remember me?
 				<div v-show="!registerMode">
 					<button v-on:click="logIn">Log In</button> <span id="error">{{ error }}</span>
 				</div>
@@ -91,6 +97,7 @@
 					Already have an account? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Log in</a>
 				</div>
             </form>
+            {{ keepLoggedIn }}
         </div>
 
     </div>
@@ -110,6 +117,7 @@ export default {
             email: '',
             error: '',
 			registerMode: false,
+            keepLoggedIn: false,
         }
     },
 
@@ -135,6 +143,18 @@ export default {
 
             store.fetchToken().then((response) => {
                 this.error = ''
+                document.cookie = "username = " + this.username + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"
+                function getCookie(cname) {
+                    var name = cname + "=";
+                    var ca = document.cookie.split(';');
+                    for(var i=0; i<ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0)==' ') c = c.substring(1);
+                        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+                    }
+                    return "";
+                }
+                console.log(getCookie("username"))
                 this.$parent.$route.router.go({ path: "/" + this.username })
             }).catch((error) => {
                 console.log(error)
