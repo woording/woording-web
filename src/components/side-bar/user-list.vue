@@ -119,8 +119,8 @@ export default {
 		fetchFriends: function(username) {
 			var updateFriends = friends => { this.friends = friends }
 
-			store.fetchFriends().then( friends => {
-				updateFriends(friends)
+			store.fetchFriends().then(response => {
+				updateFriends(response.friends)
 			})
 		}
 	}

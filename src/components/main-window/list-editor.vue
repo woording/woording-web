@@ -147,7 +147,7 @@ $border-style: 0.125rem solid #B6B6B6;
 		<br>
 		Duplicate list <input type="checkbox" v-model='duplicate'>
 		<br><br>
-		<button v-on:click="saveList" v-link='{ path: "/" + $route.params.username + "/" + listname }'>Save list</button>
+		<button v-on:click="saveList">Save list</button>
 		<span>{{ error }}</span>
 	</div>
 </div>
@@ -262,13 +262,15 @@ export default {
 
                 // Call savelist in store and after that show the new/edited list
                 store.saveList(store.username, list_data).then((response) => {
-                    console.log(response)
                     this.error = 'Successfully saved list.'
+                    this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.listname })
                     this.list = list_data
-                    this.$dispatch('show-template', 'translation')
+                }).catch(error => {
+                    console.log('error')
+                    console.log(error)
                 })
             }).catch(error => {
-                this.error = 'List not saved, reason: Illegal character used. \nPlease only use letters, numbers, spaces, hyphen and emoji'
+                this.error = 'List not saved, reason: Illegal character used. \nPlease only use letters, numbers, spaces and hyphen'
                 alert(this.error)
                 console.log(error)
             })
