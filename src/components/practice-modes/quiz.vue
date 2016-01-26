@@ -55,6 +55,9 @@ export default {
 		decodeModifiers() {
 
 			// A function that converts a modifier to false, true, or a number if it's bigger than 1
+			// x = 0 | false
+			// x = 1 | true
+			// x > 1 | x 
 			let converteModifier = x => x > 1 ? x : x == 1 
 
 			// Create an array from the modifier values in the URL
