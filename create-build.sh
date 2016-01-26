@@ -16,5 +16,6 @@ cp dist/build.js build/dist/build.js
 cp -R img build/img 
 cp -R css build/css
 cp favicons/* build/
+cp run-server.sh build/run-server.sh
 
 zip -r build.zip build
