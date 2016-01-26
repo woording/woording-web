@@ -25,7 +25,10 @@ npm run dev
 ```
 
 ## How to deploy
-Don't.
+```
+npm install
+./deploy.sh
+```
 
 
 
