@@ -160,6 +160,7 @@ export default {
 
 	route: {
 		data () {
+			// Do we need this?
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
 
