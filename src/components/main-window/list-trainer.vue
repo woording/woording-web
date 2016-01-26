@@ -54,7 +54,7 @@
 		<input name="mode" type="radio" id="mode-1" v-model="options.selectedMode" value="quiz"  checked/>
 		<label for="mode-1">quiz</label>
 
-		<input name="mode" type="radio" id="mode-2" v-model="options.selectedMode" value="multipleChoice"  checked/>
+		<input name="mode" type="radio" id="mode-2" v-model="options.selectedMode" value="multipleChoice" />
 		<label for="mode-2">multiple Choice</label>
 
 		<h3>OPTIONS</h3>
@@ -160,6 +160,7 @@ export default {
 
 	route: {
 		data () {
+			// Do we need this?
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
 
