@@ -2,35 +2,21 @@
 
 starttime=`date +%s`
 
-cd ..
-rm -rf woordbeta/
-rm -rf woordbeta.zip
-cp -r -v woording-web/ woordbeta
+./create-build.sh
 
-cd woordbeta
-rm -rf node_modules/
-npm install
-npm run build
-
-cd ..
-zip -r woordbeta.zip woordbeta
-scp woordbeta.zip cor@woording.com:/home/cor/server/woordbeta.zip
+scp build.zip cor@woording.com:/home/cor/server/build.zip
 
 ssh cor@woording.com -t 'cd /home/cor/server/;
-sudo mv /home/cor/server/woordbeta.zip /home/cor/server/woording/woordbeta.zip
-sudo rm -rf /home/cor/server/woording/woordbeta;
-sudo rm -rf /home/cor/server/woording/woording-web-old;
-sudo rm -rf /home/cor/server/woording/woording-web;
+sudo mv /home/cor/server/build.zip /home/cor/server/woording/build.zip;
+sudo rm -rf /home/cor/server/woording/build;
+cd /home/cor/server/woording/; 
+sudo unzip build.zip; 
+cd /home/cor/server/woording/build/;
 
-screen -S web -X quit;
+screen -r web -X quit;
 
-echo unzipping woordbeta.zip...;
-sudo unzip woordbeta.zip;
+screen -S web -m "/home/cor/server/woording/build/run-server.sh";'
 
-sudo mv woordbeta woording-web;
-
-cd woording-web;
-screen -S beta -m "/home/cor/server/woording/woording-web/run-server.sh";'
 
 endtime=`date +%s`
 

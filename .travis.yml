@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+    - "0.12.3"
+before_install:
+    - npm install
+install:
+    - ./create-build.sh
+notifications:
+  slack: woording:mRp74CL2t7PHSn7g5kruUWGX

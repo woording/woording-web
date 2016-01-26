@@ -1,5 +1,6 @@
 woording-web
 ============
+[![Build Status](https://travis-ci.org/woording/woording-web.svg?branch=master)](https://travis-ci.org/woording/woording-web)  
 The Woording SPA, Work in progress.  
 Built using VueJS  
 
@@ -25,7 +26,10 @@ npm run dev
 ```
 
 ## How to deploy
-Don't.
+```
+npm install
+./deploy.sh
+```
 
 
 
