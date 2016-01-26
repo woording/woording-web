@@ -20,3 +20,6 @@ env/**/*
 build/build.js
 dist/build.js
 npm-debug.log
+
+build/
+build.zip
