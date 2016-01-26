@@ -36,7 +36,7 @@ export default {
 			list: {},
 			modifiers: {},
 			wordStack: [],
-			currentWord: {language_1_text: "car", language_2_text: "auto"}
+			currentWord: {language_1_text: "", language_2_text: ""},
 		}
 	},
 
