@@ -183,7 +183,11 @@ store.saveList = (username, list_data) => {
 		})
 	})
 }
-
+/**
+ * @param  {username}
+ * @param  {friendname}
+ * @return {Promise}, a confirmation message
+ */
 store.friendRequest = (username, friendname) => {
 	return new Promise((resolve, reject) => {
         fetch(config.ip + "friendRequest", {

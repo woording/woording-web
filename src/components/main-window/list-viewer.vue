@@ -11,6 +11,10 @@ $border-style: 0.125rem solid #B6B6B6;
 		padding-left: .5rem;
 		padding-right: .5rem;
 
+        &:nth-child(odd){
+            background:#FAFAFA;
+        }
+
 		.translation-item {
 			flex: 1;
 			padding: 0.25rem;
