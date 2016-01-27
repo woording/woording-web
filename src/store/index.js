@@ -1,16 +1,16 @@
 import globals from '../globals'
 
 var store = {}
-let devMode = false // automatically logs cor in. should be false on deployment
 
 const config = {
-	ip: 'http://api.woording.com/'
+	ip: 'http://api.woording.com/',
+	devMode: false // automatically log 'cor' in
 }
 export default store
 
 store.loggedIn = true
-store.username = devMode ? 'cor' : ''
-store.password = devMode ? 'Hunter2' : ''
+store.username = config.devMode ? 'cor' : ''
+store.password = config.devMode ? 'Hunter2' : ''
 store.cachedToken = null
 store.deletedList = null
 
