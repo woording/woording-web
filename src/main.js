@@ -3,6 +3,8 @@ var App = require('./app.vue');
 var VueRouter = require('vue-router')
 var VueResource = require('vue-resource')
 
+require('whatwg-fetch');
+
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.config.debug = true
