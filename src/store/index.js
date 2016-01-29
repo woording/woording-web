@@ -4,7 +4,7 @@ var store = {}
 
 const config = {
 	ip: 'http://api.woording.com/',
-	devMode: false // automatically log 'cor' in
+	devMode: true // automatically log 'cor' in
 }
 export default store
 

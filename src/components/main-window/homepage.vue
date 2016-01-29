@@ -90,6 +90,9 @@
 				<div v-show="registerMode">
 					<button v-on:click="logIn">Register</button> <span id="error">{{ error }}</span>
 				</div>
+
+                <div class="g-recaptcha" data-sitekey="6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0"></div>
+
 				<div v-show="!registerMode">
 					New here? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>register</a>
 				</div>
@@ -137,6 +140,15 @@ export default {
                 this.error = 'Username and password cannot be empty'
                 return
             }
+
+            let recaptchaResponse = grecaptcha.getResponse()
+            let secret = '6Lcm2hUTAAAAAKwVWXZkDxsDxsgdruju_5CKWjcG'
+            let url = 'https://www.google.com/recaptcha/api/siteverify?secret=' + secret + '&response=' + recaptchaResponse
+            console.log(url)
+
+            store.validateCaptcha(url).then(response => {
+                console.log(response)
+            })
 
             store.username = this.username
             store.password = this.password
