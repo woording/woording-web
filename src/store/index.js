@@ -3,7 +3,7 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-	ip: 'http://api.woording.com/',
+    ip: 'http://127.0.0.1:5000/'/*'http://api.woording.com/'*/,
 	devMode: true // automatically log 'cor' in
 }
 export default store
@@ -33,7 +33,7 @@ store.fetchToken = () => {
                 return
             }
             fetch(config.ip + 'authenticate', {
-                method: 'post',
+                method: 'POST',
                 headers: {
                     'Content-type': 'application/json;charset=UTF-8'
                 },
@@ -44,6 +44,7 @@ store.fetchToken = () => {
             }).then(response => {
                 return response.json()
             }).then(data => {
+                console.log('auth succes')
                 store.cachedToken = data.token
                 resolve(data.token)
             }).catch(error => {
@@ -86,6 +87,8 @@ store.fetchUser = (username) => {
  */
 store.fetchFriends = () => {
 	return new Promise((resolve, reject) => {
+        if (!store.username) return
+
 		store.fetchToken().then( token => {
             fetch(config.ip + "getFriends", {
                 method: 'post',
@@ -205,4 +208,24 @@ store.friendRequest = (username, friendname) => {
             console.log(error)
         })
 	})
+}
+
+store.validateCaptcha = url => {
+    return new Promise((resolve, reject) => {
+        fetch(config.ip + 'validateCaptcha', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({
+                'url': url
+            })
+        }).then(response => {
+            return response.json()
+        }).then(data => {
+            resolve(data.answer)
+        }).catch(error => {
+            console.log(error)
+        })
+    })
 }

@@ -117,10 +117,10 @@ export default {
         'url-update': function(){
             if (store.username){
                 this.username = store.username
-                store.fetchUser(store.username).then(response => { 
+                store.fetchUser(store.username).then(response => {
                     this.email = response.email
                 })
-            }            
+            }
         }
     },
 

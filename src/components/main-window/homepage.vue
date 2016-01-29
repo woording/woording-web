@@ -142,12 +142,19 @@ export default {
             }
 
             let recaptchaResponse = grecaptcha.getResponse()
+            if (!recaptchaResponse){
+                this.error = 'Please fill in captcha'
+                return
+            }
             let secret = '6Lcm2hUTAAAAAKwVWXZkDxsDxsgdruju_5CKWjcG'
             let url = 'https://www.google.com/recaptcha/api/siteverify?secret=' + secret + '&response=' + recaptchaResponse
             console.log(url)
 
             store.validateCaptcha(url).then(response => {
-                console.log(response)
+                if(!response){
+                    console.log('Bitte')
+                    return
+                }
             })
 
             store.username = this.username

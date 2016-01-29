@@ -174,7 +174,6 @@ export default {
 		data () {
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
-            console.log(store.cachedToken)
 
 			if(listname){
 				var updateList = list => {

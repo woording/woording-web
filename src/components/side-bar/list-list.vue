@@ -68,10 +68,10 @@
 		<div id="lists">
 			<ul>
 				<li>{{ $route.params.username + "'s lists" | uppercase }}</li>
-				<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }' v-on:click="showTranslation"><li class="list-link">{{ list.listname }}</li></a>
+				<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }'><li class="list-link">{{ list.listname }}</li></a>
 			</ul>
 		</div>
-		<button v-on:click="undoDelete" v-if="undoButton">Undo delete</button>
+		<button v-on:click="undoDelete" v-if="undoButton" v-link='{ path: "/cor" }'>Undo delete</button>
 		<div v-link='{ path: "/" + $route.params.username + "/add" }' id="add-list-button">
 			<p>+</p>
 		</div>
@@ -124,11 +124,6 @@ export default {
 					{language_1_text: '', language_2_text: ''}
 				]
 			}
-			this.$dispatch('show-template', 'edit', list)
-		},
-
-		showTranslation: function() {
-			this.$dispatch('show-template', 'translation')
 		},
 
 		fetchLists : function(username) {
@@ -149,7 +144,7 @@ export default {
 					store.deletedList = null
 					this.undoButton = false
 				})
-				this.$parent.$route.router.go({ path: "cor/" + store.deletedList.listname })
+				/*this.$parent.$route.router.go({ path: "cor/" + store.deletedList.listname })*/
 			} else {
 				console.log('Welp, we messed up')
 			}
