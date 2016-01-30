@@ -91,7 +91,7 @@
 					<button v-on:click="logIn">Register</button> <span id="error">{{ error }}</span>
 				</div>
 
-                <div class="g-recaptcha" data-sitekey="6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0"></div>
+                <div id="recaptcha"></div>
 
 				<div v-show="!registerMode">
 					New here? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>register</a>
@@ -121,12 +121,23 @@ export default {
             error: '',
 			registerMode: false,
             keepLoggedIn: false,
+            captchaId: ''
+        }
+    },
+
+    route: {
+        data () {
+            window.onload = function() {
+                this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })
+            }
         }
     },
 
     events: {
         'url-update': function(){
             if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
+            grecaptcha.reset(this.captchaId)
+            this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })
         }
     },
 
@@ -141,7 +152,7 @@ export default {
                 return
             }
 
-            let recaptchaResponse = grecaptcha.getResponse()
+            let recaptchaResponse = grecaptcha.getResponse(this.captchaId)
             if (!recaptchaResponse){
                 this.error = 'Please fill in captcha'
                 return
