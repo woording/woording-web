@@ -4,7 +4,7 @@ var store = {}
 
 const config = {
     ip: 'http://127.0.0.1:5000/'/*'http://api.woording.com/'*/,
-	devMode: true // automatically log 'cor' in
+	devMode: false // automatically log 'cor' in
 }
 export default store
 
@@ -32,6 +32,7 @@ store.fetchToken = () => {
                 console.log('Error: not logged in')
                 return
             }
+            console.log(store.password)
             fetch(config.ip + 'authenticate', {
                 method: 'POST',
                 headers: {

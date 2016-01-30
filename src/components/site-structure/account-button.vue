@@ -128,6 +128,7 @@ export default {
 		signOut: function() {
             store.username = ''
             store.password = ''
+            store.cachedToken = null
             this.$parent.$route.router.go({ path: "/" })
             this.shouldShowAccountMenu = false
             this.username = ''

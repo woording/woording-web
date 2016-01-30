@@ -128,7 +128,7 @@ export default {
     route: {
         data () {
             window.onload = function() {
-                this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })
+                /*this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })*/
             }
         }
     },
@@ -136,8 +136,8 @@ export default {
     events: {
         'url-update': function(){
             if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
-            grecaptcha.reset(this.captchaId)
-            this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })
+            /*grecaptcha.reset(this.captchaId)*/
+            /*this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })*/
         }
     },
 
@@ -146,27 +146,40 @@ export default {
 			this.registerMode = !this.registerMode
 		},
 
+        getCookie: function(cookieName) {
+            var name = cookieName + "=";
+            var cookieAttributes = document.cookie.split(';');
+            for(var i = 0; i < cookieAttributes.length; i++) {
+                var cookie = cookieAttributes[i];
+                while (cookie.charAt(0)==' ') cookie = cookie.substring(1);
+                if (cookie.indexOf(name) == 0) return cookie.substring(name.length, cookie.length);
+            }
+            return "";
+        },
+
         logIn: function(){
             if (!this.username || !this.password){
                 this.error = 'Username and password cannot be empty'
                 return
             }
 
-            let recaptchaResponse = grecaptcha.getResponse(this.captchaId)
-            if (!recaptchaResponse){
-                this.error = 'Please fill in captcha'
-                return
-            }
-            let secret = '6Lcm2hUTAAAAAKwVWXZkDxsDxsgdruju_5CKWjcG'
-            let url = 'https://www.google.com/recaptcha/api/siteverify?secret=' + secret + '&response=' + recaptchaResponse
-            console.log(url)
-
-            store.validateCaptcha(url).then(response => {
-                if(!response){
-                    console.log('Bitte')
+            if (this.getCookie('attempts') == 3){
+                let recaptchaResponse = grecaptcha.getResponse(this.captchaId)
+                if (!recaptchaResponse){
+                    this.error = 'Please fill in captcha'
                     return
                 }
-            })
+                let secret = '6Lcm2hUTAAAAAKwVWXZkDxsDxsgdruju_5CKWjcG'
+                let url = 'https://www.google.com/recaptcha/api/siteverify?secret=' + secret + '&response=' + recaptchaResponse
+                console.log(url)
+
+                store.validateCaptcha(url).then(response => {
+                    if(!response){
+                        console.log('Bitte')
+                        return
+                    }
+                })
+            }
 
             store.username = this.username
             store.password = this.password
@@ -174,23 +187,17 @@ export default {
             store.fetchToken().then((response) => {
                 this.error = ''
                 document.cookie = "username = " + this.username + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"
-                function getCookie(cname) {
-                    var name = cname + "=";
-                    var ca = document.cookie.split(';');
-                    for(var i=0; i<ca.length; i++) {
-                        var c = ca[i];
-                        while (c.charAt(0)==' ') c = c.substring(1);
-                        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-                    }
-                    return "";
-                }
-                console.log(getCookie("username"))
+
+                console.log(this.getCookie("username"))
                 this.$parent.$route.router.go({ path: "/" + this.username })
+                document.cookie = "attempts = 0"
             }).catch((error) => {
                 console.log(error)
                 store.username = ''
                 store.password = ''
                 this.error = 'Username or password incorrect'
+                document.cookie = "attempts = " + (parseInt(this.getCookie('attempts')) + 1)
+                if (this.getCookie('attempts') == 3) this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })
             })
         }
     }
