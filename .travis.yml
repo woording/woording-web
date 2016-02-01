@@ -14,7 +14,7 @@ addons:
 after_success:
   - tar -czf package.tgz build
   - export SSHPASS=$DEPLOY_PASS
-  - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+  - sshpass -e scp package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH -o stricthostkeychecking=no
   - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/travis-deploy.sh
 env:
   global:
