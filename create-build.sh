@@ -18,4 +18,4 @@ cp -R css build/css
 cp favicons/* build/
 cp run-server.sh build/run-server.sh
 
-zip -r build.zip build
+ls -laG
