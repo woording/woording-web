@@ -143,8 +143,8 @@ export default {
 					this.$parent.$route.router.go({ path: "cor/" + store.deletedList.listname })
 					store.deletedList = null
 					this.undoButton = false
+                    console.log(response)
 				})
-				/*this.$parent.$route.router.go({ path: "cor/" + store.deletedList.listname })*/
 			} else {
 				console.log('Welp, we messed up')
 			}

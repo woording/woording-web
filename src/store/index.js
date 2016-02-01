@@ -4,7 +4,7 @@ var store = {}
 
 const config = {
     ip: 'http://127.0.0.1:5000/'/*'http://api.woording.com/'*/,
-	devMode: false // automatically log 'cor' in
+	devMode: true // automatically log 'cor' in
 }
 export default store
 
@@ -32,7 +32,6 @@ store.fetchToken = () => {
                 console.log('Error: not logged in')
                 return
             }
-            console.log(store.password)
             fetch(config.ip + 'authenticate', {
                 method: 'POST',
                 headers: {
@@ -45,7 +44,6 @@ store.fetchToken = () => {
             }).then(response => {
                 return response.json()
             }).then(data => {
-                console.log('auth succes')
                 store.cachedToken = data.token
                 resolve(data.token)
             }).catch(error => {
@@ -153,6 +151,8 @@ store.deleteList = (username, list) => {
                     'listname': list.listname
                 })
             }).then(response => {
+                return response.json()
+            }).then(response => {
                 resolve(response)
             }).catch(error => {
                 console.log(error)
@@ -180,9 +180,11 @@ store.saveList = (username, list_data) => {
                     'list_data': list_data
                 })
             }).then(response => {
+                return response.json()
+            }).then(response => {
                 resolve(response)
             }).catch(error => {
-                console.log('error')
+                console.log(error)
             })
 		})
 	})
@@ -204,7 +206,9 @@ store.friendRequest = (username, friendname) => {
                 'friendname': friendname
             })
         }).then(response => {
-            resolve(response)
+            return response.json()
+        }).then(data => {
+            resolve(data)
         }).catch(error => {
             console.log(error)
         })
@@ -224,7 +228,7 @@ store.validateCaptcha = url => {
         }).then(response => {
             return response.json()
         }).then(data => {
-            resolve(data.answer)
+            resolve(data.response)
         }).catch(error => {
             console.log(error)
         })
