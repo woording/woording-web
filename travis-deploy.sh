@@ -16,4 +16,4 @@ mv build woording-web
 chmod 777 woording-web
 cd /home/cor/server/woording/woording-web
 
-screen -d -f -S web -m "/home/cor/server/woording/woording-web/run-server.sh"
+screen -f -S web -m -d  "/home/cor/server/woording/woording-web/run-server.sh"
