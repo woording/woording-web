@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /var/www
+cd `dirname $0`
 
 # remove the previous version
 rm -rf woording-web-old
