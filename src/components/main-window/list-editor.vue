@@ -264,6 +264,7 @@ export default {
                     this.error = 'Successfully saved list.'
                     this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.listname })
                     this.list = list_data
+                    console.log(response)
                 }).catch(error => {
                     console.log('error')
                     console.log(error)
