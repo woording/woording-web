@@ -1,5 +1,5 @@
 #!/bin/bash
-cd `dirname $0`
+cd /home/cor/server/woording
 
 #This file is located at /home/cor/server/woording/ on the woording.com server
 
@@ -14,4 +14,4 @@ mv build woording-web
 chmod 777 woording-web
 cd /home/cor/server/woording/woording-web
 
-screen -d -S web -m "/home/cor/server/woording/woording-web/run-server.sh"
+screen -d -f -S web -m "/home/cor/server/woording/woording-web/run-server.sh"
