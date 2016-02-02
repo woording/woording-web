@@ -3,9 +3,10 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-    ip: 'http://127.0.0.1:5000/'/*'http://api.woording.com/'*/,
+    ip: 'http://api.woording.com/',
 	devMode: false // automatically log 'cor' in
 }
+
 export default store
 
 store.loggedIn = true
