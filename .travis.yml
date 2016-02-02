@@ -4,7 +4,7 @@ node_js:
 before_install:
 - npm install
 install:
-- ./create-build.sh
+- ./scripts/create-build.sh
 notifications:
   slack: woording:mRp74CL2t7PHSn7g5kruUWGX
 addons:
