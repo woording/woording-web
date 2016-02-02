@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Go to the project root
-cd ..
-
 # Delete the old build
 rm -rf build.zip
 rm -rf build/
