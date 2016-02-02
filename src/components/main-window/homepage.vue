@@ -85,7 +85,7 @@
                 <br>
                 <input type="checkbox" v-model="keepLoggedIn" v-show="!registerMode"> Remember me?
 				<div v-show="!registerMode">
-					<button v-on:click="logIn">Log In :D</button> <span id="error">{{ error }}</span>
+					<button v-on:click="logIn">Log In</button> <span id="error">{{ error }}</span>
 				</div>
 				<div v-show="registerMode">
 					<button v-on:click="logIn">Register</button> <span id="error">{{ error }}</span>
