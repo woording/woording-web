@@ -11,6 +11,7 @@ screen -r web -X quit
 rm -rf woording-web
 mv build woording-web
 
-cd woording-web
+chmod 777 woording-web
+cd /home/cor/server/woording/woording-web
 
 screen -S web -m "/home/cor/server/woording/woording-web/run-server.sh"
