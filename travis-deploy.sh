@@ -2,6 +2,8 @@
 cd /home/cor/server/woording
 
 #This file is located at /home/cor/server/woording/ on the woording.com server
+rm -rf woording-web
+rm -rf build
 
 tar -xzf package.tgz
 rm package.tgz
