@@ -13,4 +13,4 @@ mv build woording-web
 
 cd woording-web
 
-screen -S -m "/home/cor/server/woording/woording-web/run-server.sh"
+screen -S web -m "/home/cor/server/woording/woording-web/run-server.sh"
