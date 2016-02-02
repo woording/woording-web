@@ -1,6 +1,8 @@
 #!/bin/bash
 cd `dirname $0`
 
+#This file is located at /home/cor/server/woording/ on the woording.com server
+
 tar -xzf package.tgz
 rm package.tgz
 
