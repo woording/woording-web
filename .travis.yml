@@ -15,8 +15,8 @@ after_success:
 - ls build
 - tar -czf package.tgz build
 - export SSHPASS=$DEPLOY_PASS
-- sshpass -e scp -o stricthostkeychecking=no package.tgz sudo@$DEPLOY_HOST:$DEPLOY_PATH
-- sshpass -e ssh sudo@$DEPLOY_HOST $DEPLOY_PATH/travis-deploy.sh
+- sshpass -e scp -o stricthostkeychecking=no package.tgz $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+- sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_PATH/travis-deploy.sh
 env:
   global:
   - secure: nWrVqBlxEusF7d/iDvTBep5tRvKGq9RKWXxOCkLf97dSqFjBtS/JabhM8hVSWiwNhbnoT8qDzkBEYxKUaS71qUINoPK6g7PQCrgYbETruAOqNpCnDdeD9QdLJ4D31dA2J2FyWYKpIWhHSDjCSqdwppPUGrR9TESm2fwyInEHXWOHOVREoM3NuAs6/DBSxUwoNoHIOAWloT35wNqoPqL+mGaQkb4LHK6bd5ZcgG77aSxlL7OrWp6DLmCnNBej4XaOnVRl2Dc0ZiEHib7XScGWa6sRr6WVJXDHqNC3UYI3QBOz/WHqiv8aHB/Qlf/3Nlhtml7AROwNoKmIdbGmUU9TZUMtZ8a40jtKxheWlu5u8WMg26mGPG/89wSDK4/J9M0CtBYvD66AJSgE7WoXhyzLK28ckoEdpfgypWb25u+Ys9dsFWz6wFvUiAua4KRLXtHcvqiNwPBREOjG5mNSSyLXzj/kuOn8rDqePWt5nQpmoktOXE85WSPpM9bzVxlRQU1pONYDelbJYMPBa/eIxDpjSu0Hj01uqqemJws0w6SzsQ3tM62NSaXvVd2ZN82h3PkZxbb9sCzvGhQp+AAQLi8FzRBleNhtX80EJO/dmBAstHtCpF/ScuUn0OiR43l+XCRC6Stjkgzw0uW27Gd6EzpqPbTQ7Ydmx0Wv8rFM52bnDkI=
