@@ -100,7 +100,6 @@
 					Already have an account? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Log in</a>
 				</div>
             </form>
-            {{ keepLoggedIn }}
         </div>
 
     </div>
