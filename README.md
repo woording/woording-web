@@ -27,11 +27,7 @@ npm install
 npm run dev
 ```
 
-## How to deploy
-```
-npm install
-./deploy.sh
-```
-
+## Deployment
+Every commit is automatically built in the cloud and scp'ed to the woording server. 
 
 
