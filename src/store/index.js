@@ -3,7 +3,7 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-    ip: 'http://127.0.0.1:5000/',
+    ip: 'https://127.0.0.1:5000/',
 	devMode: false // automatically log 'cor' in
 }
 
