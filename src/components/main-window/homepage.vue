@@ -84,11 +84,11 @@
 
                 <br>
                 <input type="checkbox" v-model="keepLoggedIn" v-show="!registerMode"> Remember me?
-				<div v-show="!registerMode">
+				<div v-if="!registerMode">
 					<button v-on:click="logIn">Log In</button> <span id="error">{{ error }}</span>
 				</div>
-				<div v-show="registerMode">
-					<button v-on:click="logIn">Register</button> <span id="error">{{ error }}</span>
+				<div v-if="registerMode">
+					<button v-on:click="register">Register</button> <span id="error">{{ error }}</span>
 				</div>
 
                 <div id="recaptcha"></div>
@@ -153,6 +153,37 @@ export default {
                 if (cookie.indexOf(name) == 0) return cookie.substring(name.length, cookie.length);
             }
             return "";
+        },
+
+        register: function(){
+            let elements = [this.username, this.password, this.repeated, this.email]
+            for(let i = 0, x = elements.length; i < x; i++){
+                if(!elements[i]){
+                    this.error = 'Do not leave fields empty'
+                    return
+                }
+            }
+
+            if (this.password != this.repeated){
+                this.error = 'Password not the same'
+                return
+            }
+
+            var regexMailCheck = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+            if(!regexMailCheck.test(this.email)){
+                this.error = 'Not a valid email address'
+                return
+            }
+
+            this.error = ''
+            store.register(this.username, this.password, this.email).then(response => {
+                console.log(response)
+                if(response.succes){
+                    alert('Validation email has been sent')
+                } else {
+                    this.error = response.response
+                }
+            })
         },
 
         logIn: function(){

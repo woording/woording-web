@@ -3,7 +3,7 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-    ip: 'http://api.woording.com/',
+    ip: 'http://127.0.0.1:5000/',
 	devMode: false // automatically log 'cor' in
 }
 
@@ -190,6 +190,30 @@ store.saveList = (username, list_data) => {
 		})
 	})
 }
+
+
+store.register = (username, password, email) => {
+    return new Promise((resolve, reject) => {
+        fetch(config.ip + "register", {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({
+                'username': username,
+                'password': password,
+                'email': email
+            })
+        }).then(response => {
+            return response.json()
+        }).then(response => {
+            resolve(response)
+        }).catch(error => {
+            console.log(error)
+        })
+    })
+}
+
 /**
  * @param  {username}
  * @param  {friendname}
