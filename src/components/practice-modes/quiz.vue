@@ -54,6 +54,8 @@ export default {
 			let username = this.$parent.$route.params.username
 			let listname = this.$parent.$route.params.listname
 
+			let updateList = list => { this.list = list }
+
 			let completion = () => {
 				this.initalizeWordStack()
 				this.addWronglyAnsweredCountToWordsInList()
@@ -67,9 +69,10 @@ export default {
 		},
 
 		addWronglyAnsweredCountToWordsInList() {
-			for (word in this.list.words) {
-				word.wronglyAnsweredCount = 0
-			}
+			console.log(this.list.words)
+			for (var i = this.list.words.length - 1; i >= 0; i--) {
+				this.list.words[i].wronglyAnsweredCount = 0
+			};
 		},
 
 		nextWord() {
