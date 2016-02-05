@@ -131,6 +131,9 @@ export default {
 			var updateLists = lists => { this.lists = lists }
 
 			store.fetchUser(username).then(user => {
+                if(!user.lists.length){
+                    console.log('no lists')
+                }
 				updateLists(user.lists)
 			})
 

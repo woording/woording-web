@@ -48,7 +48,7 @@
 			display: block;
 			font-family: Roboto;
 			font-size: 1rem;
-			width: 16rem;
+			width: 100%;
 			border-radius: 0;
 			background-color: #4CAF50;
 			color: white;
@@ -81,11 +81,12 @@
 <template>
 <div id="account-button" v-on:click="toggleAccountMenu" v-if="username">
 	<img src="img/ui/account-button.png" alt="Account Button">
-	<p>Cor Pruijs</p>
+	<p>{{ username }}</p>
 </div>
 <div id="account-menu" v-show="shouldShowAccountMenu">
 	<div id="account-info">
 		<p>{{ username }}</p>
+        <br>
 		<p>{{ email }}</p>
 	</div>
 	<div>
