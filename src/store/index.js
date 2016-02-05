@@ -15,7 +15,6 @@ store.password = config.devMode ? 'Hunter2' : ''
 store.cachedToken = null
 store.deletedList = null
 
-
 /**
  * Fetch a token based on username and listname
  * used internally
