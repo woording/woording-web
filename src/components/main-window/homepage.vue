@@ -199,11 +199,11 @@ export default {
                 return
             }
 
-            /*var regexMailCheck = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/*/
-            /*if(!regexMailCheck.test(this.email)){*/
-                /*this.error = 'Not a valid email address'*/
-                /*return*/
-            /*}*/
+            var regexMailCheck = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+            if(!regexMailCheck.test(this.email)){
+                this.error = 'Not a valid email address'
+                return
+            }
 
             this.error = ''
             store.register(this.username, this.password, this.email).then(response => {
