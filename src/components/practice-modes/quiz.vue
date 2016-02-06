@@ -15,13 +15,14 @@
 	<h2>{{ list.listname }}</h2>
 	<p>Words left: {{ wordStack.length }}</p>
 	<p>Current Word: {{ currentWord.language_1_text }}</p>
-	<button v-on:click="nextWord">next word</button>
-	
+
+	<button v-on:click="simulateCorrectAnswer">Correct Answer</button>
+	<button v-on:click="simulateWrongAnswer">Wrong Answer</button>
 
 
 	<h2>Debug info</h2>
 	<pre>{{ modifiers | json }}</pre>
-	<pre>{{ wordStack | json  }}</pre>
+	<pre>{{ list | json }}</pre>
 </div>
 </template>
 
@@ -57,6 +58,7 @@ export default {
 
 			let completion = () => {
 				this.initalizeWordStack()
+				this.addWronglyAnsweredCountToWordsInList()
 				this.nextWord()
 			}
 
@@ -66,8 +68,23 @@ export default {
 			})
 		},
 
+		addWronglyAnsweredCountToWordsInList() {
+			console.log(this.list.words)
+			for (var i = this.list.words.length - 1; i >= 0; i--) {
+				this.list.words[i].wronglyAnsweredCount = 0
+			};
+		},
+
 		nextWord() {
 			this.currentWord = this.wordStack.pop()
+		},
+
+		simulateCorrectAnswer() {
+
+		},
+
+		simulateWrongAnswer() {
+
 		},
 
 		initalizeWordStack() {
@@ -80,7 +97,6 @@ export default {
 					for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
 					return o;
 				}
-
 
 				// .slice() copies the array by value instead of by reference
 				this.wordStack = shuffle(this.list.words.slice())
