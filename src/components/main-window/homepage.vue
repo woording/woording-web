@@ -11,7 +11,7 @@
     }
 
     h1 {
-        font-size: 30px;
+        font-size: 40px;
     }
 
     #forms {
@@ -31,22 +31,46 @@
         input {
             width: 100%;
 			font-size: 16px;
-			padding: .2rem;
-        }
+			padding: .4rem;
+            margin: 2px;
+            border-radius: 3px;
+            border: 1px solid #aaa;
+            background: #F4F4F4;
+            color: black;
 
+            &:focus {
+                background: white;
+                transition: background 0.2s;
+                outline: none;
+            }
+        }
+        
+        a {
+            color: #4CAF50;
+        }
+        
         input[type=checkbox]{
             width: 20px;
+            cursor: pointer;
         }
 
         button {
             margin: 20px 0 20px 0;
             width: 100%;
+            background: #4CAF50;
+            border: none;
+            padding: 10px;
+            border-radius: 3px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .form {
 			h2 {
-				font-size: 1.2rem;
+				font-size: 1.7rem;
 				margin-bottom: .5rem;
+                font-weight: 400;
 			}
 
             flex: 1;
@@ -73,7 +97,8 @@
     <!--<h1>Welcome to Woording!</h1>-->
     <div id="forms">
         <div id="login" class='form'>
-            <h2>Log in</h2>
+            <h2 v-if="!registerMode">Log in</h2>
+            <h2 v-if="registerMode">Register</h2>
             <form v-on:submit.prevent>
                 <input type="text" placeholder="Username" v-model='username'><br>
 				<input type="password" placeholder="Password" v-model='password'><br>
@@ -83,21 +108,21 @@
 				</div>
 
                 <br>
-                <input type="checkbox" v-model="keepLoggedIn" v-show="!registerMode"> Remember me?
+                <p v-show="!registerMode"><input type="checkbox" v-model="keepLoggedIn" v-show="!registerMode">Remember me?</p>
 				<div v-if="!registerMode">
-					<button v-on:click="logIn">Log In</button> <span id="error">{{ error }}</span>
+					<button v-on:click="logIn">LOG IN</button> <span id="error">{{ error }}</span>
 				</div>
 				<div v-if="registerMode">
-					<button v-on:click="register">Register</button> <span id="error">{{ error }}</span>
+					<button v-on:click="register">REGISTER</button> <span id="error">{{ error }}</span>
 				</div>
 
                 <div id="recaptcha"></div>
 
 				<div v-show="!registerMode">
-					New here? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>register</a>
+					New here: <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Register</a>
 				</div>
 				<div v-show="registerMode">
-					Already have an account? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Log in</a>
+					Already have an account: <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Log in</a>
 				</div>
             </form>
         </div>
@@ -109,6 +134,7 @@
 <script>
 
 import store from "../../store";
+import globals from "../../globals";
 
 export default {
     data: function() {
@@ -133,8 +159,6 @@ export default {
     events: {
         'url-update': function(){
             if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
-            /*grecaptcha.reset(this.captchaId)*/
-            /*this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })*/
         }
     },
 
@@ -163,16 +187,23 @@ export default {
                 }
             }
 
+            globals.validateInput(this.username).then(response => {
+                console.log(response)
+            }).catch(error => {
+                this.error = 'Please only user letters, numbers and hyphen in the username'
+                return
+            })
+
             if (this.password != this.repeated){
                 this.error = 'Password not the same'
                 return
             }
 
-            var regexMailCheck = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-            if(!regexMailCheck.test(this.email)){
-                this.error = 'Not a valid email address'
-                return
-            }
+            /*var regexMailCheck = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/*/
+            /*if(!regexMailCheck.test(this.email)){*/
+                /*this.error = 'Not a valid email address'*/
+                /*return*/
+            /*}*/
 
             this.error = ''
             store.register(this.username, this.password, this.email).then(response => {
@@ -213,6 +244,12 @@ export default {
             store.password = this.password
 
             store.fetchToken().then((response) => {
+                if(!response.success){
+                    console.log(response)
+                    throw new Error(response.error)
+                }
+
+                store.cachedToken = response.token
                 this.error = ''
                 document.cookie = "username = " + this.username + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"
 
@@ -220,12 +257,12 @@ export default {
                 this.$parent.$route.router.go({ path: "/" + this.username })
                 document.cookie = "attempts = 0"
             }).catch((error) => {
-                console.log(error)
+                console.log(error.message)
                 store.username = ''
                 store.password = ''
-                this.error = 'Username or password incorrect'
-                document.cookie = "attempts = " + (parseInt(this.getCookie('attempts')) + 1)
-                if (this.getCookie('attempts') == 3) this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })
+                this.error = error.message
+                /*document.cookie = "attempts = " + (parseInt(this.getCookie('attempts')) + 1)*/
+                /*if (this.getCookie('attempts') == 3) this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })*/
             })
         }
     }

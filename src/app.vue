@@ -44,7 +44,7 @@
     <site-header></site-header>
 
 
-    <site-body v-if="loggedIn">
+    <site-body>
 
         <user-list v-if="username"></user-list>
         <list-list v-if="username"></list-list>
@@ -76,7 +76,6 @@ import UserList from './components/side-bar/user-list.vue'
 export default {
     data () {
         return {
-            loggedIn: store.loggedIn,
             username: ''
         }
     },

@@ -9,7 +9,6 @@ const config = {
 
 export default store
 
-store.loggedIn = true
 store.username = config.devMode ? 'cor' : ''
 store.password = config.devMode ? 'Hunter2' : ''
 store.cachedToken = null
@@ -45,8 +44,7 @@ store.fetchToken = () => {
             }).then(response => {
                 return response.json()
             }).then(data => {
-                store.cachedToken = data.token
-                resolve(data.token)
+                resolve(data)
             }).catch(error => {
                 reject(error)
             })
