@@ -13,6 +13,9 @@
     h1 {
         font-size: 40px;
     }
+	.toggleRegisterModeLink {
+		text-align: right;
+	}
 
     #forms {
         width: 300px;
@@ -68,9 +71,13 @@
 
         .form {
 			h2 {
-				font-size: 1.7rem;
+				font-size: 1.6rem;
 				margin-bottom: .5rem;
                 font-weight: 400;
+			}
+			#rememberMeToggle {
+				margin-top: 0.4rem;
+
 			}
 
             flex: 1;
@@ -107,8 +114,7 @@
 					<input type="text" placeholder="Email" v-model='email'><br>
 				</div>
 
-                <br>
-                <p v-show="!registerMode"><input type="checkbox" v-model="keepLoggedIn" v-show="!registerMode">Remember me?</p>
+                <p id="rememberMeToggle" v-show="!registerMode"><input type="checkbox" v-model="keepLoggedIn" v-show="!registerMode">Remember me?</p>
 				<div v-if="!registerMode">
 					<button v-on:click="logIn">LOG IN</button> <span id="error">{{ error }}</span>
 				</div>
@@ -118,13 +124,13 @@
 
                 <div id="recaptcha"></div>
 
-				<div v-show="!registerMode">
-					New here: <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Register</a>
-				</div>
-				<div v-show="registerMode">
-					Already have an account: <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Log in</a>
-				</div>
             </form>
+			<div v-show="!registerMode">
+				<p class="toggleRegisterModeLink"> New here? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Register</a> </p>
+			</div>
+			<div v-show="registerMode">
+				<p class="toggleRegisterModeLink"> Already have an account? <a v-on:click='toggleRegisterMode' href="" v-on:click.prevent>Log in</a> </p>
+			</div>
         </div>
 
     </div>
