@@ -14,7 +14,7 @@
         font-size: 40px;
     }
 	.toggleRegisterModeLink {
-		text-align: right;
+		text-align: left;
 	}
 
     #forms {
