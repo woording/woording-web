@@ -77,7 +77,6 @@
 			}
 			#rememberMeToggle {
 				margin-top: 0.4rem;
-
 			}
 
             flex: 1;
