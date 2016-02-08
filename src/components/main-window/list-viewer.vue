@@ -162,7 +162,7 @@ export default {
 			store.deleteList(store.username, this.list).then((response) => {
 				console.log(response)
 				this.list = null
-				this.$route.router.go({ path: '/cor/' })
+				this.$route.router.go({ path: '/' + store.username + '/' })
 			})
 		},
 
