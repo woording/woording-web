@@ -188,7 +188,21 @@ export default {
 
 			// Call savelist in store and after that show the new/edited list
 			store.saveList(store.username, list_data).then((response) => {
-				console.log(response)
+                console.log(response)
+                if(response.response == "List exists"){
+                    if(!confirm('There is already a list with this name, do you want to continue and delete the old list?')){
+                        list_data = {
+                            listname: response.old_list.listname,
+                            language_1_tag: response.old_list.language_1_tag,
+                            language_2_tag: response.old_list.language_2_tag,
+                            shared_with: response.old_list.shared_with,
+                            words: response.old_words
+                        }
+                        store.saveList(store.username, list_data).then(response => {
+                            console.log('Undo')
+                        })
+                    }
+                }
 				this.error = 'Successfully saved list.'
 				this.list = list_data
 				this.$parent.$route.router.go({ path: "/" + store.username + "/" + list_data.listname })

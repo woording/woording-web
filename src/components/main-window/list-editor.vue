@@ -162,6 +162,7 @@ export default {
 		return {
 			list: {},
 			listname : '',
+            oldname: '',
 			error: '',
 			duplicate: false,
 			language_1_tag: '',
@@ -179,6 +180,7 @@ export default {
 				var updateList = list => {
 					this.list = list
 					this.listname = list.listname
+                    this.oldname = list.listname
 					this.language_1_tag = list.language_1_tag
 					this.language_2_tag = list.language_2_tag
 					this.shared_with = list.shared_with
@@ -261,10 +263,28 @@ export default {
 
                 // Call savelist in store and after that show the new/edited list
                 store.saveList(store.username, list_data).then((response) => {
-                    this.error = 'Successfully saved list.'
-                    this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.listname })
-                    this.list = list_data
                     console.log(response)
+                    if(response.response == "List exists" && this.oldname != this.listname){
+                        if(!confirm('There is already a list with this name, do you want to continue and delete the old list?')){
+                            list_data.listname = this.oldname
+                            store.saveList(store.username, list_data).then(response => {
+                                console.log('Undo')
+                            })
+                            list_data = {
+                                listname: response.old_list.listname,
+                                language_1_tag: response.old_list.language_1_tag,
+                                language_2_tag: response.old_list.language_2_tag,
+                                shared_with: response.old_list.shared_with,
+                                words: response.old_words
+                            }
+                            store.saveList(store.username, list_data).then(response => {
+                                console.log('Undo')
+                            })
+                            this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.oldname })
+                        }
+                        else { this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.listname }) }
+                    }
+                    this.list = list_data
                 }).catch(error => {
                     console.log('error')
                     console.log(error)
