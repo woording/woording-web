@@ -5,7 +5,7 @@ The Woording SPA, Work in progress.
 Built using [VueJS](http://github.com/vuejs/vue), and [vue-router](http://github.com/vuejs/vue-router). 
 
 Try it at [woording.com](http://woording.com). 
-
+   
 ## Features
 - Browse your own and friends' lists
 - Send friend requests
