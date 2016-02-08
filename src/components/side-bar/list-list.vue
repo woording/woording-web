@@ -143,7 +143,7 @@ export default {
 			if (store.deletedList){
 				// Call savelist on saved data from last delete
 				store.saveList(store.username, store.deletedList).then((response) => {
-					this.$parent.$route.router.go({ path: "cor/" + store.deletedList.listname })
+					this.$parent.$route.router.go({ path: store.username + "/" + store.deletedList.listname })
 					store.deletedList = null
 					this.undoButton = false
                     console.log(response)

@@ -191,8 +191,7 @@ export default {
 				console.log(response)
 				this.error = 'Successfully saved list.'
 				this.list = list_data
-				this.$parent.$route.router.go({ path: "/cor/" + list_data.listname })
-				this.$dispatch('show-template', 'translation')
+				this.$parent.$route.router.go({ path: "/" + store.username + "/" + list_data.listname })
 			})
 		}
 
