@@ -3,7 +3,7 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-    ip: 'http://127.0.0.1:5000/',
+    ip: 'https://api.woording.com/',
 	devMode: false // automatically log 'cor' in
 }
 
@@ -24,31 +24,46 @@ store.deletedList = null
 store.fetchToken = (keepLoggedIn=false) => {
 	return new Promise((resolve, reject) => {
 
-		if (store.cachedToken != null) {
-			resolve(store.cachedToken)
-		} else {
-            if(!store.username){
-                console.log('Error: not logged in')
-                return
-            }
-            fetch(config.ip + 'authenticate', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json;charset=UTF-8'
-                },
-                body: JSON.stringify({
-                    'username': store.username,
-                    'password': store.password,
-                    'keepLoggedIn':keepLoggedIn
+        let recieveToken = () => {
+            if (store.cachedToken != null) {
+                resolve(store.cachedToken)
+            } else {
+                if(!store.username){
+                    console.log('Error: not logged in')
+                    return
+                }
+                fetch(config.ip + 'authenticate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json;charset=UTF-8'
+                    },
+                    body: JSON.stringify({
+                        'username': store.username,
+                        'password': store.password,
+                        'keepLoggedIn':keepLoggedIn
+                    })
+                }).then(response => {
+                    return response.json()
+                }).then(data => {
+                    resolve(data)
+                }).catch(error => {
+                    reject(error)
                 })
-            }).then(response => {
-                return response.json()
-            }).then(data => {
-                resolve(data)
-            }).catch(error => {
-                reject(error)
-            })
-		}
+            }
+        }
+
+        let tokenCookie = globals.getCookie('rememberme')
+        store.remember(tokenCookie).then(response => {
+            if(!response.success){
+                throw new Error('error')
+            }
+            store.username = response.response
+            store.cachedToken = tokenCookie
+        }).then(response => {
+            recieveToken()
+        }).catch(error => {
+            recieveToken()
+        })
 	})
 }
 
@@ -103,8 +118,6 @@ store.fetchUser = (username) => {
  */
 store.fetchFriends = () => {
 	return new Promise((resolve, reject) => {
-        if (!store.username) return
-
 		store.fetchToken().then( token => {
             fetch(config.ip + "getFriends", {
                 method: 'post',

@@ -143,31 +143,17 @@ export default {
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
 
-                store.remember(globals.getCookie('rememberme')).then(response => {
-                    console.log(response)
-                    store.cachedToken = globals.getCookie('rememberme')
-                    store.username = response.response
-                }).then(response => {
-                    this.fetchList(username, listname)
-                    this.$parent.$route.router.go({ path: "/" + username + "/" + listname })
-                    this.ownList = username == store.username ? true : false
+            store.fetchToken().then(response => {
+                this.ownList = username == store.username ? true : false
+            })
 
-                    if(listname){
-                        this.fetchList(username, listname)
-                    } else {
-                        this.list = null
-                    }
-                }).catch(error => {
-                    this.ownList = username == store.username ? true : false
-
-                    if(listname){
-                        this.fetchList(username, listname)
-                    } else {
-                        this.list = null
-                    }
-                })
-		}
-	},
+            if(listname){
+                this.fetchList(username, listname)
+            } else {
+                this.list = null
+            }
+	    }
+    },
 
 	methods : {
 		debugList: function() {

@@ -86,20 +86,15 @@ export default {
 	data: function () {
 		var username = this.$parent.$route.params.username
 		this.fetchFriends(username)
+
+        store.fetchToken().then(response => {
+            username = store.username
+            this.username = store.username
+        })
+
 		return {
 			friends: [],
 			username: username
-		}
-	},
-
-	events: {
-		'url-update': function(){
-			var username = this.$parent.$route.params.username
-
-			this.fetchFriends(username)
-			if(!username){
-				this.username = null
-			}
 		}
 	},
 

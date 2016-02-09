@@ -173,7 +173,6 @@ export default {
 
     events: {
         'url-update': function(){
-            if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
         }
     },
 

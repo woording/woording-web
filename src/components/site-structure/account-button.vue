@@ -106,24 +106,20 @@
 <script>
 import store from '../../store'
 export default {
-	data : function() {
+	data: function() {
+        store.fetchToken().then(response => {
+            this.username = store.username
+            store.fetchUser(store.username).then(response => {
+                this.email = response.email
+            })
+        })
+
 		return {
 			shouldShowAccountMenu: false,
             username: store.username,
             email: ''
 		}
 	},
-
-    events: {
-        'url-update': function(){
-            if (store.username){
-                this.username = store.username
-                store.fetchUser(store.username).then(response => {
-                    this.email = response.email
-                })
-            }
-        }
-    },
 
 	methods : {
 		signOut: function() {

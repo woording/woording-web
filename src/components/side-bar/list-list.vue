@@ -98,7 +98,6 @@ export default {
 		'url-update': function(){
 			var username = this.$parent.$route.params.username
 			this.fetchLists(username)
-
 			if (store.deletedList){
 				this.undoButton = true
 			}
