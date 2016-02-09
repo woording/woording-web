@@ -224,6 +224,7 @@ export default {
 		},
 
 		saveList: function() {
+            console.time('savelist')
 			var words = []
 
 			var sentences = document.getElementsByClassName('sentence-item')
@@ -264,6 +265,7 @@ export default {
                 // Call savelist in store and after that show the new/edited list
                 store.saveList(store.username, list_data).then((response) => {
                     console.log(response)
+                    console.timeEnd('savelist')
                     if(response.response == "List exists" && this.oldname != this.listname){
                         if(!confirm('There is already a list with this name, do you want to continue and delete the old list?')){
                             list_data.listname = this.oldname
@@ -282,7 +284,12 @@ export default {
                             })
                             this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.oldname })
                         }
-                        else { this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.listname }) }
+                        else {
+                            this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.listname })
+                        }
+                    }
+                    else {
+                        this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.listname })
                     }
                     this.list = list_data
                 }).catch(error => {
