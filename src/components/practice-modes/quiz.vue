@@ -59,13 +59,11 @@ export default {
 			.merge(rightAnswerStream, wrongAnswerStream)
 			.scan(function(acc, x, i, source) { return acc + x}, 0)
 
-		let updateScore = (score) => this.score = score
-
 		let score = answerStream.subscribe(
-			function(score){updateScore(score)},
-			function(e){console.log('error')},
+			score => this.score = score,
+			error => console.log('error'),
 			function(){console.log('')} 
-			)
+		)
 	},
 
 	methods : {
