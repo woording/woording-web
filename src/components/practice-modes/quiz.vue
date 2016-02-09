@@ -16,12 +16,12 @@
 	<p>Words left: {{ wordStack.length }}</p>
 	<p>Current Word: {{ currentWord.language_1_text }}</p>
 
-	<button v-on:click="simulateCorrectAnswer">Correct Answer</button>
+	<button id="correctHorse">Correct Answer</button>
 	<button v-on:click="simulateWrongAnswer">Wrong Answer</button>
 
 
 	<h2>Debug info</h2>
-	<pre>{{ modifiers | json }}</pre>
+	<pre>{{ clickCount | json }}</pre>
 	<pre>{{ list | json }}</pre>
 </div>
 </template>
@@ -29,6 +29,7 @@
 <script>
 
 import store from '../../store'
+const Rx = require('rx')
 
 export default {
 
@@ -38,12 +39,21 @@ export default {
 			modifiers: {},
 			wordStack: [],
 			currentWord: {language_1_text: "", language_2_text: ""},
+			clickCount: 0
 		}
 	},
 
 	ready () {
 		this.decodeModifiers()
 		this.fetchListAndInitialize()
+		var button = document.querySelector("#correctHorse")
+		var clickStream = Rx.Observable.fromEvent(button, 'click')
+
+		var buttonClick = clickStream.subscribe(
+			function(i){console.log('waddup')},
+			function(e){console.log('error')},
+			function(){console.log('')},
+			)
 	},
 
 	methods : {

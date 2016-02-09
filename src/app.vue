@@ -49,7 +49,7 @@
         <user-list v-if="username"></user-list>
         <list-list v-if="username"></list-list>
 
-        <!-- main window --!>
+        <!-- main window -->
         <router-view></router-view>
 
     </site-body>
