@@ -47,11 +47,11 @@
                 outline: none;
             }
         }
-        
+
         a {
             color: #4CAF50;
         }
-        
+
         input[type=checkbox]{
             width: 20px;
             cursor: pointer;
@@ -157,7 +157,17 @@ export default {
 
     route: {
         data () {
-            if(!this.getCookie('attempts')) document.cookie = 'attempts = 0'
+            if(!globals.getCookie('attempts')) document.cookie = 'attempts = 0';
+
+            if(globals.getCookie('rememberme') != 0){
+                console.log('test')
+                store.remember(globals.getCookie('rememberme')).then(response => {
+                    console.log(response)
+                    store.cachedToken = globals.getCookie('rememberme')
+                    store.username = response.response
+                    this.$parent.$route.router.go({ path: "/" + store.username })
+                })
+            }
         }
     },
 
@@ -171,17 +181,6 @@ export default {
 		toggleRegisterMode: function() {
 			this.registerMode = !this.registerMode
 		},
-
-        getCookie: function(cookieName) {
-            var name = cookieName + "=";
-            var cookieAttributes = document.cookie.split(';');
-            for(var i = 0; i < cookieAttributes.length; i++) {
-                var cookie = cookieAttributes[i];
-                while (cookie.charAt(0)==' ') cookie = cookie.substring(1);
-                if (cookie.indexOf(name) == 0) return cookie.substring(name.length, cookie.length);
-            }
-            return "";
-        },
 
         register: function(){
             let elements = [this.username, this.password, this.repeated, this.email]
@@ -227,7 +226,7 @@ export default {
                 return
             }
 
-            if (this.getCookie('attempts') == 3){
+            if (globals.getCookie('attempts') == 3){
                 let recaptchaResponse = grecaptcha.getResponse(this.captchaId)
                 if (!recaptchaResponse){
                     this.error = 'Please fill in captcha'
@@ -248,7 +247,7 @@ export default {
             store.username = this.username
             store.password = this.password
 
-            store.fetchToken().then((response) => {
+            store.fetchToken(this.keepLoggedIn).then((response) => {
                 if(!response.success){
                     console.log(response)
                     throw new Error(response.error)
@@ -256,9 +255,12 @@ export default {
 
                 store.cachedToken = response.token
                 this.error = ''
-                document.cookie = "username = " + this.username + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"
+                /*document.cookie = "username = " + this.username + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"*/
+                if (this.keepLoggedIn){
+                    document.cookie = "rememberme = " + response.token + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"
+                }
 
-                console.log(this.getCookie("username"))
+                console.log(globals.getCookie("username"))
                 this.$parent.$route.router.go({ path: "/" + this.username })
                 document.cookie = "attempts = 0"
             }).catch((error) => {
@@ -266,8 +268,8 @@ export default {
                 store.username = ''
                 store.password = ''
                 this.error = error.message
-                /*document.cookie = "attempts = " + (parseInt(this.getCookie('attempts')) + 1)*/
-                /*if (this.getCookie('attempts') == 3) this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })*/
+                /*document.cookie = "attempts = " + (parseInt(globals.getCookie('attempts')) + 1)*/
+                /*if (globals.getCookie('attempts') == 3) this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })*/
             })
         }
     }

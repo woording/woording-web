@@ -79,6 +79,7 @@
 
 <script>
 import store from '../../store'
+import globals from "../../globals";
 
 export default {
 
@@ -94,6 +95,7 @@ export default {
 	events: {
 		'url-update': function(){
 			var username = this.$parent.$route.params.username
+
 			this.fetchFriends(username)
 			if(!username){
 				this.username = null

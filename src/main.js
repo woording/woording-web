@@ -24,6 +24,8 @@ import HomePage from './components/main-window/homepage.vue'
 import TrainerQuiz from './components/practice-modes/quiz.vue'
 import TrainerMultipleChoice from './components/practice-modes/multiple-choice.vue'
 
+import store from './store'
+
 router.map({
 	'/': {
 		component: HomePage
@@ -64,7 +66,6 @@ router.map({
 
 
 router.afterEach(function () {
-	// this.$dispatch('url-update')
 }),
 
 router.redirect({

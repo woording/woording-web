@@ -133,10 +133,12 @@ export default {
             this.$parent.$route.router.go({ path: "/" })
             this.shouldShowAccountMenu = false
             this.username = ''
+            document.cookie = "rememberme = 0"
 		},
 		changePassword: function() {
 			alert("Handle password changes here")
 		},
+
 		toggleAccountMenu: function() {
 			this.shouldShowAccountMenu = !this.shouldShowAccountMenu
 		}

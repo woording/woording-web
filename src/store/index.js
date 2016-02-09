@@ -3,7 +3,7 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-    ip: 'https://api.woording.com/',
+    ip: 'http://127.0.0.1:5000/',
 	devMode: false // automatically log 'cor' in
 }
 
@@ -21,7 +21,7 @@ store.deletedList = null
  *
  * @return {Promise} token
  */
-store.fetchToken = () => {
+store.fetchToken = (keepLoggedIn=false) => {
 	return new Promise((resolve, reject) => {
 
 		if (store.cachedToken != null) {
@@ -38,7 +38,8 @@ store.fetchToken = () => {
                 },
                 body: JSON.stringify({
                     'username': store.username,
-                    'password': store.password
+                    'password': store.password,
+                    'keepLoggedIn':keepLoggedIn
                 })
             }).then(response => {
                 return response.json()
@@ -49,6 +50,24 @@ store.fetchToken = () => {
             })
 		}
 	})
+}
+
+store.remember = token => {
+    return new Promise((resolve, reject) => {
+        fetch(config.ip + 'remember', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({
+                'token': token
+            })
+        }).then(response => {
+            return response.json()
+        }).then(response => {
+            resolve(response)
+        })
+    })
 }
 
 /**
