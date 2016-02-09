@@ -21,7 +21,7 @@
 
 
 	<h2>Debug info</h2>
-	<pre>{{ clickCount | json }}</pre>
+	<pre>{{ clickCount }}</pre>
 	<pre>{{ list | json }}</pre>
 </div>
 </template>
@@ -48,9 +48,13 @@ export default {
 		this.fetchListAndInitialize()
 		var button = document.querySelector("#correctHorse")
 		var clickStream = Rx.Observable.fromEvent(button, 'click')
+			.pluck("x")
+			.scan(function(acc, x, i, source) {return acc + x }, 0)
 
-		var buttonClick = clickStream.subscribe(
-			function(i){console.log('waddup')},
+		var updateClickCount = (count) => this.clickCount = count
+
+		var buttonClickCount = clickStream.subscribe(
+			function(count){updateClickCount(count)},
 			function(e){console.log('error')},
 			function(){console.log('')},
 			)
