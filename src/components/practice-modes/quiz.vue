@@ -47,8 +47,9 @@ export default {
 		this.decodeModifiers()
 		this.fetchListAndInitialize()
 		var button = document.querySelector("#correctHorse")
-		var clickStream = Rx.Observable.fromEvent(button, 'click')
-			.pluck("x")
+		var clickStream = Rx.Observable
+			.fromEvent(button, 'click')
+			.map(function(x) { return 1 })
 			.scan(function(acc, x, i, source) {return acc + x }, 0)
 
 		var updateClickCount = (count) => this.clickCount = count
