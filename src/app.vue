@@ -71,15 +71,6 @@ import SiteFooter from './components/site-structure/footer.vue'
 import ListList from './components/side-bar/list-list.vue'
 import UserList from './components/side-bar/user-list.vue'
 
-
-// fix for incorrect viewheight
-window.addEventListener("orientationchange", function() {
-  if (navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
-    document.documentElement.innerHTML = document.documentElement.innerHTML;
-  }
-}, false);
-
-
 export default {
     data () {
         return {
