@@ -134,7 +134,8 @@ export default {
                     console.log('no lists')
                 }
 				updateLists(user.lists)
-			})
+            }).catch(error => {
+            })
 
 		},
 

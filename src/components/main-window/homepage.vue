@@ -160,9 +160,7 @@ export default {
             if(!globals.getCookie('attempts')) document.cookie = 'attempts = 0';
 
             if(globals.getCookie('rememberme') != 0){
-                console.log('test')
                 store.remember(globals.getCookie('rememberme')).then(response => {
-                    console.log(response)
                     store.cachedToken = globals.getCookie('rememberme')
                     store.username = response.response
                     this.$parent.$route.router.go({ path: "/" + store.username })
@@ -233,7 +231,6 @@ export default {
                 }
                 let secret = '6Lcm2hUTAAAAAKwVWXZkDxsDxsgdruju_5CKWjcG'
                 let url = 'https://www.google.com/recaptcha/api/siteverify?secret=' + secret + '&response=' + recaptchaResponse
-                console.log(url)
 
                 store.validateCaptcha(url).then(response => {
                     if(!response){

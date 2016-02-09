@@ -176,30 +176,6 @@ export default {
 			var username = this.$parent.$route.params.username
 			var listname = this.$parent.$route.params.listname
 
-            /*if(globals.getCookie('rememberme') != 0){*/
-                /*store.remember(globals.getCookie('rememberme')).then(response => {*/
-                    /*console.log(response)*/
-                    /*store.cachedToken = globals.getCookie('rememberme')*/
-                    /*store.username = response.response*/
-                /*}).then(response => {*/
-                    /*this.$parent.$route.router.go({ path: "/" + username + "/" + listname + "/edit" })*/
-                    /*var updateList = list => {*/
-                        /*this.list = list*/
-                        /*this.listname = list.listname*/
-                        /*this.oldname = list.listname*/
-                        /*this.language_1_tag = list.language_1_tag*/
-                        /*this.language_2_tag = list.language_2_tag*/
-                        /*this.shared_with = list.shared_with*/
-                    /*}*/
-
-                    /*store.fetchList(username, listname).then((list) => {*/
-                        /*updateList(list)*/
-                    /*})*/
-                /*}).catch(error => {*/
-                    /*console.log(error)*/
-                /*})*/
-            /*}*/
-
 			if(listname){
 				var updateList = list => {
 					this.list = list
