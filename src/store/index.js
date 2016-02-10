@@ -11,6 +11,7 @@ export default store
 
 store.username = config.devMode ? 'cor' : ''
 store.password = config.devMode ? 'Hunter2' : ''
+store.keepLoggedIn = false
 store.cachedToken = null
 store.deletedList = null
 
@@ -23,90 +24,87 @@ store.deletedList = null
  */
 store.fetchToken = (keepLoggedIn) => {
 	return new Promise((resolve, reject) => {
-        let selector = ""
-
-        let recieveToken = () => {
-            if (store.cachedToken != null) {
-                resolve(store.cachedToken)
-            } else {
-                if(!store.username){
-                    console.log('Error: not logged in')
-                    return
-                }
-                fetch(config.ip + 'authenticate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json;charset=UTF-8'
-                    },
-                    body: JSON.stringify({
-                        'username': store.username,
-                        'password': store.password
-                    })
-                }).then(response => {
-                    return response.json()
-                }).then(data => {
-                    console.log(data)
-                    if(keepLoggedIn){
-                        selector = (Math.random()*1e128).toString(36)
-                    }
-                    store.storeSession(store.username, data.token, selector).then(response => {
-                        console.log('Stored Session')
-                    }).catch(error => {
-                        console.log(error)
-                    })
-                    resolve(data)
-                }).catch(error => {
-                    reject(error)
+        store.keepLoggedIn = keepLoggedIn
+        // Token fetch functions
+        if (globals.getCookie('logvalue') && !store.username){
+            store.retrieveSession(globals.getCookie('logvalue')) .then(response => {
+                store.username = response.username
+                store.cachedToken = response.token
+            }).then(response => {
+                let selector = (Math.random()*1e128).toString(36)
+                store.storeSession(store.username, store.cachedToken, selector).then(response => {
+                    console.log(response)
                 })
-            }
+                resolve(store.cachedToken)
+            }).catch(error => {
+
+            })
         }
 
-        selector = globals.getCookie('logvalue')
-        store.retrieveSession(selector).then(response => {
-            if(!response.success){
-                throw new Error(response.error)
+        if (store.cachedToken != null) {
+            resolve(store.cachedToken)
+        } else {
+            if(!store.username){
+                return
             }
-            store.username = response.username
-            store.cachedToken = response.token
-            let selector = (Math.random()*1e128).toString(36)
-            document.cookie = 'logvalue='+selector
-        }).then(response => {
-            recieveToken()
-        }).catch(error => {
-            console.log(error.message)
-            recieveToken()
-        })
+            fetch(config.ip + 'authenticate', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    'username': store.username,
+                    'password': store.password
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                if (store.keepLoggedIn){
+                    let selector = (Math.random()*1e128).toString(36)
+                    store.storeSession(store.username, data.token, selector).then(response => {
+                        console.log(response)
+                    })
+                }
+                console.log(data)
+                resolve(data)
+            }).catch(error => {
+                reject(error)
+            })
+        }
 	})
 }
 
 store.storeSession = (username, token, selector) => {
     return new Promise((resolve, reject) => {
-        console.log('storeSession')
-        fetch(config.ip + 'storeSession', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify({
-                'username': username,
-                'token': token,
-                'selector': selector
+        if(!store.username){
+            return
+        } else {
+            fetch(config.ip + 'storeSession', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    'username': username,
+                    'token': token,
+                    'selector': selector
+                })
+            }).then(response => {
+                return response.json()
+            }).then(response => {
+                if(!response.success){
+                    throw new Error(response.error)
+                }
+                document.cookie = 'logvalue='+selector
+                resolve(response)
+            }).catch(error => {
+                reject(error)
+                console.log(username)
+                console.log(token)
+                console.log(selector)
+                console.log(error.message)
             })
-        }).then(response => {
-            return response.json()
-        }).then(response => {
-            if(!response.success){
-                throw new Error(response.error)
-            }
-            document.cookie = 'logvalue='+selector
-            resolve(response)
-        }).catch(error => {
-            reject(error)
-            console.log(username)
-            console.log(token)
-            console.log(selector)
-            console.log(error.message) 
-        })
+        }
     })
 }
 

@@ -79,7 +79,7 @@
 </style>
 
 <template>
-<div id="account-button" v-on:click="toggleAccountMenu" v-if="username">
+<div id="account-button" v-on:click="toggleAccountMenu">
 	<img src="img/ui/account-button.png" alt="Account Button">
 	<p>{{ username }}</p>
 </div>
@@ -119,13 +119,6 @@ export default {
             username: store.username,
             email: ''
 		}
-        
-        store.fetchToken().then(response => {
-            this.username = store.username
-            store.fetchUser(store.username).then(response => {
-                this.email = response.email
-            })
-        })
 	},
 
 	methods : {
