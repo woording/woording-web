@@ -252,11 +252,10 @@ export default {
                 store.cachedToken = response.token
                 this.error = ''
                 /*document.cookie = "username = " + this.username + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"*/
-                if (this.keepLoggedIn){
-                    document.cookie = "rememberme = " + response.token + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"
-                }
+                /*if (this.keepLoggedIn){*/
+                    /*document.cookie = "rememberme = " + response.token + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"*/
+                /*}*/
 
-                console.log(globals.getCookie("username"))
                 this.$parent.$route.router.go({ path: "/" + this.username })
                 document.cookie = "attempts = 0"
             }).catch((error) => {

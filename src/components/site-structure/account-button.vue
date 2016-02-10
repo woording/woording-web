@@ -119,6 +119,13 @@ export default {
             username: store.username,
             email: ''
 		}
+        
+        store.fetchToken().then(response => {
+            this.username = store.username
+            store.fetchUser(store.username).then(response => {
+                this.email = response.email
+            })
+        })
 	},
 
 	methods : {
@@ -129,7 +136,7 @@ export default {
             this.$parent.$route.router.go({ path: "/" })
             this.shouldShowAccountMenu = false
             this.username = ''
-            document.cookie = "rememberme = 0"
+            document.cookie = "logvalue ="
 		},
 		changePassword: function() {
 			alert("Handle password changes here")

@@ -3,7 +3,7 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-    ip: 'https://api.woording.com/',
+    ip: 'http://127.0.0.1:5000/',
 	devMode: false // automatically log 'cor' in
 }
 
@@ -21,8 +21,9 @@ store.deletedList = null
  *
  * @return {Promise} token
  */
-store.fetchToken = (keepLoggedIn=false) => {
+store.fetchToken = (keepLoggedIn) => {
 	return new Promise((resolve, reject) => {
+        let selector = ""
 
         let recieveToken = () => {
             if (store.cachedToken != null) {
@@ -39,12 +40,20 @@ store.fetchToken = (keepLoggedIn=false) => {
                     },
                     body: JSON.stringify({
                         'username': store.username,
-                        'password': store.password,
-                        'keepLoggedIn':keepLoggedIn
+                        'password': store.password
                     })
                 }).then(response => {
                     return response.json()
                 }).then(data => {
+                    console.log(data)
+                    if(keepLoggedIn){
+                        selector = (Math.random()*1e128).toString(36)
+                    }
+                    store.storeSession(store.username, data.token, selector).then(response => {
+                        console.log('Stored Session')
+                    }).catch(error => {
+                        console.log(error)
+                    })
                     resolve(data)
                 }).catch(error => {
                     reject(error)
@@ -52,30 +61,64 @@ store.fetchToken = (keepLoggedIn=false) => {
             }
         }
 
-        let tokenCookie = globals.getCookie('rememberme')
-        store.remember(tokenCookie).then(response => {
+        selector = globals.getCookie('logvalue')
+        store.retrieveSession(selector).then(response => {
             if(!response.success){
-                throw new Error('error')
+                throw new Error(response.error)
             }
-            store.username = response.response
-            store.cachedToken = tokenCookie
+            store.username = response.username
+            store.cachedToken = response.token
+            let selector = (Math.random()*1e128).toString(36)
+            document.cookie = 'logvalue='+selector
         }).then(response => {
             recieveToken()
         }).catch(error => {
+            console.log(error.message)
             recieveToken()
         })
 	})
 }
 
-store.remember = token => {
+store.storeSession = (username, token, selector) => {
     return new Promise((resolve, reject) => {
-        fetch(config.ip + 'remember', {
+        console.log('storeSession')
+        fetch(config.ip + 'storeSession', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json;charset=UTF-8'
             },
             body: JSON.stringify({
-                'token': token
+                'username': username,
+                'token': token,
+                'selector': selector
+            })
+        }).then(response => {
+            return response.json()
+        }).then(response => {
+            if(!response.success){
+                throw new Error(response.error)
+            }
+            document.cookie = 'logvalue='+selector
+            resolve(response)
+        }).catch(error => {
+            reject(error)
+            console.log(username)
+            console.log(token)
+            console.log(selector)
+            console.log(error.message) 
+        })
+    })
+}
+
+store.retrieveSession = selector => {
+    return new Promise((resolve, reject) => {
+        fetch(config.ip + 'retrieveSession', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({
+                'selector': selector
             })
         }).then(response => {
             return response.json()
