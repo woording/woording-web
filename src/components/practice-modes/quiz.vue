@@ -16,12 +16,12 @@
 	<p>Words left: {{ wordStack.length }}</p>
 	<p>Current Word: {{ currentWord.language_1_text }}</p>
 
-	<button id="correctHorse">Correct Answer</button>
-	<button v-on:click="simulateWrongAnswer">Wrong Answer</button>
+	<button id="correctAnswerButton">Correct Answer</button>
+	<button id="wrongAnswerButton">Wrong Answer</button>
 
 
 	<h2>Debug info</h2>
-	<pre>{{ clickCount }}</pre>
+	<pre>{{ score }}</pre>
 	<pre>{{ list | json }}</pre>
 </div>
 </template>
@@ -39,26 +39,31 @@ export default {
 			modifiers: {},
 			wordStack: [],
 			currentWord: {language_1_text: "", language_2_text: ""},
-			clickCount: 0
+			score: 0
 		}
 	},
 
 	ready () {
 		this.decodeModifiers()
 		this.fetchListAndInitialize()
-		var button = document.querySelector("#correctHorse")
-		var clickStream = Rx.Observable
-			.fromEvent(button, 'click')
+
+		let rightAnswerStream = Rx.Observable
+			.fromEvent(document.querySelector("#correctAnswerButton"), 'click')
 			.map(function(x) { return 1 })
-			.scan(function(acc, x, i, source) {return acc + x }, 0)
 
-		var updateClickCount = (count) => this.clickCount = count
+		let wrongAnswerStream = Rx.Observable
+			.fromEvent(document.querySelector("#wrongAnswerButton"), 'click')
+			.map(function(x) { return -1 })
 
-		var buttonClickCount = clickStream.subscribe(
-			function(count){updateClickCount(count)},
-			function(e){console.log('error')},
-			function(){console.log('')},
-			)
+		let answerStream = Rx.Observable
+			.merge(rightAnswerStream, wrongAnswerStream)
+			.scan(function(acc, x, i, source) { return acc + x}, 0)
+
+		let score = answerStream.subscribe(
+			score => this.score = score,
+			error => console.log('error'),
+			function(){console.log('')} 
+		)
 	},
 
 	methods : {
