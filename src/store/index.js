@@ -14,6 +14,7 @@ store.password = config.devMode ? 'Hunter2' : ''
 store.keepLoggedIn = false
 store.cachedToken = null
 store.deletedList = null
+store.called = false
 
 /**
  * Fetch a token based on username and listname
@@ -32,8 +33,15 @@ store.fetchToken = (keepLoggedIn) => {
                 store.cachedToken = response.token
             }).then(response => {
                 let selector = (Math.random()*1e128).toString(36)
-                store.storeSession(store.username, store.cachedToken, selector).then(response => {
-                    console.log(response)
+                if (store.called) {
+                    resolve(store.cachedToken)
+                    return
+                }
+                store.called = true
+                store.removeSession().then(response => {
+                    store.storeSession(store.username, store.cachedToken, selector).then(response => {
+                        console.log(response)
+                    })
                 })
                 resolve(store.cachedToken)
             }).catch(error => {
@@ -121,6 +129,25 @@ store.retrieveSession = selector => {
         }).then(response => {
             return response.json()
         }).then(response => {
+            resolve(response)
+        })
+    })
+}
+
+store.removeSession = () => {
+    return new Promise((resolve, reject) => {
+        fetch(config.ip + 'removeSession', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({
+                'selector': globals.getCookie('logvalue')
+            })
+        }).then(response => {
+            return response.json()
+        }).then(response => {
+            document.cookie = "logvalue ="
             resolve(response)
         })
     })

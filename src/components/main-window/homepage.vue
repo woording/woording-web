@@ -157,6 +157,7 @@ export default {
 
     route: {
         data () {
+            if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
             if(!globals.getCookie('attempts')) document.cookie = 'attempts = 0';
 
             if(globals.getCookie('rememberme') != 0){
@@ -257,9 +258,9 @@ export default {
                 /*}*/
 
                 this.$parent.$route.router.go({ path: "/" + this.username })
-                document.cookie = "attempts = 0"
             }).catch((error) => {
                 console.log(error.message)
+                console.log(error)
                 store.username = ''
                 store.password = ''
                 this.error = error.message

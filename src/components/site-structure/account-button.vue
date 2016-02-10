@@ -126,10 +126,14 @@ export default {
             store.username = ''
             store.password = ''
             store.cachedToken = null
+            store.called = false
             this.$parent.$route.router.go({ path: "/" })
             this.shouldShowAccountMenu = false
             this.username = ''
-            document.cookie = "logvalue ="
+            store.removeSession().then(response => {
+                console.log(response)
+                location.reload()
+            })
 		},
 		changePassword: function() {
 			alert("Handle password changes here")
