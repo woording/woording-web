@@ -20,6 +20,7 @@ Try it at [woording.com](http://woording.com).
 - Build script
 - Localization
 - Beautifull landing page
+- Importing lists
 
 ## How to run
 ```bash
