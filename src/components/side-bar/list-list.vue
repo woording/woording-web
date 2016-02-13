@@ -53,13 +53,24 @@
 		font-size: 2rem;
 		cursor: pointer;
 	}
+
+    #undoButton {
+		background-color: grey;
+		color: white;
+
+		text-align: center;
+		font-size: 1rem;
+        height: 32px;
+        font-weight: bold;
+		cursor: pointer;
+        border: none;
+    }
 }
 
 .v-link-active li {
 	background-color: #FFFFFF;
 	color: #212121;
 }
-
 
 </style>
 
@@ -71,12 +82,11 @@
 				<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }'><li class="list-link">{{ list.listname }}</li></a>
 			</ul>
 		</div>
-		<button v-on:click="undoDelete" v-if="undoButton" v-link='{ path: "/cor" }'>Undo delete</button>
+		<button v-on:click="undoDelete" v-if="undoButton" v-link='{ path: "/cor" }' id='undoButton'>UNDO</button>
 		<div v-link='{ path: "/" + $route.params.username + "/add" }' id="add-list-button">
 			<p>+</p>
 		</div>
 	</div>
-
 </template>
 
 <script>
@@ -99,7 +109,7 @@ export default {
 			var username = this.$parent.$route.params.username
 			this.fetchLists(username)
 			if (store.deletedList){
-				this.undoButton = true
+                this.undoButton = true
 			}
 		}
 	},
@@ -138,7 +148,7 @@ export default {
             })
 
 		},
-
+        
 		undoDelete: function(){
 			if (store.deletedList){
 				// Call savelist on saved data from last delete

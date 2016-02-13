@@ -3,14 +3,14 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-    ip: 'http://127.0.0.1:5000/',
+    ip: 'https://api.woording.com/',
 	devMode: false // automatically log 'cor' in
 }
 
 export default store
 
-store.username = config.devMode ? 'cor' : ''
-store.password = config.devMode ? 'Hunter2' : ''
+store.username = ''
+store.password = ''
 store.keepLoggedIn = false
 store.cachedToken = null
 store.deletedList = null
@@ -40,7 +40,6 @@ store.fetchToken = (keepLoggedIn) => {
                 store.called = true
                 store.removeSession().then(response => {
                     store.storeSession(store.username, store.cachedToken, selector).then(response => {
-                        console.log(response)
                     })
                 })
                 resolve(store.cachedToken)
@@ -107,10 +106,6 @@ store.storeSession = (username, token, selector) => {
                 resolve(response)
             }).catch(error => {
                 reject(error)
-                console.log(username)
-                console.log(token)
-                console.log(selector)
-                console.log(error.message)
             })
         }
     })
@@ -200,6 +195,7 @@ store.fetchFriends = () => {
                 resolve(response.json())
             }).catch(error => {
                 console.log(error)
+                reject(error)
             })
 		})
 	})
@@ -225,6 +221,7 @@ store.fetchList = (username, listname) => {
                 resolve(response.json())
             }).catch(error => {
                 console.log(error)
+                reject(error)
             })
 		})
 	})
@@ -254,6 +251,7 @@ store.deleteList = (username, list) => {
                 resolve(response)
             }).catch(error => {
                 console.log(error)
+                reject(error)
             })
 		})
 	})
@@ -280,9 +278,11 @@ store.saveList = (username, list_data) => {
             }).then(response => {
                 return response.json()
             }).then(response => {
+                response.listname = list_data.listname
                 resolve(response)
             }).catch(error => {
                 console.log(error)
+                reject(error)
             })
 		})
 	})
@@ -307,6 +307,7 @@ store.register = (username, password, email) => {
             resolve(response)
         }).catch(error => {
             console.log(error)
+            reject(error)
         })
     })
 }
@@ -333,6 +334,7 @@ store.friendRequest = (username, friendname) => {
             resolve(data)
         }).catch(error => {
             console.log(error)
+            reject(error)
         })
 	})
 }
@@ -353,6 +355,7 @@ store.validateCaptcha = url => {
             resolve(data.response)
         }).catch(error => {
             console.log(error)
+            reject(error)
         })
     })
 }
