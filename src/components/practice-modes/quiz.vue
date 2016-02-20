@@ -31,7 +31,8 @@
 
 		.control {
 			flex: 1;
-			background-color: red;
+			text-align: center;
+			padding: 1rem;
 		}
 	}
 
@@ -99,14 +100,14 @@
 
 	<div v-show="answerButtonMode">
 		<div id="controls">
-			<a id="correctAnswerButton" class="control">Correct Answer</a>
-			<a id="wrongAnswerButton" class="control">Wrong Answer</a>
+			<a id="correctAnswerButton" class="control emerald-flat-button">Correct Answer</a>
+			<a id="wrongAnswerButton" class="control alizarin-flat-button">Wrong Answer</a>
 		</div>
 	</div>
 
 	<div v-else>
 		<div id="controls">
-		<a v-on:click="answerButtonMode = true" class="control">Show Answer</a>
+		<a v-on:click="answerButtonMode = true" class="control emerald-flat-button">Show Answer</a>
 		</div>
 	</div>
 
