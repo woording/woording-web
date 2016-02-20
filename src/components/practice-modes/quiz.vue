@@ -1,10 +1,51 @@
-<style lang="sass">
-
+<style scoped lang="sass">
 
 #trainer-quiz {
 	flex: 1;
-	@media(min-width: 768px) {
+	color: #212121;
+
+	@media (min-width: 768px) {
 		overflow: auto;
+		padding: 1.5rem;
+	}
+
+	h2 {
+		font-size: 2.5rem;
+		color: #FF9800;
+	}
+
+	h4 {
+		margin-top: 3rem;
+	}
+
+	#current-word-view {
+		margin-top: 1rem;
+		p {
+			font-size: 2rem;;
+		}
+	}
+	.emerald-flat-button {
+		position: relative;
+		vertical-align: top;
+		width: 100%;
+		height: 60px;
+		padding: 0;
+		font-size: 22px;
+		color: white;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		background: #2ecc71;
+		border: 0;
+		border-bottom: 2px solid #28be68;
+		cursor: pointer;
+		-webkit-box-shadow: inset 0 -2px #28be68;
+		box-shadow: inset 0 -2px #28be68;
+	}
+	.emerald-flat-button:active {
+		top: 1px;
+		outline: none;
+		-webkit-box-shadow: none;
+		box-shadow: none;
 	}
 }
 
@@ -13,15 +54,26 @@
 <template>
 <div id="trainer-quiz">
 	<h2>{{ list.listname }}</h2>
+
+	<div id="current-word-view">
+		<p>{{ currentWord.language_1_text }}</p>
+	</div>
+
+	<div v-show="answerButtonMode">
+		<button id="correctAnswerButton">Correct Answer</button>
+		<button id="wrongAnswerButton">Wrong Answer</button>
+	</div>
+	<div v-else>
+		<button v-on:click="answerButtonMode = true" class="emerald-flat-button">Show Answer</button>
+	</div>
+
+	<hr>
 	<p>Words left: {{ wordStack.length }}</p>
-	<p>Current Word: {{ currentWord.language_1_text }}</p>
-
-	<button id="correctAnswerButton">Correct Answer</button>
-	<button id="wrongAnswerButton">Wrong Answer</button>
+	<p>Wrong answers: </p>
 
 
-	<h2>Debug info</h2>
-	<pre>{{ score }}</pre>
+
+	<h4>Debug info</h4>
 	<pre>{{ list | json }}</pre>
 </div>
 </template>
@@ -35,6 +87,8 @@ export default {
 
 	data () {
 		return {
+			answerButtonMode: false,
+
 			list: {},
 			modifiers: {},
 			wordStack: [],
@@ -47,23 +101,24 @@ export default {
 		this.decodeModifiers()
 		this.fetchListAndInitialize()
 
-		let rightAnswerStream = Rx.Observable
-			.fromEvent(document.querySelector("#correctAnswerButton"), 'click')
-			.map(function(x) { return 1 })
 
-		let wrongAnswerStream = Rx.Observable
-			.fromEvent(document.querySelector("#wrongAnswerButton"), 'click')
-			.map(function(x) { return -1 })
+		// let rightAnswerStream = Rx.Observable
+		// 	.fromEvent(document.querySelector("#correctAnswerButton"), 'click')
+		// 	.map(function(x) { return 1 })
 
-		let answerStream = Rx.Observable
-			.merge(rightAnswerStream, wrongAnswerStream)
-			.scan(function(acc, x, i, source) { return acc + x}, 0)
+		// let wrongAnswerStream = Rx.Observable
+		// 	.fromEvent(document.querySelector("#wrongAnswerButton"), 'click')
+		// 	.map(function(x) { return -1 })
 
-		let score = answerStream.subscribe(
-			score => this.score = score,
-			error => console.log('error'),
-			function(){console.log('')} 
-		)
+		// let answerStream = Rx.Observable
+		// 	.merge(rightAnswerStream, wrongAnswerStream)
+		// 	.scan(function(acc, x, i, source) { return acc + x}, 0)
+
+		// let score = answerStream.subscribe(
+		// 	score => this.score = score,
+		// 	error => console.log('error'),
+		// 	function(){console.log('')} 
+		// )
 	},
 
 	methods : {
