@@ -21,11 +21,23 @@
 	#current-word-view {
 		margin-top: 1rem;
 		p {
-			font-size: 2rem;;
+			font-size: 2rem;
 		}
 	}
+
+	#controls {
+		display: flex;
+		background-color: blue;
+
+		.control {
+			flex: 1;
+			background-color: red;
+		}
+	}
+
+	/* Button styles */
 	.emerald-flat-button {
-		position: relative;
+		// position: relative;
 		vertical-align: top;
 		width: 100%;
 		height: 60px;
@@ -47,6 +59,31 @@
 		-webkit-box-shadow: none;
 		box-shadow: none;
 	}
+
+	.alizarin-flat-button {
+		position: relative;
+		vertical-align: top;
+		width: 100%;
+		height: 60px;
+		padding: 0;
+		font-size: 22px;
+		color: white;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		background: #e74c3c;
+		border: 0;
+		border-bottom: 2px solid #db4334;
+		cursor: pointer;
+		-webkit-box-shadow: inset 0 -2px #db4334;
+		box-shadow: inset 0 -2px #db4334;
+	}
+
+	.alizarin-flat-button:active {
+		top: 1px;
+		outline: none;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
 }
 
 </style>
@@ -59,12 +96,18 @@
 		<p>{{ currentWord.language_1_text }}</p>
 	</div>
 
+
 	<div v-show="answerButtonMode">
-		<button id="correctAnswerButton">Correct Answer</button>
-		<button id="wrongAnswerButton">Wrong Answer</button>
+		<div id="controls">
+			<a id="correctAnswerButton" class="control">Correct Answer</a>
+			<a id="wrongAnswerButton" class="control">Wrong Answer</a>
+		</div>
 	</div>
+
 	<div v-else>
-		<button v-on:click="answerButtonMode = true" class="emerald-flat-button">Show Answer</button>
+		<div id="controls">
+		<a v-on:click="answerButtonMode = true" class="control">Show Answer</a>
+		</div>
 	</div>
 
 	<hr>
