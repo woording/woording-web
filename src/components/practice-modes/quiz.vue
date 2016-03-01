@@ -118,10 +118,6 @@
 	<p>Words left: {{ wordStack.length }}</p>
 	<p>Wrong answers: {{ invalidAnswerStack.length }} </p>
 
-
-
-	<h4>Debug info</h4>
-	<pre>{{ list | json }}</pre>
 </div>
 </template>
 
