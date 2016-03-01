@@ -101,17 +101,16 @@
 		<p v-if="answerButtonMode">{{ currentWord.language_2_text }}</p>
 	</div>
 
-
 	<div v-show="answerButtonMode">
 		<div id="controls">
-			<a id="correctAnswerButton" class="control emerald-flat-button">Correct Answer</a>
-			<a id="wrongAnswerButton" class="control alizarin-flat-button">Wrong Answer</a>
+			<a v-on:click="answeredCorrectly" id="correctAnswerButton" class="control emerald-flat-button">Correct Answer</a>
+			<a v-on:click="answeredWrongly" id="wrongAnswerButton" class="control alizarin-flat-button">Wrong Answer</a>
 		</div>
 	</div>
 
 	<div v-else>
 		<div id="controls">
-		<a v-on:click="answerButtonMode = true" class="control emerald-flat-button">Show Answer</a>
+		<a v-on:click="setAnswerButtonMode(true)" class="control emerald-flat-button">Show Answer</a>
 		</div>
 	</div>
 
@@ -148,25 +147,6 @@ export default {
 	ready () {
 		this.decodeModifiers()
 		this.fetchListAndInitialize()
-
-
-		// let rightAnswerStream = Rx.Observable
-		// 	.fromEvent(document.querySelector("#correctAnswerButton"), 'click')
-		// 	.map(function(x) { return 1 })
-
-		// let wrongAnswerStream = Rx.Observable
-		// 	.fromEvent(document.querySelector("#wrongAnswerButton"), 'click')
-		// 	.map(function(x) { return -1 })
-
-		// let answerStream = Rx.Observable
-		// 	.merge(rightAnswerStream, wrongAnswerStream)
-		// 	.scan(function(acc, x, i, source) { return acc + x}, 0)
-
-		// let score = answerStream.subscribe(
-		// 	score => this.score = score,
-		// 	error => console.log('error'),
-		// 	function(){console.log('')} 
-		// )
 	},
 
 	methods : {
@@ -202,12 +182,21 @@ export default {
 			this.currentWord = this.wordStack.pop()
 		},
 
-		simulateCorrectAnswer() {
-
+		answeredCorrectly() {
+			this.setAnswerButtonMode(false)
+			this.nextWord()
 		},
 
-		simulateWrongAnswer() {
+		answeredWrongly() {
+			const newWordIndex = this.wordStack.length - 2
 
+			this.wordStack.splice(newWordIndex, 0, this.currentWord)
+			this.setAnswerButtonMode(false)
+			this.nextWord()
+		},
+
+		setAnswerButtonMode(newValue) {
+			this.answerButtonMode = newValue
 		},
 
 		initalizeWordStack() {
