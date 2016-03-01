@@ -21,6 +21,8 @@
 	#current-word-view {
 		margin-top: 1rem;
 		p {
+			margin-top: 1rem;
+			margin-bottom: 1rem;
 			font-size: 2rem;
 		}
 	}
@@ -28,6 +30,7 @@
 	#controls {
 		display: flex;
 		background-color: blue;
+		margin-top: 1rem;
 
 		.control {
 			flex: 1;
@@ -95,6 +98,7 @@
 
 	<div id="current-word-view">
 		<p>{{ currentWord.language_1_text }}</p>
+		<p v-if="answerButtonMode">{{ currentWord.language_2_text }}</p>
 	</div>
 
 
