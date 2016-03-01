@@ -116,7 +116,7 @@
 
 	<hr>
 	<p>Words left: {{ wordStack.length }}</p>
-	<p>Wrong answers: </p>
+	<p>Wrong answers: {{ invalidAnswerStack.length }} </p>
 
 
 
@@ -139,6 +139,7 @@ export default {
 			list: {},
 			modifiers: {},
 			wordStack: [],
+			invalidAnswerStack: [],
 			currentWord: {language_1_text: "", language_2_text: ""},
 			score: 0
 		}
@@ -189,7 +190,7 @@ export default {
 
 		answeredWrongly() {
 			const newWordIndex = this.wordStack.length - 2
-
+			this.invalidAnswerStack.push(this.currentWord)
 			this.wordStack.splice(newWordIndex, 0, this.currentWord)
 			this.setAnswerButtonMode(false)
 			this.nextWord()
