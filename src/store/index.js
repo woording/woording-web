@@ -3,7 +3,7 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-    ip: 'http://api.woording.com/',
+    ip: 'https://api.woording.com/',
 	devMode: false // automatically log 'cor' in
 }
 
