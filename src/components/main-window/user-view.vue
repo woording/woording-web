@@ -11,57 +11,51 @@ $border-style: 0.125rem solid #B6B6B6;
 	display: flex;
 	align-items: center;
 	flex: 1;
-    width:100%;
+    width: 100%;
 	.message {
 		flex: 1;
 		p {
 			text-align: center;
 			flex: 1;
+
+            i {
+                font-weight: 500;
+            }
+
+            a {
+                color: green;
+            }
 		}
 	}
 }
 
 #undoThing {
-	display: flex;
-	align-items: flex-end;
     font-size: 1.1em;
-    width:100%;
-    flex: 1;
-
-    div {
-        flex: 1;
-    }
+    bottom: 40px;
+    text-align: center;
+    right: 0px;
+    width: 100%;
 
     p {
-        flex: 1;
         text-align: center;
     }
 
-    i {
-        font-weight: 500;
-    }
 
-    a {
-        color: green;
-    }
 }
 </style>
 
 <template>
 <div id="translation-list">
 		<div class="message-container">
-			<div class="message">
+			<div class="message" v-if="!undoThing">
 				<p>Select a list on the left to open it.</p>
 			</div>
-		</div>
-
-        <div v-if="undoThing" id="undoThing">
-            <div>
-            <p>
-                Deleted list <i>{{deletedList}}</i>, <a v-on:click.prevent="undoDelete" href="/">undo</a>?
-            </p>
+            <div class="message" v-if="undoThing">
+                <p>
+                    Deleted list <i>{{deletedList}}</i>, <a v-on:click.prevent="undoDelete" href="/" v-link='{ path: "/cor" }'>undo</a>?
+                </p>
             </div>
-        </div>
+		</div>
 </div>
 </template>
 
@@ -91,11 +85,9 @@ export default {
 			if (store.deletedList){
 				// Call savelist on saved data from last delete
 				store.saveList(store.username, store.deletedList).then((response) => {
-					this.$parent.$route.router.go({ path: store.username + "/" + response.listname })
-                    console.log(response.listname)
+					this.$parent.$route.router.go({ path: store.username + "/" + store.deletedList.listname })
 					store.deletedList = null
 					this.undoButton = false
-                    console.log(response)
 				})
 			} else {
 				console.log('Welp, we messed up')

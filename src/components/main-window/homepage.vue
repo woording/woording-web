@@ -160,10 +160,8 @@ export default {
             if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
             if(!globals.getCookie('attempts')) document.cookie = 'attempts = 0';
 
-            if(globals.getCookie('rememberme') != 0){
-                store.remember(globals.getCookie('rememberme')).then(response => {
-                    store.cachedToken = globals.getCookie('rememberme')
-                    store.username = response.response
+            if(globals.getCookie('logvalue')){
+                store.retrieveSession(globals.getCookie('logvalue')).then(response => {
                     this.$parent.$route.router.go({ path: "/" + store.username })
                 })
             }
@@ -190,7 +188,6 @@ export default {
             }
 
             globals.validateInput(this.username).then(response => {
-                console.log(response)
             }).catch(error => {
                 this.error = 'Please only user letters, numbers and hyphen in the username'
                 return
@@ -209,7 +206,6 @@ export default {
 
             this.error = ''
             store.register(this.username, this.password, this.email).then(response => {
-                console.log(response)
                 if(response.succes){
                     alert('Validation email has been sent')
                 } else {

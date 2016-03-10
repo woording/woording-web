@@ -82,7 +82,6 @@
 				<a v-for='list in lists' v-link='{ path: "/" + $route.params.username + "/" + list.listname }'><li class="list-link">{{ list.listname }}</li></a>
 			</ul>
 		</div>
-		<button v-on:click="undoDelete" v-if="undoButton" v-link='{ path: "/cor" }' id='undoButton'>UNDO</button>
 		<div v-link='{ path: "/" + $route.params.username + "/add" }' id="add-list-button">
 			<p>+</p>
 		</div>
@@ -99,8 +98,7 @@ export default {
 		var username = this.$parent.$route.params.username
 		this.fetchLists(username)
 		return {
-			lists: [],
-			undoButton: false
+			lists: []
 		}
 	},
 
@@ -147,20 +145,6 @@ export default {
             }).catch(error => {
             })
 
-		},
-        
-		undoDelete: function(){
-			if (store.deletedList){
-				// Call savelist on saved data from last delete
-				store.saveList(store.username, store.deletedList).then((response) => {
-					this.$parent.$route.router.go({ path: store.username + "/" + store.deletedList.listname })
-					store.deletedList = null
-					this.undoButton = false
-                    console.log(response)
-				})
-			} else {
-				console.log('Welp, we messed up')
-			}
 		}
 	}
 }

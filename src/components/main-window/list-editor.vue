@@ -285,11 +285,11 @@ export default {
                             this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.oldname })
                         }
                         else {
-                            this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.listname })
+                            this.$parent.$route.router.go({ path: '/' + store.username + '/' + response.listname })
                         }
                     }
                     else {
-                        this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.listname })
+                        this.$parent.$route.router.go({ path: '/' + store.username + '/' + response.listname })
                     }
                     this.list = list_data
                 }).catch(error => {

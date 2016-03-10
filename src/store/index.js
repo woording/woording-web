@@ -3,7 +3,7 @@ import globals from '../globals'
 var store = {}
 
 const config = {
-    ip: 'https://api.woording.com/',
+    ip: 'http://api.woording.com/',
 	devMode: false // automatically log 'cor' in
 }
 
@@ -278,7 +278,6 @@ store.saveList = (username, list_data) => {
             }).then(response => {
                 return response.json()
             }).then(response => {
-                response.listname = list_data.listname
                 resolve(response)
             }).catch(error => {
                 console.log(error)
