@@ -72,6 +72,10 @@
 			<label for="quiz-language-both">both</label>
 			<br>
 
+			<input type="checkbox" id="repeatWrongAnswers" v-model="options.quiz.repeatWrongAnswers" />
+			<label for="repeatWrongAnswers">repeat wrong answers</label>
+			<br>
+
 			<input type="checkbox" id="caseSensitive" v-model="options.quiz.caseSensitive" />
 			<label for="caseSensitive">case sensitive</label>
 			<br>
@@ -103,6 +107,10 @@
 			<label for="multipleChoice-language-both">both</label>
 			<br>
 
+			<input type="checkbox" id="repeatWrongAnswers" v-model="options.multipleChoice.repeatWrongAnswers" />
+			<label for="repeatWrongAnswers">repeat wrong answers</label>
+			<br>
+
 			<input type="checkbox" id="multipleChoice-randomizeOrder" v-model="options.multipleChoice.randomizeOrder" />
 			<label for="multipleChoice-randomizeOrder">randomize order</label>
 			<br>
@@ -128,6 +136,7 @@ export default {
 				selectedMode: "quiz",
 				quiz: {
 					selectedLanguage: 0, // 0 = language_1 first, 1 = language_2 first, 2 = both
+					repeatWrongAnswers: false,
 					caseSensitive: false,
 					randomizeOrder: false,
 					ignorePunctuation: false,
@@ -136,6 +145,7 @@ export default {
 
 				multipleChoice: {
 					selectedLanguage: 0, // 0 = language_1 first, 1 = language_2 first, 2 = both
+					repeatWrongAnswers: false,
 					randomizeOrder: false
 				}
 			}

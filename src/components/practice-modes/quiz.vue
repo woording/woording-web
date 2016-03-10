@@ -114,6 +114,11 @@
 		</div>
 	</div>
 
+	<pre>
+		{{ }}
+
+	</pre>
+
 	<hr>
 	<p>Words left: {{ wordStack.length }}</p>
 	<p>Wrong answers: {{ invalidAnswerStack.length }} </p>
@@ -185,9 +190,16 @@ export default {
 		},
 
 		answeredWrongly() {
-			const newWordIndex = this.wordStack.length - 2
-			this.invalidAnswerStack.push(this.currentWord)
-			this.wordStack.splice(newWordIndex, 0, this.currentWord)
+
+			if (this.modifiers.repeatWrongAnswers) {
+
+				// the index of the wrongly answered word
+				const newWordIndex = this.wordStack.length - 2
+
+				this.invalidAnswerStack.push(this.currentWord)
+				this.wordStack.splice(newWordIndex, 0, this.currentWord)
+			}
+
 			this.setAnswerButtonMode(false)
 			this.nextWord()
 		},
@@ -230,7 +242,7 @@ export default {
 			// Create an array from the modifier values in the URL
 			let modifierNumbers = this.$parent.$route.params.modifiers.split("")
 			let modifierValues = modifierNumbers.map(converteModifier)
-			let modifierKeys = ["selectedLanguage", "caseSensitive", "randomizeOrder", "ignorePunctuation", "ignoreTremas"]
+			let modifierKeys = ["selectedLanguage", "repeatWrongAnswers", "caseSensitive", "randomizeOrder", "ignorePunctuation", "ignoreTremas"]
 
 			// Merge the array of keys and the array of values into an object
 			let modifiers = modifierKeys.reduce((obj, key, i) => { obj[key] = modifierValues[i]; return obj; }, {})
