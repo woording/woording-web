@@ -29,9 +29,13 @@
 			padding-bottom: .25rem;
 			transition: 0.1s;
 
+            &:hover {
+                background: white;
+                color: #212121;
+            }
 		}
+
 		.list-link:hover {
-			background-color: #FFFFFF;
 			color: #212121;
 		}
 

@@ -26,13 +26,19 @@
 			padding-left: .5rem;
 			padding-top: .25rem;
 			padding-bottom: .25rem;
+        }
+        
+        .user-link-item {
+            &:hover {
+                background-color: #4CAF50;
+            }
 		}
+
 
 		.user-link {
 			transition: 0.1s;
 
 			&:hover {
-				background-color: #4CAF50;
 			}
 		}
 
@@ -65,10 +71,14 @@
 		<div id="users">
 			<ul>
 				<li>YOU</li>
-				<a v-link='{ path: "/" + this.username }'><li class="user-link">{{ username }}</li></a>
+				<a v-link='{ path: "/" + this.username }'><li class="user-link user-link-item">{{ username }}</li></a>
 				<li><br></li>
 				<li>FRIENDS</li>
-				<a v-link='{ path: "/" + friend.username}' v-for="friend in friends" ><li class="user-link">{{ friend.username }}</li></a>
+                <li v-for="friend in friends" class="user-link-item">
+                    <a v-link='{ path: "/" + friend.username}'>
+                        <p class="user-link">{{ friend.username }}</p>
+                    </a>
+                </li>
 			</ul>
 		</div>
 		<div id="add-friend-button" v-on:click="addFriend">
