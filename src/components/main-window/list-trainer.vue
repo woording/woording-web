@@ -3,10 +3,10 @@
 	color: #212121;
 
 	#list-info {
-		padding: .5rem .5rem 0 .5rem;
+		padding: 1rem 1rem 0 1rem;
 
 		h1 {
-			font-size: 2rem;
+			font-size: 2.4rem;
 			color: #FF9800;
 			font-weight: normal;
 		}

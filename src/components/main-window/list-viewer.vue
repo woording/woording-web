@@ -28,15 +28,14 @@ $border-style: 0.125rem solid #B6B6B6;
 	.list-header {
 		width: 100%;
 
-		padding: .5rem .5rem 0 .5rem;
 		h1 {
-			font-size: 2rem;
+			font-size: 2.4rem;
 			color: #FF9800;
 			font-weight: normal;
 		}
 
 		h2 {
-			font-size: 1.2rem;
+			font-size: 1.4rem;
 			color: #212121;
 		}
 
@@ -106,6 +105,10 @@ $border-style: 0.125rem solid #B6B6B6;
 	.container {
 		flex: 1;
 
+		@media(min-width: 768px) {
+			padding: 1rem;
+		}
+
 		// button {
 		// 	padding: 10px;
 		// 	cursor: pointer;
@@ -131,6 +134,7 @@ $border-style: 0.125rem solid #B6B6B6;
 		display: flex;
 		background-color: blue;
 		margin-top: 1rem;
+		margin-bottom: 1rem;
 
 		.control {
 			flex: 1;
@@ -153,7 +157,6 @@ $border-style: 0.125rem solid #B6B6B6;
 						<a class="emerald-flat-button control" id="practiceButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</a>
 						<a class="clouds-flat-button control" id="editButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</a>
 						<a class="clouds-flat-button control" id="deleteButton" v-on:click="deleteList">Delete</a>
-						<a class="clouds-flat-button control" id="debugButton" v-on:click="debugList">Debug</a>
 					</div>
 				</span>
 				<span v-show="!ownList">
@@ -212,9 +215,6 @@ export default {
     },
 
 	methods : {
-		debugList: function() {
-			console.log(this.list)
-		},
 
 		deleteList: function() {
 			store.deletedList = this.list
