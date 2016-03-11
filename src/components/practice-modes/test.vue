@@ -163,19 +163,23 @@
 
 	<!-- THE BUTTONS -->
 	<div v-show="displayMode == 'question'">
-		<div id="controls">
-        <input type="text" class="control input" v-model="typedWord">
-		<a v-on:click="checkAnswer" class="control emerald-flat-button check">Check Answer</a>
-		</div>
+        <form v-on:submit="checkAnswer">
+            <div id="controls">
+            <input type="text" class="control input" v-model="typedWord">
+            <a v-on:click="checkAnswer" class="control emerald-flat-button check">Check Answer</a>
+            </div>
+        </form>
 	</div>
 
     <div v-show="displayMode == 'correctAnswer'">
-		<p class="thingy">{{ currentWord.language_1_text }}</p>
-        <p class="thingy" id="correctAnswer">Correct Answer: {{ currentWord.language_2_text }}</p>
-		<div id="controls">
-        <input type="text" class="control inputWrong input" v-model="typedWord" id="input">
-		<a v-on:click="nextWord" class="control emerald-flat-button check">Next</a>
-		</div>
+        <form v-on:submit="nextWord">
+            <p class="thingy">{{ currentWord.language_1_text }}</p>
+            <p class="thingy" id="correctAnswer">Correct Answer: {{ currentWord.language_2_text }}</p>
+            <div id="controls">
+            <input type="text" class="control inputWrong input" v-model="typedWord" id="input">
+            <a v-on:click="nextWord" class="control emerald-flat-button check">Next</a>
+            </div>
+        </form>
     </div>
 
 	<div v-show="displayMode == 'answerButtons'">
@@ -261,7 +265,6 @@ export default {
 		},
 
 		nextWord() {
-            console.log('test')
             this.typedWord = ''
             this.displayMode = "question"
 			// check if there are any words left
@@ -276,14 +279,19 @@ export default {
         checkAnswer() {
             console.log('Currentword: ' + this.currentWord.language_2_text)
             console.log('Typedword: ' + this.typedWord)
-            if (this.currentWord.language_2_text == this.typedWord){
-                console.log('Correct bitch')
-                this.answeredCorrectly()
-            } else {
-                console.log('WLONG')
-                this.displayMode = 'correctAnswer'
-                this.answeredWrongly()
+
+            let currentWordArray = this.currentWord.language_2_text.split(/\s*[,|/|;]\s*/).sort()
+            let typedWordArray = this.typedWord.split(/\s*[,|/|;]\s*/).sort()
+
+            for (let i = 0; i < currentWordArray.length; i++){
+                if (this.modifiers.caseSensitive ? currentWordArray[i] != typedWordArray[i] : currentWordArray[i].toLowerCase() != typedWordArray[i].toLowerCase()){
+                    this.displayMode = "correctAnswer"
+                    this.answeredWrongly()
+                    return
+                }
             }
+
+            this.answeredCorrectly()
         },
 
 		showResult() {
