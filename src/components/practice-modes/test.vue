@@ -37,6 +37,12 @@
 			text-align: center;
 			padding: 1rem;
 		}
+
+        .input {
+            flex: 2;
+            text-align: left;
+            font-size:20px;
+        }
 	}
 
 	/* Button styles */
@@ -115,7 +121,7 @@
 		border: 0;
 		height: 0;
 		border-top: 1px solid rgba(0, 0, 0, 0.1);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.3);	
+		border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 	}
 }
 
@@ -142,9 +148,17 @@
 	<!-- THE BUTTONS -->
 	<div v-show="displayMode == 'question'">
 		<div id="controls">
-		<a v-on:click="displayMode = 'answerButtons'" class="control emerald-flat-button">Show Answer</a>
+        <input type="text" class="control input" v-model="typedWord">
+		<a v-on:click="checkAnswer" class="control emerald-flat-button check">Check Answer</a>
 		</div>
 	</div>
+
+    <div v-show="displayMode == 'correctAnswer'">
+        <div>
+        test
+        {{ currentWord.language_2_text }}
+        </div>
+    </div>
 
 	<div v-show="displayMode == 'answerButtons'">
 		<div id="controls">
@@ -152,8 +166,6 @@
 			<a v-on:click="answeredWrongly" id="wrongAnswerButton" class="control alizarin-flat-button">Wrong Answer</a>
 		</div>
 	</div>
-
-
 
 	<!-- STATS -->
 	<div v-show="displayMode == 'question' || displayMode == 'answerButtons'">
@@ -191,6 +203,7 @@ export default {
 			wordStack: [],
 			invalidAnswerStack: [],
 			currentWord: {language_1_text: "", language_2_text: ""},
+            typedWord: '',
 			score: 0
 		}
 	},
@@ -239,6 +252,20 @@ export default {
 				this.showResult();
 			}
 		},
+
+        checkAnswer() {
+            console.log('Currentword: ' + this.currentWord.language_2_text)
+            console.log('Typedword: ' + this.typedWord)
+            if (this.currentWord.language_2_text == this.typedWord){
+                console.log('Correct bitch')
+                this.answeredCorrectly()
+            } else {
+                console.log('WLONG')
+                this.typedWord = ''
+                this.displayMode = 'correctAnswer'
+                this.answeredWrongly()
+            }
+        },
 
 		showResult() {
 			this.displayMode = "results"
@@ -292,8 +319,8 @@ export default {
 			// A function that converts a modifier to false, true, or a number if it's bigger than 1
 			// x = 0 | false
 			// x = 1 | true
-			// x > 1 | x 
-			let converteModifier = x => x > 1 ? x : x == 1 
+			// x > 1 | x
+			let converteModifier = x => x > 1 ? x : x == 1
 
 			// Create an array from the modifier values in the URL
 			let modifierNumbers = this.$parent.$route.params.modifiers.split("")
