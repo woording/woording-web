@@ -157,11 +157,8 @@ $border-style: 0.125rem solid #B6B6B6;
 						<a class="emerald-flat-button control" id="practiceButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</a>
 						<a class="clouds-flat-button control" id="editButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</a>
 						<a class="clouds-flat-button control" id="deleteButton" v-on:click="deleteList">Delete</a>
+						<a class="clouds-flat-button control" v-show="!ownList" v-on:click="saveList">Save</a>
 					</div>
-				</span>
-				<span v-show="!ownList">
-					<button v-on:click="saveList">Save</button>
-				</span>
 				<div class="language-name-container">
 					<div class="language-name">
 						<h2>{{list.language_1_tag}}</h2>
