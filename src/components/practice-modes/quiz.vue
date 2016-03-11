@@ -98,10 +98,10 @@
 
 	<div id="current-word-view">
 		<p>{{ currentWord.language_1_text }}</p>
-		<p v-if="answerButtonMode">{{ currentWord.language_2_text }}</p>
+		<p v-show="displayMode == 'answerButtons'">{{ currentWord.language_2_text }}</p>
 	</div>
 
-	<div v-show="answerButtonMode">
+	<div v-show="displayMode == 'answerButtons'">
 		<div id="controls">
 			<a v-on:click="answeredCorrectly" id="correctAnswerButton" class="control emerald-flat-button">Correct Answer</a>
 			<a v-on:click="answeredWrongly" id="wrongAnswerButton" class="control alizarin-flat-button">Wrong Answer</a>
@@ -110,7 +110,7 @@
 
 	<div v-else>
 		<div id="controls">
-		<a v-on:click="setAnswerButtonMode(true)" class="control emerald-flat-button">Show Answer</a>
+		<a v-on:click="displayMode = 'answerButtons'" class="control emerald-flat-button">Show Answer</a>
 		</div>
 	</div>
 
@@ -136,7 +136,7 @@ export default {
 	data () {
 		return {
 			answerButtonMode: false,
-
+			displayMode: "answerButtons",
 			list: {},
 			modifiers: {},
 			wordStack: [],
@@ -197,7 +197,7 @@ export default {
 		},
 
 		answeredCorrectly() {
-			this.setAnswerButtonMode(false)
+			this.displayMode = "question"
 			this.nextWord()
 		},
 
@@ -212,12 +212,8 @@ export default {
 				this.wordStack.splice(newWordIndex, 0, this.currentWord)
 			}
 
-			this.setAnswerButtonMode(false)
+			this.displayMode = "question"
 			this.nextWord()
-		},
-
-		setAnswerButtonMode(newValue) {
-			this.answerButtonMode = newValue
 		},
 
 		initalizeWordStack() {
