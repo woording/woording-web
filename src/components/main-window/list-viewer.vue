@@ -132,7 +132,6 @@ $border-style: 0.125rem solid #B6B6B6;
 
 	#controls {
 		display: flex;
-		background-color: blue;
 		margin-top: 1rem;
 		margin-bottom: 1rem;
 
