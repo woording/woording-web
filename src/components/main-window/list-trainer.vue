@@ -34,6 +34,55 @@
 	@media(min-width: 768px) {
 		overflow: auto;
 	}
+	
+	/* Button styles */
+	.emerald-flat-button {
+		// position: relative;
+		vertical-align: top;
+		width: 100%;
+		height: 60px;
+		padding: 0;
+		font-size: 22px;
+		color: white;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		background: #2ecc71;
+		border: 0;
+		border-bottom: 2px solid #28be68;
+		cursor: pointer;
+		-webkit-box-shadow: inset 0 -2px #28be68;
+		box-shadow: inset 0 -2px #28be68;
+	}
+	.emerald-flat-button:active {
+		top: 1px;
+		outline: none;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+
+	.clouds-flat-button {
+		position: relative;
+		vertical-align: top;
+		width: 100%;
+		height: 60px;
+		padding: 0;
+		font-size: 22px;
+		color:#454545;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		background: #ecf0f1;
+		border: 0;
+		border-bottom: 2px solid #dadedf;
+		cursor: pointer;
+		-webkit-box-shadow: inset 0 -2px #dadedf;
+		box-shadow: inset 0 -2px #dadedf;
+	}
+	.clouds-flat-button:active {
+		top: 1px;
+		outline: none;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
 }
 </style>
 
