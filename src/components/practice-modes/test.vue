@@ -27,6 +27,16 @@
 		}
 	}
 
+    .thingy {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+    }
+
+    #correctAnswer {
+        font-size: 30px;
+    }
+
 	#controls {
 		display: flex;
 		background-color: blue;
@@ -42,6 +52,12 @@
             flex: 2;
             text-align: left;
             font-size:20px;
+        }
+
+        .inputWrong {
+            outline: none !important;
+            border:1px solid red;
+            box-shadow: 0 0 10px #719ECE;
         }
 	}
 
@@ -154,10 +170,12 @@
 	</div>
 
     <div v-show="displayMode == 'correctAnswer'">
-        <div>
-        test
-        {{ currentWord.language_2_text }}
-        </div>
+		<p class="thingy">{{ currentWord.language_1_text }}</p>
+        <p class="thingy" id="correctAnswer">Correct Answer: {{ currentWord.language_2_text }}</p>
+		<div id="controls">
+        <input type="text" class="control inputWrong input" v-model="typedWord" id="input">
+		<a v-on:click="nextWord" class="control emerald-flat-button check">Next</a>
+		</div>
     </div>
 
 	<div v-show="displayMode == 'answerButtons'">
@@ -168,7 +186,7 @@
 	</div>
 
 	<!-- STATS -->
-	<div v-show="displayMode == 'question' || displayMode == 'answerButtons'">
+	<div v-show="displayMode != 'results'">
 		<hr>
 		<p>Words left: {{ wordStack.length }}</p>
 		<p>Wrong answers: {{ invalidAnswerStack.length }} </p>
@@ -243,7 +261,9 @@ export default {
 		},
 
 		nextWord() {
-
+            console.log('test')
+            this.typedWord = ''
+            this.displayMode = "question"
 			// check if there are any words left
 			if (this.wordStack.length > 0) {
 				this.currentWord = this.wordStack.pop()
@@ -261,7 +281,6 @@ export default {
                 this.answeredCorrectly()
             } else {
                 console.log('WLONG')
-                this.typedWord = ''
                 this.displayMode = 'correctAnswer'
                 this.answeredWrongly()
             }
@@ -277,7 +296,6 @@ export default {
 		},
 
 		answeredWrongly() {
-
 			this.invalidAnswerStack.push(this.currentWord)
 
 			if (this.modifiers.repeatWrongAnswers) {
@@ -286,9 +304,6 @@ export default {
 				const newWordIndex = this.wordStack.length - 2
 				this.wordStack.splice(newWordIndex, 0, this.currentWord)
 			}
-
-			this.displayMode = "question"
-			this.nextWord()
 		},
 
 		initalizeWordStack() {
