@@ -24,6 +24,7 @@ import HomePage from './components/main-window/homepage.vue'
 
 // Trainer Modes
 import TrainerQuiz from './components/practice-modes/quiz.vue'
+import TrainerTest from './components/practice-modes/test.vue'
 import TrainerMultipleChoice from './components/practice-modes/multiple-choice.vue'
 
 import store from './store'
@@ -51,6 +52,10 @@ router.map({
 
 	':username/:listname/practice/quiz/:modifiers' : {
 		component: TrainerQuiz
+	},
+
+	':username/:listname/practice/test/:modifiers' : {
+		component: TrainerTest
 	},
 
 	':username/:listname/practice/multipleChoice/:modifiers' : {
