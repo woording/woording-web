@@ -13,8 +13,7 @@
 	}
 
 	#options {
-		padding: .5rem .5rem 0 .5rem;
-
+		padding: 1rem 1rem 0 1rem;
 		h3 {
 			padding: 0;
 			margin-top: .5rem;
@@ -191,9 +190,6 @@
 		</div>
 
 		<button v-link='{ path: url }'>Start</button>
-
-		<pre>{{ options | json }}</pre>
-		<pre>{{ url }}</pre>
 	</div>
 </div>
 </template>
@@ -229,6 +225,13 @@ export default {
 					randomizeOrder: false
 				}
 			}
+		}
+	},
+	
+	ready() {
+		if (store.username == "") {
+			// no one is logged in, redirect to the homepage
+			this.$route.router.go({ path: '/' })
 		}
 	},
 
@@ -267,6 +270,13 @@ export default {
 			store.fetchList(username, listname).then((list) => {
 				updateList(list)
 			})
+		},
+
+		ready() {
+			if (store.username == null) {
+				alert("should log out");
+
+			}
 		}
 	}
 }

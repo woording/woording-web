@@ -37,6 +37,7 @@
 		border-bottom: 2px solid #B6B6B6;
 		right: 0;
 		top: 77px;
+		z-index: 9000;
 
 		p {
 			display: block;
