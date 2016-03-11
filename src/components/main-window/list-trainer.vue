@@ -55,10 +55,10 @@
 		<label for="mode-1">quiz</label>
 
 		<input name="mode" type="radio" id="mode-2" v-model="options.selectedMode" value="multipleChoice" />
-		<label for="mode-2">multiple Choice</label>
+		<label for="mode-2">multiple choice</label>
 
 		<input name="mode" type="radio" id="mode-3" v-model="options.selectedMode" value="test" />
-		<label for="mode-3">multiple Choice</label>
+		<label for="mode-3">test</label>
 
 		<h3>OPTIONS</h3>
 
