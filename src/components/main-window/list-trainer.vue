@@ -57,8 +57,11 @@
 		<input name="mode" type="radio" id="mode-2" v-model="options.selectedMode" value="multipleChoice" />
 		<label for="mode-2">multiple Choice</label>
 
+		<input name="mode" type="radio" id="mode-3" v-model="options.selectedMode" value="test" />
+		<label for="mode-3">multiple Choice</label>
+
 		<h3>OPTIONS</h3>
-		
+
 		<div v-show="options.selectedMode == 'quiz'">
 			<input name="quiz-language" type="radio" id="quiz-language-1" v-model="options.quiz.selectedLanguage" value="0" checked/>
 			<label for="quiz-language-1">{{ list.language_1_tag }} ➡ {{ list.language_2_tag }} </label>
@@ -76,19 +79,41 @@
 			<label for="repeatWrongAnswers">repeat wrong answers</label>
 			<br>
 
-			<input type="checkbox" id="caseSensitive" v-model="options.quiz.caseSensitive" />
-			<label for="caseSensitive">case sensitive</label>
-			<br>
-
 			<input type="checkbox" id="randomizeOrder" v-model="options.quiz.randomizeOrder" />
 			<label for="randomizeOrder">randomize order</label>
 			<br>
+		</div>
+		
+		<div v-show="options.selectedMode == 'test'">
+			<input name="test-language" type="radio" id="test-language-1" v-model="options.test.selectedLanguage" value="0" checked/>
+			<label for="test-language-1">{{ list.language_1_tag }} ➡ {{ list.language_2_tag }} </label>
+			<br>
 
-			<input type="checkbox" id="ignorePunctuation" v-model="options.quiz.ignorePunctuation" />
+			<input name="test-language" type="radio" id="test-language-2" v-model="options.test.selectedLanguage" value="1" />
+			<label for="test-language-2">{{ list.language_2_tag }} ➡ {{ list.language_1_tag }} </label>
+			<br>
+
+			<input name="test-language" type="radio" id="test-language-both" v-model="options.test.selectedLanguage" value="2" />
+			<label for="test-language-both">both</label>
+			<br>
+
+			<input type="checkbox" id="repeatWrongAnswers" v-model="options.test.repeatWrongAnswers" />
+			<label for="repeatWrongAnswers">repeat wrong answers</label>
+			<br>
+
+			<input type="checkbox" id="randomizeOrder" v-model="options.test.randomizeOrder" />
+			<label for="randomizeOrder">randomize order</label>
+			<br>
+
+			<input type="checkbox" id="caseSensitive" v-model="options.test.caseSensitive" />
+			<label for="caseSensitive">case sensitive</label>
+			<br>
+
+			<input type="checkbox" id="ignorePunctuation" v-model="options.test.ignorePunctuation" />
 			<label for="ignorePunctuation">ignore punctuation</label>
 			<br>
 
-			<input type="checkbox" id="ignoreTremas" v-model="options.quiz.ignoreTremas" />
+			<input type="checkbox" id="ignoreTremas" v-model="options.test.ignoreTremas" />
 			<label for="ignoreTremas">ignore tremas</label>
 			<br>
 
@@ -137,8 +162,14 @@ export default {
 				quiz: {
 					selectedLanguage: 0, // 0 = language_1 first, 1 = language_2 first, 2 = both
 					repeatWrongAnswers: false,
-					caseSensitive: false,
 					randomizeOrder: false,
+				},
+
+				test: {
+					selectedLanguage: 0, // 0 = language_1 first, 1 = language_2 first, 2 = both
+					repeatWrongAnswers: false,
+					randomizeOrder: false,
+					caseSensitive: false,
 					ignorePunctuation: false,
 					ignoreTremas: false
 				},
