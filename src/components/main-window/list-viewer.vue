@@ -62,12 +62,12 @@ $border-style: 0.125rem solid #B6B6B6;
 		color: white;
 		text-align: center;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-		background: #2ecc71;
+		background: #4CAF50;
 		border: 0;
-		border-bottom: 2px solid #28be68;
+		border-bottom: 2px solid #388E3C;
 		cursor: pointer;
-		-webkit-box-shadow: inset 0 -2px #28be68;
-		box-shadow: inset 0 -2px #28be68;
+		-webkit-box-shadow: inset 0 -2px #388E3C;
+		box-shadow: inset 0 -2px #388E3C;
 	}
 	.emerald-flat-button:active {
 		top: 1px;
