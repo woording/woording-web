@@ -88,6 +88,35 @@
 		-webkit-box-shadow: none;
 		box-shadow: none;
 	}
+
+
+	// Results
+	.invalid-answer-record {
+		width: 100%;
+		display: flex;
+		padding-left: .5rem;
+		padding-right: .5rem;
+
+        &:nth-child(odd){
+            background:#FAFAFA;
+        }
+
+		.translation-item {
+			flex: 1;
+			padding: 0.25rem;
+
+			&:not(:last-child) {
+				// border-right: $border-style;
+			}
+		}
+	}
+
+	hr {
+		border: 0;
+		height: 0;
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.3);	
+	}
 }
 
 </style>
@@ -134,8 +163,13 @@
 	</div>
 
 	<div v-show="displayMode == 'results'">
-		<h3>Wrong answers</h2>
-		<pre>{{ invalidAnswerStack | json }}</pre>
+		<h3>RESULTS</h3>
+		<h3>WRONG ANSWERS</h3>
+		<hr>
+		<div class="invalid-answer-record" v-for="answer in invalidAnswerStack">
+			<div class="translation-item">{{answer.language_1_text}}</div>
+			<div class="translation-item">{{answer.language_2_text}}</div>
+		</div>
 	</div>
 
 </div>
@@ -207,8 +241,6 @@ export default {
 		},
 
 		showResult() {
-			// TODO: Expand this functionality
-			alert("You've completed the quiz, good job!")
 			this.displayMode = "results"
 		},
 
