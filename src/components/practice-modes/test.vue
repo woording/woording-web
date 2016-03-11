@@ -66,18 +66,17 @@
 		// position: relative;
 		vertical-align: top;
 		width: 100%;
-		height: 60px;
 		padding: 0;
 		font-size: 22px;
 		color: white;
 		text-align: center;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-		background: #2ecc71;
+		background: #4CAF50;
 		border: 0;
-		border-bottom: 2px solid #28be68;
+		border-bottom: 2px solid #388E3C;
 		cursor: pointer;
-		-webkit-box-shadow: inset 0 -2px #28be68;
-		box-shadow: inset 0 -2px #28be68;
+		-webkit-box-shadow: inset 0 -2px #388E3C;
+		box-shadow: inset 0 -2px #388E3C;
 	}
 	.emerald-flat-button:active {
 		top: 1px;
@@ -172,12 +171,13 @@
 	</div>
 
     <div v-show="displayMode == 'correctAnswer'">
-        <form v-on:submit="nextWord">
+        <form v-on:submit="getNextWord">
             <p class="thingy">{{ currentWord.language_1_text }}</p>
             <p class="thingy" id="correctAnswer">Correct Answer: {{ currentWord.language_2_text }}</p>
+            <p id="message"></p>
             <div id="controls">
             <input type="text" class="control inputWrong input" v-model="typedWord" id="input">
-            <a v-on:click="nextWord" class="control emerald-flat-button check">Next</a>
+            <a v-on:click="getNextWord" class="control emerald-flat-button check">Next</a>
             </div>
         </form>
     </div>
@@ -264,6 +264,22 @@ export default {
 			};
 		},
 
+        getNextWord() {
+            let currentWordArray = this.currentWord.language_2_text.split(/\s*[,|/|;]\s*/).sort()
+            let typedWordArray = this.typedWord.split(/\s*[,|/|;]\s*/).sort()
+
+            for (let i = 0; i < currentWordArray.length; i++){
+                if (currentWordArray.length > typedWordArray.length){
+                    document.getElementById('message').innerHTML = 'Typed ' + typedWordArray.length + ' words but the answer should contain ' + currentWordArray.length + ' words.'
+                }
+                if (this.modifiers.caseSensitive ? currentWordArray[i] != typedWordArray[i] : currentWordArray[i].toLowerCase() != typedWordArray[i].toLowerCase()){
+                    return
+                }
+            }
+
+            this.nextWord()
+        },
+
 		nextWord() {
             this.typedWord = ''
             this.displayMode = "question"
@@ -277,21 +293,22 @@ export default {
 		},
 
         checkAnswer() {
-            console.log('Currentword: ' + this.currentWord.language_2_text)
-            console.log('Typedword: ' + this.typedWord)
-
             let currentWordArray = this.currentWord.language_2_text.split(/\s*[,|/|;]\s*/).sort()
             let typedWordArray = this.typedWord.split(/\s*[,|/|;]\s*/).sort()
 
             for (let i = 0; i < currentWordArray.length; i++){
+                if (currentWordArray.length > typedWordArray.length){
+                    document.getElementById('message').innerHTML = 'Typed ' + typedWordArray.length + ' words but the answer should contain ' + currentWordArray.length + ' words.'
+                }
                 if (this.modifiers.caseSensitive ? currentWordArray[i] != typedWordArray[i] : currentWordArray[i].toLowerCase() != typedWordArray[i].toLowerCase()){
                     this.displayMode = "correctAnswer"
                     this.answeredWrongly()
                     return
                 }
+                else {
+                    this.answeredCorrectly()
+                }
             }
-
-            this.answeredCorrectly()
         },
 
 		showResult() {
