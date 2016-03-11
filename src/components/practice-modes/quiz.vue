@@ -94,11 +94,27 @@
 
 <template>
 <div id="trainer-quiz">
+
 	<h2>{{ list.listname }}</h2>
 
-	<div id="current-word-view">
+
+	<!-- THE WORD ITSELF -->
+	<div v-show="displayMode == 'question'" id="current-word-view">
 		<p>{{ currentWord.language_1_text }}</p>
-		<p v-show="displayMode == 'answerButtons'">{{ currentWord.language_2_text }}</p>
+	</div>
+
+	<div v-show="displayMode == 'answerButtons'" id="current-word-view">
+		<p>{{ currentWord.language_1_text }}</p>
+		<p>{{ currentWord.language_2_text }}</p>
+	</div>
+
+
+
+	<!-- THE BUTTONS -->
+	<div v-show="displayMode == 'question'">
+		<div id="controls">
+		<a v-on:click="displayMode = 'answerButtons'" class="control emerald-flat-button">Show Answer</a>
+		</div>
 	</div>
 
 	<div v-show="displayMode == 'answerButtons'">
@@ -108,17 +124,8 @@
 		</div>
 	</div>
 
-	<div v-else>
-		<div id="controls">
-		<a v-on:click="displayMode = 'answerButtons'" class="control emerald-flat-button">Show Answer</a>
-		</div>
-	</div>
 
-	<pre>
-		{{ }}
-
-	</pre>
-
+	<!-- STATS -->
 	<hr>
 	<p>Words left: {{ wordStack.length }}</p>
 	<p>Wrong answers: {{ invalidAnswerStack.length }} </p>
@@ -136,7 +143,7 @@ export default {
 	data () {
 		return {
 			answerButtonMode: false,
-			displayMode: "answerButtons",
+			displayMode: "question",
 			list: {},
 			modifiers: {},
 			wordStack: [],
@@ -194,6 +201,7 @@ export default {
 		showResult() {
 			// TODO: Expand this functionality
 			alert("You've completed the quiz, good job!")
+			this.displayMode = "results"
 		},
 
 		answeredCorrectly() {
