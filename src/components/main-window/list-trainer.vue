@@ -227,6 +227,13 @@ export default {
 			}
 		}
 	},
+	
+	ready() {
+		if (store.username == "") {
+			// no one is logged in, redirect to the homepage
+			this.$route.router.go({ path: '/' })
+		}
+	},
 
 	computed: {
 		url: function() {
@@ -263,6 +270,13 @@ export default {
 			store.fetchList(username, listname).then((list) => {
 				updateList(list)
 			})
+		},
+
+		ready() {
+			if (store.username == null) {
+				alert("should log out");
+
+			}
 		}
 	}
 }

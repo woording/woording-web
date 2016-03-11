@@ -71,6 +71,13 @@ export default {
 		}
 	},
 
+	ready() {
+		if (store.username == "") {
+			// No one logged in, redirect to homepage
+			this.$route.router.go({ path: '/' })
+		}
+	},
+
 	route: {
 		data () {
             if(store.deletedList){

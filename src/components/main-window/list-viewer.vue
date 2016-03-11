@@ -193,6 +193,13 @@ export default {
 		}
 	},
 
+	ready() {
+		if (store.username == "") {
+			// no one is logged in, redirect to the homepage
+			this.$route.router.go({ path: '/' })
+		}
+	},
+
 	route: {
 		data () {
 			var username = this.$parent.$route.params.username
@@ -230,6 +237,7 @@ export default {
 				updateList(list)
 			})
 		},
+
 
 		saveList: function() {
 			// Create new list data from form
