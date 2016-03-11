@@ -50,40 +50,95 @@ $border-style: 0.125rem solid #B6B6B6;
 			padding: 0.25rem;
 		}
 	}
+
+	/* Button styles */
+	.emerald-flat-button {
+		// position: relative;
+		vertical-align: top;
+		width: 100%;
+		// height: 60px;
+		padding: 0;
+		font-size: 22px;
+		color: white;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		background: #4CAF50;
+		border: 0;
+		border-bottom: 2px solid #388E3C;
+		cursor: pointer;
+		-webkit-box-shadow: inset 0 -2px #388E3C;
+		box-shadow: inset 0 -2px #388E3C;
+	}
+	.emerald-flat-button:active {
+		top: 1px;
+		outline: none;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+
+	.clouds-flat-button {
+		flex: 1;
+		position: relative;
+		vertical-align: top;
+		width: 100%;
+		// height: 60px;
+		padding: 0;
+		font-size: 22px;
+		color:#454545;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		background: #ecf0f1;
+		border: 0;
+		border-bottom: 2px solid #dadedf;
+		cursor: pointer;
+		-webkit-box-shadow: inset 0 -2px #dadedf;
+		box-shadow: inset 0 -2px #dadedf;
+	}
+	.clouds-flat-button:active {
+		top: 1px;
+		outline: none;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
 }
 
 #translation-list {
 	.container {
 		flex: 1;
 
-		button {
-			padding: 10px;
-			cursor: pointer;
-			color: white;
-			border-radius: 3px;
-			border: 1px solid #ccc;
-			color: black;
-			background: white;
+		// button {
+		// 	padding: 10px;
+		// 	cursor: pointer;
+		// 	color: white;
+		// 	border-radius: 3px;
+		// 	border: 1px solid #ccc;
+		// 	color: black;
+		// 	background: white;
 
-			&:hover {
-				background: #ccc;
-			}
-		}
+		// 	&:hover {
+		// 		background: #ccc;
+		// 	}
+		// }
 
-		#practiceButton {
-			background: green;
-			color: white;
-
-			&:hover {
-				background: #00C700;
-			}
-		}
 	}
 
 	flex: 1;
 	@media(min-width: 768px) {
 		overflow: auto;
 	}
+
+	#controls {
+		display: flex;
+		background-color: blue;
+		margin-top: 1rem;
+
+		.control {
+			flex: 1;
+			text-align: center;
+			padding: 0.5rem;
+		}
+	}
+
 }
 </style>
 
@@ -94,11 +149,12 @@ $border-style: 0.125rem solid #B6B6B6;
 			<div class="list-header">
 				<h1>{{ list.listname }}</h1>
 
-					<button id="practiceButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</button>
-				<span v-show="ownList">
-					<button id="editButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</button>
-					<button id="deleteButton" v-on:click="deleteList">Delete</button>
-					<button id="debugButton" v-on:click="debugList">Debug</button>
+					<div id="controls">
+						<a class="emerald-flat-button control" id="practiceButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</a>
+						<a class="clouds-flat-button control" id="editButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</a>
+						<a class="clouds-flat-button control" id="deleteButton" v-on:click="deleteList">Delete</a>
+						<a class="clouds-flat-button control" id="debugButton" v-on:click="debugList">Debug</a>
+					</div>
 				</span>
 				<span v-show="!ownList">
 					<button v-on:click="saveList">Save</button>

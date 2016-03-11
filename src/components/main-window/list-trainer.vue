@@ -34,6 +34,55 @@
 	@media(min-width: 768px) {
 		overflow: auto;
 	}
+
+	/* Button styles */
+	.emerald-flat-button {
+		// position: relative;
+		vertical-align: top;
+		width: 100%;
+		height: 60px;
+		padding: 0;
+		font-size: 22px;
+		color: white;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		background: #4CAF50;
+		border: 0;
+		border-bottom: 2px solid #388E3C;
+		cursor: pointer;
+		-webkit-box-shadow: inset 0 -2px #388E3C;
+		box-shadow: inset 0 -2px #388E3C;
+	}
+	.emerald-flat-button:active {
+		top: 1px;
+		outline: none;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+
+	.clouds-flat-button {
+		position: relative;
+		vertical-align: top;
+		width: 100%;
+		height: 60px;
+		padding: 0;
+		font-size: 22px;
+		color:#454545;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		background: #ecf0f1;
+		border: 0;
+		border-bottom: 2px solid #dadedf;
+		cursor: pointer;
+		-webkit-box-shadow: inset 0 -2px #dadedf;
+		box-shadow: inset 0 -2px #dadedf;
+	}
+	.clouds-flat-button:active {
+		top: 1px;
+		outline: none;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
 }
 </style>
 
@@ -58,7 +107,7 @@
 		<label for="mode-2">multiple choice</label>
 
 		<input name="mode" type="radio" id="mode-3" v-model="options.selectedMode" value="test" />
-		<label for="mode-3">test</label>
+		<label for="mode-3">test </label>
 
 		<h3>OPTIONS</h3>
 

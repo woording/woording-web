@@ -44,18 +44,17 @@
 		// position: relative;
 		vertical-align: top;
 		width: 100%;
-		height: 60px;
 		padding: 0;
 		font-size: 22px;
 		color: white;
 		text-align: center;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-		background: #2ecc71;
+		background: #4CAF50;
 		border: 0;
-		border-bottom: 2px solid #28be68;
+		border-bottom: 2px solid #388E3C;
 		cursor: pointer;
-		-webkit-box-shadow: inset 0 -2px #28be68;
-		box-shadow: inset 0 -2px #28be68;
+		-webkit-box-shadow: inset 0 -2px #388E3C;
+		box-shadow: inset 0 -2px #388E3C;
 	}
 	.emerald-flat-button:active {
 		top: 1px;
@@ -74,12 +73,12 @@
 		color: white;
 		text-align: center;
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-		background: #e74c3c;
+		background: #FF9800;
 		border: 0;
-		border-bottom: 2px solid #db4334;
+		border-bottom: 2px solid #B46B01;
 		cursor: pointer;
-		-webkit-box-shadow: inset 0 -2px #db4334;
-		box-shadow: inset 0 -2px #db4334;
+		-webkit-box-shadow: inset 0 -2px #B46B01;
+		box-shadow: inset 0 -2px #B46B01;
 	}
 
 	.alizarin-flat-button:active {

@@ -325,7 +325,7 @@ export default {
 			// Create an array from the modifier values in the URL
 			let modifierNumbers = this.$parent.$route.params.modifiers.split("")
 			let modifierValues = modifierNumbers.map(converteModifier)
-			let modifierKeys = ["selectedLanguage", "repeatWrongAnswers", "randomizeOrder","caseSensitive",  "ignorePunctuation", "ignoreTremas"]
+			let modifierKeys = ["selectedLanguage", "repeatWrongAnswers", "randomizeOrder", "caseSensitive",  "ignorePunctuation", "ignoreTremas"]
 
 			// Merge the array of keys and the array of values into an object
 			let modifiers = modifierKeys.reduce((obj, key, i) => { obj[key] = modifierValues[i]; return obj; }, {})
