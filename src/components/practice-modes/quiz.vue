@@ -125,10 +125,18 @@
 	</div>
 
 
+
 	<!-- STATS -->
-	<hr>
-	<p>Words left: {{ wordStack.length }}</p>
-	<p>Wrong answers: {{ invalidAnswerStack.length }} </p>
+	<div v-show="displayMode == 'question' || displayMode == 'answerButtons'">
+		<hr>
+		<p>Words left: {{ wordStack.length }}</p>
+		<p>Wrong answers: {{ invalidAnswerStack.length }} </p>
+	</div>
+
+	<div v-show="displayMode == 'results'">
+		<h3>Wrong answers</h2>
+		<pre>{{ invalidAnswerStack | json }}</pre>
+	</div>
 
 </div>
 </template>
