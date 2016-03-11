@@ -181,7 +181,19 @@ export default {
 		},
 
 		nextWord() {
-			this.currentWord = this.wordStack.pop()
+
+			// check if there are any words left
+			if (this.wordStack.length > 0) {
+				this.currentWord = this.wordStack.pop()
+			} else {
+				// show the user how well they did
+				this.showResult();
+			}
+		},
+
+		showResult() {
+			// TODO: Expand this functionality
+			alert("You've completed the quiz, good job!")
 		},
 
 		answeredCorrectly() {
@@ -191,12 +203,12 @@ export default {
 
 		answeredWrongly() {
 
+			this.invalidAnswerStack.push(this.currentWord)
+
 			if (this.modifiers.repeatWrongAnswers) {
 
 				// the index of the wrongly answered word
 				const newWordIndex = this.wordStack.length - 2
-
-				this.invalidAnswerStack.push(this.currentWord)
 				this.wordStack.splice(newWordIndex, 0, this.currentWord)
 			}
 
