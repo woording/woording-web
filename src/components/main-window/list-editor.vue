@@ -282,15 +282,24 @@ export default {
                             store.saveList(store.username, list_data).then(response => {
                                 console.log('Undo')
                             })
+                            // Go back to old list when people don't want to overwrite
                             this.$parent.$route.router.go({ path: '/' + store.username + '/' + this.oldname })
                         }
                         else {
-                            this.$parent.$route.router.go({ path: '/' + store.username + '/' + response.listname })
+                            // Go to new list when people overwrite
+                            this.$parent.$route.router.go({ path: '/' + store.username + '/' + response.old_list.listname })
                         }
                     }
+                    else if (response.response == "List exists"){
+                        // Only list edited and not listname so go back to same list
+                        this.$parent.$route.router.go({ path: '/' + store.username + '/' + response.old_list.listname })
+                    }
+
                     else {
+                        // Go to new list name
                         this.$parent.$route.router.go({ path: '/' + store.username + '/' + response.listname })
                     }
+
                     this.list = list_data
                 }).catch(error => {
                     console.log('error')

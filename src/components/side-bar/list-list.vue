@@ -28,7 +28,9 @@
 			padding-top: .25rem;
 			padding-bottom: .25rem;
 			transition: 0.1s;
+        }
 
+        .list-list-list-item-item {
             &:hover {
                 background: white;
                 color: #212121;
@@ -173,7 +175,7 @@
         <div id="lists">
             <ul>
                 <li>{{ $route.params.username + "'s lists" | uppercase }}</li>
-                <li v-for='list in lists'>
+                <li v-for='list in lists' class="list-list-list-item-item">
                     <a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>
                         <p class="list-link">{{ list.listname }}</p>
                     </a>
