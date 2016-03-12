@@ -37,9 +37,6 @@
 
 		.user-link {
 			transition: 0.1s;
-
-			&:hover {
-			}
 		}
 
 		.v-link-active > li {
