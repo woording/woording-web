@@ -11,6 +11,7 @@
 
     html {
         box-sizing: border-box;
+        height: 100%;
     }
 
     *, *:before, *:after {
@@ -18,7 +19,7 @@
     }
 
     body {
-
+        height: 100%;
         color: #212121;
         font-family: 'Roboto';
     }
@@ -27,9 +28,9 @@
         display: flex;
         flex-direction: column;
 
-        min-height: 100vh;
+        min-height: 100%;
         @media (min-width: 768px) {
-            height: 100vh;
+            height: 100%;
         }
     }
 </style>
