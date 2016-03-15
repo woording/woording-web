@@ -195,14 +195,14 @@
         <div id="importPopup">
             <h1>Import Lists</h1>
             <form v-on:submit.prevent>
-                <input type="radio" name='where' id='1' v-model='where' value='Paste list from woordjesleren below.'>
+                <input type="radio" name='where' id='1' v-model='where' value='woordjesleren'>
                 <label for='1'>Woordjesleren</label>
-                <input type="radio" name='where' id='2' v-model='where' value='Importing from wrts is not possible yet'>
+                <input type="radio" name='where' id='2' v-model='where' value='wrts'>
                 <label for='2'>Wrts</label>
-                <input type="radio" name='where' id='3' v-model='where' value='Paste words copied from excel below.'>
+                <input type="radio" name='where' id='3' v-model='where' value='excel'>
                 <label for='3'>Excel</label>
                 <br>
-                <p>{{ where }}</p>
+                <p v-show="where">Paste copied words from {{ where }} below.</p>
                 <textarea id="importWords" name="" cols="30" rows="10"></textarea>
                 <br>
                 <input type="submit" v-on:click="importList" value="IMPORT" v-link="{ path: '/' + $route.params.username + '/add' }">
@@ -266,32 +266,27 @@ export default {
         },
 
         importList: function(){
-            if(this.where.includes('woordjesleren')){
-                let words = document.getElementById('importWords').value.split(/ = |=|\n/g);
-                console.log(words)
-                var wordObjectArray = [];
-                for (var i = 0, x = words.length; i < x; i+=2){
-                    wordObjectArray.push({
-                        language_1_text: words[i],
-                        language_2_text: words[i+1]
-                    });
-                }
-                store.importedWords = wordObjectArray
-                this.closeImport()
+            console.log(words)
+            let wordsRegex = ''
+            switch(this.where){
+                case 'woordjesleren':
+                    wordsRegex = / = |=|\n/g
+                    break;
+                case 'excel':
+                    wordsRegex = /\t|\n/g
+                    break;
             }
-            else if(this.where.includes('excel')){
-                let words = document.getElementById('importWords').value.split(/\t|\n/g);
-                console.log(words)
-                var wordObjectArray = [];
-                for (var i = 0, x = words.length; i < x; i+=2){
-                    wordObjectArray.push({
-                        language_1_text: words[i],
-                        language_2_text: words[i+1]
-                    });
-                }
-                store.importedWords = wordObjectArray
-                this.closeImport()
+
+            let words = document.getElementById('importWords').value.split(wordsRegex);
+            let wordObjectArray = [];
+            for (let i = 0, x = words.length; i < x; i+=2){
+                wordObjectArray.push({
+                    language_1_text: words[i],
+                    language_2_text: words[i+1]
+                });
             }
+            store.importedWords = wordObjectArray
+            this.closeImport()
         },
 
         showImport: function(){

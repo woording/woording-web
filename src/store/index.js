@@ -4,7 +4,6 @@ var store = {}
 
 const config = {
     ip: 'https://api.woording.com/',
-	devMode: false // automatically log 'cor' in
 }
 
 export default store
@@ -15,6 +14,7 @@ store.keepLoggedIn = false
 store.cachedToken = null
 store.deletedList = null
 store.called = false
+store.importedWords = []
 
 /**
  * Fetch a token based on username and listname
@@ -24,7 +24,7 @@ store.called = false
  * @return {Promise} token
  */
 store.fetchToken = (keepLoggedIn) => {
-	return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         store.keepLoggedIn = keepLoggedIn
         // Token fetch functions
         if (globals.getCookie('logvalue') && !store.username){
@@ -78,7 +78,7 @@ store.fetchToken = (keepLoggedIn) => {
                 reject(error)
             })
         }
-	})
+    })
 }
 
 store.storeSession = (username, token, selector) => {
@@ -125,6 +125,9 @@ store.retrieveSession = selector => {
             return response.json()
         }).then(response => {
             resolve(response)
+        }).catch(error => {
+            document.cookie = 'logvalue='
+            reject(error)
         })
     })
 }
@@ -155,8 +158,8 @@ store.removeSession = () => {
  * @return {Promise} a promise containing the user data
  */
 store.fetchUser = (username) => {
-	return new Promise((resolve, reject) => {
-		store.fetchToken().then( token => {
+    return new Promise((resolve, reject) => {
+        store.fetchToken().then( token => {
             fetch(config.ip + username, {
                 method: 'post',
                 headers: {
@@ -171,8 +174,8 @@ store.fetchUser = (username) => {
                 console.log('error')
                 reject(error)
             })
-		})
-	})
+        })
+    })
 }
 
 
@@ -180,8 +183,8 @@ store.fetchUser = (username) => {
  * @return {Promise}, containg friends[]
  */
 store.fetchFriends = () => {
-	return new Promise((resolve, reject) => {
-		store.fetchToken().then( token => {
+    return new Promise((resolve, reject) => {
+        store.fetchToken().then( token => {
             fetch(config.ip + "getFriends", {
                 method: 'post',
                 headers: {
@@ -197,8 +200,8 @@ store.fetchFriends = () => {
                 console.log(error)
                 reject(error)
             })
-		})
-	})
+        })
+    })
 }
 
 /**
@@ -207,8 +210,8 @@ store.fetchFriends = () => {
  * @return {Promise}, containing a list
  */
 store.fetchList = (username, listname) => {
-	return new Promise((resolve, reject) => {
-		store.fetchToken().then( token => {
+    return new Promise((resolve, reject) => {
+        store.fetchToken().then( token => {
             fetch(config.ip + username + "/" + listname, {
                 method: 'post',
                 headers: {
@@ -223,8 +226,8 @@ store.fetchList = (username, listname) => {
                 console.log(error)
                 reject(error)
             })
-		})
-	})
+        })
+    })
 }
 
 /**
@@ -233,8 +236,8 @@ store.fetchList = (username, listname) => {
  * @return {Promise}, a confirmation message
  */
 store.deleteList = (username, list) => {
-	return new Promise((resolve, reject) => {
-		store.fetchToken().then( token => {
+    return new Promise((resolve, reject) => {
+        store.fetchToken().then( token => {
             fetch(config.ip + "deleteList", {
                 method: 'post',
                 headers: {
@@ -253,8 +256,8 @@ store.deleteList = (username, list) => {
                 console.log(error)
                 reject(error)
             })
-		})
-	})
+        })
+    })
 }
 
 /**
@@ -263,8 +266,8 @@ store.deleteList = (username, list) => {
  * @return {Promise}, a confirmation message
  */
 store.saveList = (username, list_data) => {
-	return new Promise((resolve, reject) => {
-		store.fetchToken().then( token => {
+    return new Promise((resolve, reject) => {
+        store.fetchToken().then( token => {
             fetch(config.ip + "savelist", {
                 method: 'post',
                 headers: {
@@ -283,8 +286,8 @@ store.saveList = (username, list_data) => {
                 console.log(error)
                 reject(error)
             })
-		})
-	})
+        })
+    })
 }
 
 
@@ -317,7 +320,7 @@ store.register = (username, password, email) => {
  * @return {Promise}, a confirmation message
  */
 store.friendRequest = (username, friendname) => {
-	return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         fetch(config.ip + "friendRequest", {
             method: 'post',
             headers: {
@@ -335,7 +338,7 @@ store.friendRequest = (username, friendname) => {
             console.log(error)
             reject(error)
         })
-	})
+    })
 }
 
 store.validateCaptcha = url => {
