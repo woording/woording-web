@@ -195,11 +195,11 @@
         <div id="importPopup">
             <h1>Import Lists</h1>
             <form v-on:submit.prevent>
-                <input type="radio" name='where' id='1' v-model='where' value='Paste list from woordjesleren below'>
+                <input type="radio" name='where' id='1' v-model='where' value='Paste list from woordjesleren below.'>
                 <label for='1'>Woordjesleren</label>
-                <input type="radio" name='where' id='2' v-model='where' value='stuff'>
+                <input type="radio" name='where' id='2' v-model='where' value='Importing from wrts is not possible yet'>
                 <label for='2'>Wrts</label>
-                <input type="radio" name='where' id='3' v-model='where' value='stuff'>
+                <input type="radio" name='where' id='3' v-model='where' value='Paste words copied from excel below.'>
                 <label for='3'>Excel</label>
                 <br>
                 <p>{{ where }}</p>
@@ -268,6 +268,19 @@ export default {
         importList: function(){
             if(this.where.includes('woordjesleren')){
                 let words = document.getElementById('importWords').value.split(/ = |=|\n/g);
+                console.log(words)
+                var wordObjectArray = [];
+                for (var i = 0, x = words.length; i < x; i+=2){
+                    wordObjectArray.push({
+                        language_1_text: words[i],
+                        language_2_text: words[i+1]
+                    });
+                }
+                store.importedWords = wordObjectArray
+                this.closeImport()
+            }
+            else if(this.where.includes('excel')){
+                let words = document.getElementById('importWords').value.split(/\t|\n/g);
                 console.log(words)
                 var wordObjectArray = [];
                 for (var i = 0, x = words.length; i < x; i+=2){
