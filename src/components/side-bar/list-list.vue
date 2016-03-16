@@ -266,8 +266,8 @@ export default {
         },
 
         importList: function(){
-            console.log(words)
             let wordsRegex = ''
+            let words = document.getElementById('importWords').value
             switch(this.where){
                 case 'woordjesleren':
                     wordsRegex = / = |=|\n/g
@@ -275,9 +275,14 @@ export default {
                 case 'excel':
                     wordsRegex = /\t|\n/g
                     break;
+                case 'wrts':
+                    words = words.replace(/[0-9]+\t/g, '')
+                    console.log(words)
+                    wordsRegex = /\t|\n/g
+                    break;
             }
 
-            let words = document.getElementById('importWords').value.split(wordsRegex);
+            words = words.split(wordsRegex);
             let wordObjectArray = [];
             for (let i = 0, x = words.length; i < x; i+=2){
                 wordObjectArray.push({
