@@ -212,6 +212,7 @@
 <script>
 
 import store from '../../store'
+import globals from '../../globals'
 const Rx = require('rx')
 
 export default {
@@ -293,22 +294,43 @@ export default {
 		},
 
         checkAnswer() {
-            let currentWordArray = this.currentWord.language_2_text.split(/\s*[,|/|;]\s*/).sort()
-            let typedWordArray = this.typedWord.split(/\s*[,|/|;]\s*/).sort()
+            let currentWordArray = this.currentWord.language_2_text.split(/\s*[,|/|;]\s+/)
+            let typedWordArray = this.typedWord.split(/\s*[,|/|;]\s+/)
 
             for (let i = 0; i < currentWordArray.length; i++){
                 if (currentWordArray.length > typedWordArray.length){
                     document.getElementById('message').innerHTML = 'Typed ' + typedWordArray.length + ' words but the answer should contain ' + currentWordArray.length + ' words.'
                 }
-                if (this.modifiers.caseSensitive ? currentWordArray[i] != typedWordArray[i] : currentWordArray[i].toLowerCase() != typedWordArray[i].toLowerCase()){
+                else if (typedWordArray.length > currentWordArray.length){
+                    document.getElementById('message').innerHTML = 'Typed ' + typedWordArray.length + ' words but the answer should contain ' + currentWordArray.length + ' words.'
                     this.displayMode = "correctAnswer"
                     this.answeredWrongly()
                     return
                 }
-                else {
-                    this.answeredCorrectly()
+                if(!this.modifiers.caseSensitive){
+                    currentWordArray[i] = currentWordArray[i].toLowerCase()
+                    typedWordArray[i] = typedWordArray[i].toLowerCase()
+                }
+                if (this.modifiers.ignoreTremas){
+                    currentWordArray[i] = globals.removeDiacritics(currentWordArray[i])
+                    typedWordArray[i] = globals.removeDiacritics(typedWordArray[i])
                 }
             }
+
+            currentWordArray.sort()
+            typedWordArray.sort()
+
+            console.log(currentWordArray)
+            console.log(typedWordArray)
+
+            for (let i = 0; i < currentWordArray.length; i++){
+                if(currentWordArray[i] != typedWordArray[i]){
+                    this.displayMode = "correctAnswer"
+                    this.answeredWrongly()
+                    return
+                }
+            }
+            this.answeredCorrectly()
         },
 
 		showResult() {
