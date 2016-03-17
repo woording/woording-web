@@ -68,7 +68,13 @@
 		<div id="users">
 			<ul>
 				<li>YOU</li>
-				<a v-link='{ path: "/" + this.username }'><li class="user-link user-link-item">{{ username }}</li></a>
+
+                <a v-link='{ path: "/" + this.username }'>
+                    <li class="user-link-item">
+                        <p class="user-link">{{ username }}</p>
+                    </li>
+                </a>
+
 				<li><br></li>
 				<li>FRIENDS</li>
                 <li v-for="friend in friends" class="user-link-item">
