@@ -80,7 +80,7 @@
 </style>
 
 <template>
-<div id="account-button" v-on:click="toggleAccountMenu">
+<div v-show="shouldShowButton" id="account-button" v-on:click="toggleAccountMenu">
 	<img src="img/ui/account-button.png" alt="Account Button">
 	<p>{{ username }}</p>
 </div>
@@ -108,19 +108,25 @@
 import store from '../../store'
 export default {
 	data: function() {
-        store.fetchToken().then(response => {
-            this.username = store.username
-            store.fetchUser(store.username).then(response => {
-                this.email = response.email
-            })
-        })
-
 		return {
 			shouldShowAccountMenu: false,
             username: store.username,
-            email: ''
+            email: '',
+            shouldShowButton: false
 		}
 	},
+
+    events: {
+        'url-update': function(){
+            store.fetchToken().then(response => {
+                this.username = store.username
+                store.fetchUser(store.username).then(response => {
+                    this.email = response.email
+                    this.shouldShowButton = true
+                })
+            })
+        }
+    },
 
 	methods : {
 		signOut: function() {
