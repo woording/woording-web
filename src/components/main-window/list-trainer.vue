@@ -229,7 +229,7 @@ export default {
 	},
 	
 	ready() {
-		if (store.username == "") {
+		if (!globals.getCookies('logvalue') && store.username == "") {
 			// no one is logged in, redirect to the homepage
 			this.$route.router.go({ path: '/' })
 		}
