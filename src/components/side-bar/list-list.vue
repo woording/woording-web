@@ -104,6 +104,8 @@
 
     h1 {
         margin-bottom: 20px;
+        font-size:18px;
+        font-weight: bold;
     }
 
     textarea {
@@ -192,8 +194,9 @@
     <div id="wrapper" transition="modal">
         <div id="clicker" v-on:click="closeImport"></div>
         <div id="importPopup">
-            <h1>Import Lists</h1>
+            <h1><b>Import Lists</b></h1>
             <form v-on:submit.prevent>
+                Import from:
                 <input type="radio" name='where' id='1' v-model='where' value='woordjesleren'>
                 <label for='1'>Woordjesleren</label>
                 <input type="radio" name='where' id='2' v-model='where' value='wrts'>
@@ -251,6 +254,11 @@ export default {
         },
 
         importList: function(){
+            if (!this.where){
+                alert('Please select where the words are imported from.')
+                return
+            } 
+
             let wordsRegex = ''
             let words = document.getElementById('importWords').value
             switch(this.where){
@@ -276,6 +284,7 @@ export default {
                 });
             }
             store.importedWords = wordObjectArray
+            document.getElementById('importWords').value = ''
             this.closeImport()
         },
 
