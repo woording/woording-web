@@ -177,6 +177,7 @@
 <script>
 
 import store from '../../store'
+import globals from '../../globals'
 const Rx = require('rx')
 
 export default {
@@ -196,7 +197,7 @@ export default {
 
 	ready () {
 
-		if (!globals.getCookies('logvalue') && store.username == "") {
+		if (!globals.getCookie('logvalue') && store.username == "") {
 			// No one logged in, redirect to homepage
 			this.$route.router.go({ path: '/' })
 		}
