@@ -111,10 +111,12 @@
     textarea {
         width: 100%;
         margin-top: 20px;
+        font-family: 'Roboto';
     }
 
     input[type='radio'] {
         display: none;
+        margin: 2px;
 
         &:checked + label {
             background: #4CAF50;
