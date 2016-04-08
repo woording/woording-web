@@ -106,11 +106,11 @@
             <h2 v-if="!registerMode">Log in</h2>
             <h2 v-if="registerMode">Register</h2>
             <form v-on:submit.prevent>
-                <input type="text" placeholder="Username" v-model='username'><br>
-				<input type="password" placeholder="Password" v-model='password'><br>
+                <input type="text" placeholder="Username" v-model='username' name='username'><br>
+				<input type="password" placeholder="Password" v-model='password' name='password'><br>
 				<div v-show="registerMode">
 					<input type="password" placeholder="Repeat Password" v-model='repeated'><br>
-					<input type="text" placeholder="Email" v-model='email'><br>
+					<input type="text" placeholder="Email" v-model='email' name='email'><br>
 				</div>
 
                 <p id="rememberMeToggle" v-show="!registerMode"><input type="checkbox" v-model="keepLoggedIn" v-show="!registerMode">Remember me?</p>
