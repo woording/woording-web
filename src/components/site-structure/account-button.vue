@@ -55,6 +55,10 @@
 			color: white;
 			padding: .25rem;
 			border: 0;
+
+			&:hover {
+				cursor: pointer;
+			}
 		}
 
 		#sign-out-button {
@@ -74,6 +78,10 @@
 			font-family: Roboto;
 			font-size: 1rem;
 			padding: 1rem;
+
+			&:hover {
+				cursor: pointer;
+			}
 		}
 
 	}
