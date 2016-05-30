@@ -12,6 +12,16 @@ $border-style: 0.125rem solid #B6B6B6;
     display: flex;
     min-height: 0px;
 
+    #delete-translation {
+        background: #EEE;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border: 1px solid #DDD;
+        padding: 10px;
+        font-weight: 400;
+        cursor: pointer;
+    }
+
     .translation-record {
         width: 100%;
         display: flex;
@@ -26,8 +36,14 @@ $border-style: 0.125rem solid #B6B6B6;
             border: 1px solid #ccc;
             border-radius: 3px;
 
-            &:not(:last-child) {
+            &:not(:last-child):nth-child(odd) {
                 margin-right: 0.5rem;
+            }
+
+            &:nth-child(even) {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                border-right: none;
             }
         }
     }
@@ -135,6 +151,7 @@ $border-style: 0.125rem solid #B6B6B6;
         <div class="translation-record" v-for="word in list.words">
             <input type="text" value="{{ word.language_1_text }}" placeholder="sentence" class="sentence-item list-item">
             <input type="text" value="{{ word.language_2_text }}" placeholder="translation" class="translation-item list-item" v-on:keyup.tab.prevent="newTabRow" name="edit_input">
+            <div v-on:click="deleteTranslation(word)" id="delete-translation">X</div>
         </div>
         <button v-on:click="addRow">Add Row</button>
         <div id="translation-bottom"></div>
@@ -238,6 +255,11 @@ export default {
             if(!e.target.parentElement.nextSibling.innerHTML){
                 this.addRow()
             }
+        },
+
+        deleteTranslation: function(translation){
+            console.log('test')
+            this.list.words.$remove(translation)
         },
 
         saveList: function() {
