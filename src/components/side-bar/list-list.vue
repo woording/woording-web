@@ -179,7 +179,8 @@
         <div id="lists">
             <ul>
                 <li>{{ $route.params.username + "'s lists" | uppercase }}</li>
-                <li v-for='list in lists' class="list-list-list-item-item">
+                <input type="text">
+                <li v-for="list in lists | filterBy listname in 'listname'" class="list-list-list-item-item">
                     <a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>
                         <p class="list-link">{{ list.listname }}</p>
                     </a>
@@ -259,7 +260,7 @@ export default {
             if (!this.where){
                 alert('Please select where the words are imported from.')
                 return
-            } 
+            }
 
             let wordsRegex = ''
             let words = document.getElementById('importWords').value
