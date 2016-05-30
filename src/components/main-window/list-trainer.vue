@@ -63,6 +63,35 @@
 		overflow: auto;
 	}
 
+
+	/* Gamemode Styles */
+	#gamemode-container {
+		display: flex;
+
+		.gamemode {
+			flex: 1;
+			border: 1px solid black;
+			height: 10rem;
+
+			line-height: 10rem;
+			text-align: center;
+			margin: 1rem;
+
+			cursor: pointer;
+			user-select: none;
+
+			transition: background-color 0.25s;
+
+			&:hover {
+				background-color: #B5B5B5;
+			}
+		}
+
+	}
+
+
+
+
 	/* Button styles */
 	.emerald-flat-button {
 		// position: relative;
@@ -124,8 +153,14 @@
 		</h1>
 	</div>
 
+	<div id="gamemode-container">
+		<div class="gamemode">QUIZ</div>
+		<div class="gamemode">MULTIPLE CHOICE</div>
+		<div class="gamemode">TEST</div>
+	</div>
 
 	<div id="options">
+
 
 		<h3>MODE</h3>
 		<input name="mode" type="radio" id="mode-1" v-model="options.selectedMode" value="quiz"  checked/>
