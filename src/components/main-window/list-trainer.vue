@@ -28,6 +28,35 @@
 
 	}
 
+    input {
+        cursor: pointer;
+    }
+
+    #mode-1:hover:after, #mode-2:hover:after, #mode-3:hover:after {
+        display: block;
+        position: relative;
+        left: 90px;
+        top: -10px;
+        color: white;
+        background: #222;
+        border-radius: 3px;
+        padding: 10px 5px 10px 15px;
+        font-size: 13px;
+        width: 200px;
+        box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    }
+
+    #mode-1:hover:after {
+        content: "Think the answer in your head.";
+    }
+
+    #mode-2:hover:after {
+        content: "Choose the correct answer from four options.";
+    }
+
+    #mode-3:hover:after {
+        content: "Type the correct translation.";
+    }
 
 	flex: 1;
 	@media(min-width: 768px) {
@@ -101,10 +130,10 @@
 		<h3>MODE</h3>
 		<input name="mode" type="radio" id="mode-1" v-model="options.selectedMode" value="quiz"  checked/>
 		<label for="mode-1">quiz</label>
-
+            <br>
 		<input name="mode" type="radio" id="mode-2" v-model="options.selectedMode" value="multipleChoice" />
 		<label for="mode-2">multiple choice</label>
-
+            <br>
 		<input name="mode" type="radio" id="mode-3" v-model="options.selectedMode" value="test" />
 		<label for="mode-3">test </label>
 
@@ -131,7 +160,7 @@
 			<label for="randomizeOrder">randomize order</label>
 			<br>
 		</div>
-		
+
 		<div v-show="options.selectedMode == 'test'">
 			<input name="test-language" type="radio" id="test-language-1" v-model="options.test.selectedLanguage" value="0" checked/>
 			<label for="test-language-1">{{ list.language_1_tag }} ➡ {{ list.language_2_tag }} </label>
@@ -228,7 +257,7 @@ export default {
 			}
 		}
 	},
-	
+
 	ready() {
 		if (!globals.getCookie('logvalue') && store.username == "") {
 			// no one is logged in, redirect to the homepage
@@ -245,7 +274,7 @@ export default {
 			// Create an array from the options related to the selected mode, and map the converteOption function on it.
 			// After that, convert it to a string using .join to append it to the url
 			// convertOption converts "2", "1", "0", true and false to either "0", "1" or "2"
-			let converteOption = x => typeof x === 'string' ? x : ( x ? "1" : "0") 
+			let converteOption = x => typeof x === 'string' ? x : ( x ? "1" : "0")
 			let modifiers = Object.values(this.options[gamemode]).map(converteOption).join("")
 
 			return '/' + username + '/' + listname + '/practice/' + gamemode + '/' + modifiers
