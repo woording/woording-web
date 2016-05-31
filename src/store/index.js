@@ -3,6 +3,7 @@ import globals from '../globals'
 var store = {}
 
 const config = {
+    //ip: 'http://127.0.0.1:5000/',
     ip: 'https://api.woording.com/',
 }
 
@@ -28,8 +29,8 @@ store.fetchToken = (keepLoggedIn) => {
         store.keepLoggedIn = keepLoggedIn
         // Token fetch functions
         if (globals.getCookie('logvalue') && !store.username){
-            store.retrieveSession(globals.getCookie('logvalue')) .then(response => {
-                store.username = response.username
+            store.retrieveSession(globals.getCookie('logvalue')).then(response => {
+                store.username = globals.getCookie('username')
                 store.cachedToken = response.token
             }).then(response => {
                 let selector = (Math.random()*1e128).toString(36)
@@ -92,7 +93,6 @@ store.storeSession = (username, token, selector) => {
                     'Content-type': 'application/json;charset=UTF-8'
                 },
                 body: JSON.stringify({
-                    'username': username,
                     'token': token,
                     'selector': selector
                 })
@@ -102,6 +102,7 @@ store.storeSession = (username, token, selector) => {
                 if(!response.success){
                     throw new Error(response.error)
                 }
+                document.cookie = 'username='+store.username
                 document.cookie = 'logvalue='+selector
                 resolve(response)
             }).catch(error => {
@@ -146,6 +147,7 @@ store.removeSession = () => {
             return response.json()
         }).then(response => {
             document.cookie = "logvalue ="
+            document.cookie = "username ="
             resolve(response)
         })
     })
@@ -171,7 +173,6 @@ store.fetchUser = (username) => {
             }).then(response => {
                 resolve(response.json())
             }).catch(error => {
-                console.log('error')
                 reject(error)
             })
         })
