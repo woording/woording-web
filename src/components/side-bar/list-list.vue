@@ -23,10 +23,13 @@
             }
         }
 
-        li {
+        p, .list_header {
             padding-left: .5rem;
             padding-top: .25rem;
             padding-bottom: .25rem;
+        }
+
+        li {
             transition: 0.1s;
         }
 
@@ -73,7 +76,7 @@
     }
 }
 
-.v-link-active li {
+.v-link-active p {
     background-color: #FFFFFF;
     color: #212121;
 }
@@ -178,7 +181,7 @@
     <div id="list-list">
         <div id="lists">
             <ul>
-                <li>{{ $route.params.username + "'s lists" | uppercase }}</li>
+                <li class="list_header">{{ $route.params.username + "'s lists" | uppercase }}</li>
                 <input type="text" v-model="listname">
                 <li v-for="list in lists | filterBy listname in 'listname'" class="list-list-list-item-item">
                     <a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>

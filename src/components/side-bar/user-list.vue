@@ -22,12 +22,12 @@
 			}
 		}
 
-		li {
+		p, .list_header {
 			padding-left: .5rem;
 			padding-top: .25rem;
 			padding-bottom: .25rem;
         }
-        
+
         .user-link-item {
             &:hover {
                 background-color: #4CAF50;
@@ -39,7 +39,7 @@
 			transition: 0.1s;
 		}
 
-		.v-link-active > li {
+		.v-link-active p {
 			background-color: #4CAF50;
 
 		}
@@ -67,7 +67,7 @@
 	<div id="user-list">
 		<div id="users">
 			<ul>
-				<li>YOU</li>
+				<li class="list_header">YOU</li>
 
                 <a v-link='{ path: "/" + this.username }'>
                     <li class="user-link-item">
@@ -76,7 +76,7 @@
                 </a>
 
 				<li><br></li>
-				<li>FRIENDS</li>
+				<li class="list_header">FRIENDS</li>
                 <li v-for="friend in friends" class="user-link-item">
                     <a v-link='{ path: "/" + friend.username}'>
                         <p class="user-link">{{ friend.username }}</p>
