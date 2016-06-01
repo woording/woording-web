@@ -138,7 +138,7 @@ store.retrieveSession = selector => {
             resolve(response)
         }).catch(error => {
             console.log('catch logged in so logvalue = 0')
-            document.cookie = 'logvalue='
+            document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             reject(error)
         })
     })
@@ -159,8 +159,8 @@ store.removeSession = () => {
             return response.json()
         }).then(response => {
             console.log('set cookies to 0')
-            document.cookie = "logvalue ="
-            document.cookie = "username ="
+            document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            document.cookie = 'username' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             resolve(response)
         })
     })
