@@ -53,7 +53,7 @@ store.fetchToken = (keepLoggedIn) => {
             })
         }
         else {
-            console.log('cookie logvalue does not exist')
+            console.log('cookie logvalue does not exist or already logged in')
         }
 
         if (store.cachedToken != null) {
@@ -136,6 +136,7 @@ store.retrieveSession = selector => {
         }).then(response => {
             resolve(response)
         }).catch(error => {
+            console.log('catch logged in so logvalue = 0')
             document.cookie = 'logvalue='
             reject(error)
         })
@@ -156,6 +157,7 @@ store.removeSession = () => {
         }).then(response => {
             return response.json()
         }).then(response => {
+            console.log('set cookies to 0')
             document.cookie = "logvalue ="
             document.cookie = "username ="
             resolve(response)
