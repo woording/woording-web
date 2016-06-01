@@ -25,6 +25,7 @@ store.importedWords = []
  * @return {Promise} token
  */
 store.fetchToken = (keepLoggedIn) => {
+    console.log('fetchToken')
     return new Promise((resolve, reject) => {
         store.keepLoggedIn = keepLoggedIn
         // Token fetch functions
@@ -83,6 +84,7 @@ store.fetchToken = (keepLoggedIn) => {
 }
 
 store.storeSession = (username, token, selector) => {
+    console.log('storeSession')
     return new Promise((resolve, reject) => {
         if(!store.username){
             return
@@ -113,6 +115,7 @@ store.storeSession = (username, token, selector) => {
 }
 
 store.retrieveSession = selector => {
+    console.log('retrieveSession')
     return new Promise((resolve, reject) => {
         fetch(config.ip + 'retrieveSession', {
             method: 'POST',
@@ -134,6 +137,7 @@ store.retrieveSession = selector => {
 }
 
 store.removeSession = () => {
+    console.log('removeSession')
     return new Promise((resolve, reject) => {
         fetch(config.ip + 'removeSession', {
             method: 'POST',
@@ -160,6 +164,7 @@ store.removeSession = () => {
  * @return {Promise} a promise containing the user data
  */
 store.fetchUser = (username) => {
+    console.log('fetchUser')
     return new Promise((resolve, reject) => {
         store.fetchToken().then( token => {
             fetch(config.ip + username, {
