@@ -182,7 +182,7 @@
         <div id="lists">
             <ul>
                 <li class="list_header">{{ $route.params.username + "'s lists" | uppercase }}</li>
-                <input type="search" v-model="listname">
+                <input type="search" v-model="listname" placeholder="search lists">
                 <li v-for="list in lists | filterBy listname in 'listname'" class="list-list-list-item-item">
                     <a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>
                         <p class="list-link">{{ list.listname }}</p>

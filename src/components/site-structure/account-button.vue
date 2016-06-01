@@ -89,7 +89,7 @@
 
 <template>
 <div v-show="shouldShowButton" id="account-button" v-on:click="toggleAccountMenu">
-	<img src="img/ui/account-button.png" alt="Account Button">
+	<img src="/img/ui/account-button.png" alt="Account Button">
 	<p>{{ username }}</p>
 </div>
 <div id="account-menu" v-show="shouldShowAccountMenu">

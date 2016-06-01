@@ -6,7 +6,7 @@
 		align-items: center;
 
 		h1 {
-			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 			font-weight: 300;
 			font-size: 2rem;
 		}
@@ -28,7 +28,7 @@
 <template>
 	<header>
 		<div id="wording-logo">
-			<img v-link='{ path: "/" }'src="img/logo-alpha.png" alt="Woording Logo">
+			<img v-link='{ path: "/" }'src="/img/logo-alpha.png" alt="Woording Logo">
 		</div>
 
 		<account-button>

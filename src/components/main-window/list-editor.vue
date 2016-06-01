@@ -96,7 +96,8 @@ $border-style: 0.125rem solid #B6B6B6;
             background: white;
             color: black;
             padding: 5px;
-            width: 10rem;
+            /*width: 10rem;*/
+            width: 100%;
             border: 1px solid #ccc;
             border-radius: 3px;
             cursor: pointer;
