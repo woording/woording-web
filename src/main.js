@@ -12,6 +12,8 @@ Vue.use(VueResource)
 Vue.config.debug = true
 
 var router = new VueRouter({
+    history: true,
+    hashbang: false
 })
 
 // List viewer, editor, trainer and the default user view
