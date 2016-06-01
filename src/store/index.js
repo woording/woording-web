@@ -111,6 +111,7 @@ store.storeSession = (username, token, selector) => {
                     throw new Error(response.error)
                 }
                 console.log('cookie set stuff')
+                alert('checkcheckcheck')
                 document.cookie = 'username='+store.username
                 document.cookie = 'logvalue='+selector
                 resolve(response)
