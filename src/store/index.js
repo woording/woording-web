@@ -30,8 +30,11 @@ store.fetchToken = (keepLoggedIn) => {
         store.keepLoggedIn = keepLoggedIn
         // Token fetch functions
         if (globals.getCookie('logvalue') && !store.username){
+            console.log('cookie logvalue exists')
             store.retrieveSession(globals.getCookie('logvalue')).then(response => {
+                console.log('retrieved session in fetchtoken)
                 store.username = globals.getCookie('username')
+                console.log('store.username from cookies = ' + store.username)
                 store.cachedToken = response.token
             }).then(response => {
                 let selector = (Math.random()*1e128).toString(36)
@@ -46,8 +49,11 @@ store.fetchToken = (keepLoggedIn) => {
                 })
                 resolve(store.cachedToken)
             }).catch(error => {
-
+                console.log(error)
             })
+        }
+        else {
+            console.log('cookie logvalue does not exist')
         }
 
         if (store.cachedToken != null) {
