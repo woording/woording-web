@@ -112,8 +112,12 @@ store.storeSession = (username, token, selector) => {
                 }
                 console.log('cookie set stuff')
                 alert('check cookie set from store session')
-                document.cookie = 'username='+store.username
-                document.cookie = 'logvalue='+selector
+                let date = new Date()
+                let days = 30
+                date.setTime(date.getTime()+(days*24*60*60*1000))
+                let expires = "; expires="+date.toGMTString()
+                document.cookie = 'username='+store.username + expires + '; path=/'
+                document.cookie = 'logvalue='+selector + expires + '; path=/'
                 resolve(response)
             }).catch(error => {
                 reject(error)
