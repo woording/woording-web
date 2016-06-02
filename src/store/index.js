@@ -55,6 +55,9 @@ store.fetchToken = (keepLoggedIn) => {
         else if (!globals.getCookie('logvalue') && !store.username) {
             console.log('cookie logvalue does not exist and no username')
         }
+        else {
+            console.log('else')
+        }
 
         if (store.cachedToken != null) {
             resolve(store.cachedToken)
