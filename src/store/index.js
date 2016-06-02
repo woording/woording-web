@@ -52,7 +52,7 @@ store.fetchToken = (keepLoggedIn) => {
                 console.log(error)
             })
         }
-        else if (!globals.getCookie('logvalue' && !store.username) {
+        else if (!globals.getCookie('logvalue') && !store.username) {
             console.log('cookie logvalue does not exist and no username')
         }
 
