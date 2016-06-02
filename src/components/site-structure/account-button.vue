@@ -148,8 +148,7 @@ export default {
                 this.shouldShowAccountMenu = false
                 this.username = ''
                 console.log('Username after first promise: ' + store.username)
-                document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                document.cookie = 'username' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                location.reload()
             }).then(response => {
                 console.log('second promise')
                 console.log(response)
