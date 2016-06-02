@@ -23,10 +23,15 @@
             }
         }
 
-        p, .list_header {
+        p, .list_header, .search_box {
             padding-left: .5rem;
             padding-top: .25rem;
             padding-bottom: .25rem;
+        }
+
+        .search_box {
+            border-radius: 0;
+            border: none;
         }
 
         li {
@@ -182,7 +187,7 @@
         <div id="lists">
             <ul>
                 <li class="list_header">{{ $route.params.username + "'s lists" | uppercase }}</li>
-                <input type="search" v-model="listname" placeholder="search lists">
+                <input class="search_box" type="search" v-model="listname" placeholder="Search lists">
                 <li v-for="list in lists | filterBy listname in 'listname'" class="list-list-list-item-item">
                     <a v-link='{ path: "/" + $route.params.username + "/" + list.listname }'>
                         <p class="list-link">{{ list.listname }}</p>
