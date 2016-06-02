@@ -30,6 +30,7 @@ import TrainerTest from './components/practice-modes/test.vue'
 import TrainerMultipleChoice from './components/practice-modes/multiple-choice.vue'
 
 import store from './store'
+import globals from './globals'
 
 router.map({
 	'/': {
@@ -76,6 +77,13 @@ router.map({
 
 router.afterEach(function () {
 }),
+
+router.beforeEach(function(transition){
+    if (!globals.getCookie('logvalue') && !store.username){
+        router.go({path : "/"})
+    }
+    transition.next()
+})
 
 router.redirect({
 	'*': '/'
