@@ -30,7 +30,7 @@ store.fetchToken = (keepLoggedIn) => {
         store.keepLoggedIn = keepLoggedIn
         // Token fetch functions
         if (globals.getCookie('logvalue') && !store.username){
-            console.log('cookie logvalue exists')
+            console.log('cookie logvalue exists, it is: ' + globals.getCookie('logvalue'))
             store.retrieveSession(globals.getCookie('logvalue')).then(response => {
                 console.log('retrieved session in fetchtoken')
                 store.username = globals.getCookie('username')
