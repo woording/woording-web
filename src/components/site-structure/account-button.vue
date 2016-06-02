@@ -142,11 +142,12 @@ export default {
             store.password = ''
             store.cachedToken = null
             store.called = false
-            this.$parent.$route.router.go({ path: "/" })
             this.shouldShowAccountMenu = false
             this.username = ''
             store.removeSession().then(response => {
                 console.log(response)
+                this.$parent.$route.router.go({ path: "/" })
+            }).then(response => {
                 location.reload()
             })
 		},
