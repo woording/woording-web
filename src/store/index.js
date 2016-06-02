@@ -111,7 +111,6 @@ store.storeSession = (username, token, selector) => {
                     throw new Error(response.error)
                 }
                 console.log('cookie set stuff')
-                alert('check cookie set from store session')
                 let date = new Date()
                 let days = 30
                 date.setTime(date.getTime()+(days*24*60*60*1000))
@@ -143,7 +142,6 @@ store.retrieveSession = selector => {
             resolve(response)
         }).catch(error => {
             console.log('catch logged in so logvalue = 0')
-            alert('check cookie error delete')
             document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             reject(error)
         })
@@ -165,7 +163,6 @@ store.removeSession = () => {
             return response.json()
         }).then(response => {
             console.log('set cookies to 0')
-            alert('check both cookie remove from session')
             document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             document.cookie = 'username' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             resolve(response)
