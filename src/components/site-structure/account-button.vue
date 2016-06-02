@@ -138,13 +138,14 @@ export default {
 
 	methods : {
 		signOut: function() {
-            store.username = ''
-            store.password = ''
-            store.cachedToken = null
-            store.called = false
-            this.shouldShowAccountMenu = false
-            this.username = ''
             store.removeSession().then(response => {
+                store.username = ''
+                store.password = ''
+                store.cachedToken = null
+                store.called = false
+                this.shouldShowAccountMenu = false
+                this.username = ''
+            }).then(response => {
                 console.log(response)
                 this.$parent.$route.router.go({ path: "/" })
             }).then(response => {
