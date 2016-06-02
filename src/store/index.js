@@ -99,7 +99,7 @@ store.fetchToken = (keepLoggedIn) => {
 store.storeSession = (username, token, selector) => {
     console.log('storeSession')
     return new Promise((resolve, reject) => {
-        if(!store.username){
+        if(!store.username || !token || !selector || !username){
             return
         } else {
             fetch(config.ip + 'storeSession', {

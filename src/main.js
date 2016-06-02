@@ -81,7 +81,6 @@ router.afterEach(function () {
 router.beforeEach(function(transition){
     if (!globals.getCookie('logvalue') && !store.username){
         console.log('no log in bro')
-        alert('you are not logged in, you will be redirected to the login page')
         router.go({path : "/"})
     }
     transition.next()
