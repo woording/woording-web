@@ -56,6 +56,7 @@ store.fetchToken = (keepLoggedIn) => {
             console.log('cookie logvalue does not exist and no username')
         }
         else {
+            console.log(store.username)
             console.log('else')
         }
 
