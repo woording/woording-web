@@ -148,8 +148,8 @@ export default {
             }).then(response => {
                 console.log(response)
                 this.$parent.$route.router.go({ path: "/" })
-            }).then(response => {
-                location.reload()
+            /*}).then(response => {*/
+                /*location.reload()*/
             })
 		},
 		changePassword: function() {
