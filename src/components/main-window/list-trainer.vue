@@ -293,13 +293,6 @@ export default {
 		}
 	},
 
-	ready() {
-		if (!globals.getCookie('logvalue') && store.username == "") {
-			// no one is logged in, redirect to the homepage
-			this.$route.router.go({ path: '/' })
-		}
-	},
-
 	computed: {
 		url: function() {
 			let username = this.$parent.$route.params.username

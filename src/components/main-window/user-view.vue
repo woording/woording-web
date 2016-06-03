@@ -71,14 +71,6 @@ export default {
 		}
 	},
 
-	ready() {
-		if (!globals.getCookie('logvalue') && store.username == "") {
-			// No one logged in, redirect to homepage
-			this.$route.router.go({ path: '/' })
-            location.reload()
-		}
-	},
-
 	route: {
 		data () {
             if(store.deletedList){

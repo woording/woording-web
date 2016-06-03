@@ -238,13 +238,6 @@ export default {
         }
     },
 
-    ready() {
-        if (!globals.getCookie('logvalue') && store.username == "") {
-            // no one is logged in, redirect to the homepage
-            this.$route.router.go({ path: '/' })
-        }
-    },
-
     methods: {
         addRow: function() {
             // Create new empty row
