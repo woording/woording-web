@@ -30,8 +30,10 @@
         }
 
         .search_box {
+            -webkit-appearance: none;
             border-radius: 0;
             border: none;
+            width: 100%;
         }
 
         li {
