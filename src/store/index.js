@@ -80,6 +80,11 @@ store.fetchToken = (keepLoggedIn) => {
     })
 }
 
+/**
+ * Store the selector and the cookie in the database.
+ *
+ * @return {Promise} succes/failed
+ */
 store.storeSession = (username, token, selector) => {
     return new Promise((resolve, reject) => {
         if(!store.username || !token || !selector || !username){
@@ -123,6 +128,11 @@ store.storeSession = (username, token, selector) => {
     })
 }
 
+/**
+ * Retrieve token from database where selector == selector
+ *
+ * @return {Promise} token
+ */
 store.retrieveSession = selector => {
     return new Promise((resolve, reject) => {
         fetch(config.ip + 'retrieveSession', {
@@ -138,12 +148,18 @@ store.retrieveSession = selector => {
         }).then(response => {
             resolve(response)
         }).catch(error => {
+            // Set cookie expiration date to the past to it gets deleted isntead of just emptied
             document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             reject(error)
         })
     })
 }
 
+/**
+ * remove cookies and database entry
+ *
+ * @return {Promise} succes/failed
+ */
 store.removeSession = () => {
     return new Promise((resolve, reject) => {
         fetch(config.ip + 'removeSession', {
