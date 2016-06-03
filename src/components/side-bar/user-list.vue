@@ -103,6 +103,7 @@ export default {
         store.fetchToken().then(response => {
             username = store.username
             this.username = store.username
+        }).catch(error => {
         })
 
 		return {

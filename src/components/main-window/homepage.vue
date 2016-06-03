@@ -257,8 +257,6 @@ export default {
                 store.username = ''
                 store.password = ''
                 this.error = error.message
-                /*document.cookie = "attempts = " + (parseInt(globals.getCookie('attempts')) + 1)*/
-                /*if (globals.getCookie('attempts') == 3) this.captchaId = grecaptcha.render("recaptcha", { sitekey:'6Lcm2hUTAAAAADRIHnMpS4wRMUd4bp_H-1JmvDd0' })*/
             })
         }
     }

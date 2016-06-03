@@ -4,7 +4,7 @@ var store = {}
 
 const config = {
     //ip: 'http://127.0.0.1:5000/',
-    //ip: 'http://192.168.99.100:32769/',
+    //ip: 'http://192.168.99.100:32771/',
     ip: 'https://api.woording.com/',
 }
 
@@ -57,6 +57,7 @@ store.fetchToken = (keepLoggedIn) => {
 
         else {
             if(!store.username){
+                reject('Not logged in')
                 return
             }
             fetch(config.ip + 'authenticate', {
@@ -207,6 +208,7 @@ store.fetchUser = (username) => {
             }).catch(error => {
                 reject(error)
             })
+        }).catch(error => {
         })
     })
 }
@@ -233,6 +235,7 @@ store.fetchFriends = () => {
                 console.log(error)
                 reject(error)
             })
+        }).catch(error => {
         })
     })
 }
@@ -242,9 +245,9 @@ store.fetchFriends = () => {
  * @param  {listname}
  * @return {Promise}, containing a list
  */
-store.fetchList = (username, listname) => {
+store.fetchList = (username, listname, token=null) => {
     return new Promise((resolve, reject) => {
-        store.fetchToken().then( token => {
+        //store.fetchToken().then( token => {
             fetch(config.ip + username + "/" + listname, {
                 method: 'post',
                 headers: {
@@ -259,7 +262,7 @@ store.fetchList = (username, listname) => {
                 console.log(error)
                 reject(error)
             })
-        })
+        //})
     })
 }
 
@@ -289,6 +292,7 @@ store.deleteList = (username, list) => {
                 console.log(error)
                 reject(error)
             })
+        }).catch(error => {
         })
     })
 }
@@ -319,6 +323,7 @@ store.saveList = (username, list_data) => {
                 console.log(error)
                 reject(error)
             })
+        }).catch(error => {
         })
     })
 }
