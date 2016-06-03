@@ -4,8 +4,8 @@ var store = {}
 
 const config = {
     //ip: 'http://127.0.0.1:5000/',
-    //ip: 'http://192.168.99.100:32768/',
-	ip: 'https://api.woording.com/',
+    //ip: 'http://192.168.99.100:32769/',
+    ip: 'https://api.woording.com/',
 }
 
 export default store
@@ -28,10 +28,18 @@ store.importedWords = []
 store.fetchToken = (keepLoggedIn) => {
     return new Promise((resolve, reject) => {
         store.keepLoggedIn = keepLoggedIn
+
+        if (store.cachedToken != null) {
+            resolve(store.cachedToken)
+        }
+
         // Token fetch functions
-        if (globals.getCookie('logvalue') && !store.username){
-            store.retrieveSession(globals.getCookie('logvalue')).then(response => {
-                store.username = globals.getCookie('username')
+        else if (sessionStorage.getItem('logvalue') || globals.getCookie('logvalue') && !store.username){
+            store.retrieveSession(globals.getCookie('logvalue') || sessionStorage.getItem('logvalue')).then(response => {
+                store.username = globals.getCookie('username') ? globals.getCookie('username') : sessionStorage.getItem('username')
+                console.log('test username')
+                console.log('Sessionstorage: ' + (sessionStorage.getItem('username') || false) && true)
+                console.log(store.username)
                 store.cachedToken = response.token
             }).then(response => {
                 let selector = (Math.random()*1e128).toString(36)
@@ -50,9 +58,7 @@ store.fetchToken = (keepLoggedIn) => {
             })
         }
 
-        if (store.cachedToken != null) {
-            resolve(store.cachedToken)
-        } else {
+        else {
             if(!store.username){
                 return
             }
@@ -68,16 +74,10 @@ store.fetchToken = (keepLoggedIn) => {
             }).then(response => {
                 return response.json()
             }).then(data => {
-                if (store.keepLoggedIn){
-                    let selector = (Math.random()*1e128).toString(36)
-                    store.storeSession(store.username, data.token, selector).then(response => {
-                        console.log(response)
-                    })
-                }
-                else {
-                    //https://developer.mozilla.org/nl/docs/Web/API/Window/sessionStorage
-                }
-
+                let selector = (Math.random()*1e128).toString(36)
+                store.storeSession(store.username, data.token, selector).then(response => {
+                    console.log(response)
+                })
                 resolve(data)
             }).catch(error => {
                 reject(error)
@@ -86,6 +86,11 @@ store.fetchToken = (keepLoggedIn) => {
     })
 }
 
+/**
+ * Store the selector and the cookie in the database.
+ *
+ * @return {Promise} succes/failed
+ */
 store.storeSession = (username, token, selector) => {
     return new Promise((resolve, reject) => {
         if(!store.username || !token || !selector || !username){
@@ -106,12 +111,21 @@ store.storeSession = (username, token, selector) => {
                 if(!response.success){
                     throw new Error(response.error)
                 }
-                let date = new Date()
-                let days = 30
-                date.setTime(date.getTime()+(days*24*60*60*1000))
-                let expires = "; expires="+date.toGMTString()
-                document.cookie = 'username='+store.username + expires + '; path=/'
-                document.cookie = 'logvalue='+selector + expires + '; path=/'
+
+                if(store.keepLoggedIn || (!sessionStorage.getItem('logvalue') && store.keepLoggedIn)){
+                    let date = new Date()
+                    let days = 30
+                    date.setTime(date.getTime()+(days*24*60*60*1000))
+                    let expires = "; expires="+date.toGMTString()
+                    document.cookie = 'username='+store.username + expires + '; path=/'
+                    document.cookie = 'logvalue='+selector + expires + '; path=/'
+                }
+
+                else if (!store.keepLoggedIn){
+                    sessionStorage.setItem('logvalue', selector)
+                    sessionStorage.setItem('username', store.username)
+                }
+
                 resolve(response)
             }).catch(error => {
                 reject(error)
@@ -120,6 +134,11 @@ store.storeSession = (username, token, selector) => {
     })
 }
 
+/**
+ * Retrieve token from database where selector == selector
+ *
+ * @return {Promise} token
+ */
 store.retrieveSession = selector => {
     return new Promise((resolve, reject) => {
         fetch(config.ip + 'retrieveSession', {
@@ -135,12 +154,18 @@ store.retrieveSession = selector => {
         }).then(response => {
             resolve(response)
         }).catch(error => {
+            // Set cookie expiration date to the past to it gets deleted isntead of just emptied
             document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             reject(error)
         })
     })
 }
 
+/**
+ * remove cookies and database entry
+ *
+ * @return {Promise} succes/failed
+ */
 store.removeSession = () => {
     return new Promise((resolve, reject) => {
         fetch(config.ip + 'removeSession', {
@@ -156,6 +181,8 @@ store.removeSession = () => {
         }).then(response => {
             document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             document.cookie = 'username' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            sessionStorage.removeItem('logvalue')
+            sessionStorage.removeItem('username')
             resolve(response)
         })
     })

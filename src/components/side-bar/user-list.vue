@@ -69,11 +69,11 @@
 			<ul>
 				<li class="list_header">YOU</li>
 
-                <a v-link='{ path: "/" + this.username }'>
-                    <li class="user-link-item">
+                <li class="user-link-item">
+                    <a v-link='{ path: "/" + this.username }'>
                         <p class="user-link">{{ username }}</p>
-                    </li>
-                </a>
+                    </a>
+                </li>
 
 				<li><br></li>
 				<li class="list_header">FRIENDS</li>

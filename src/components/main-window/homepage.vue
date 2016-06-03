@@ -90,6 +90,10 @@
             #error {
                 color: red;
             }
+
+            #success {
+                color: green;
+            }
         }
 
         #register {
@@ -115,7 +119,7 @@
 
                 <p id="rememberMeToggle" v-show="!registerMode"><input type="checkbox" v-model="keepLoggedIn" v-show="!registerMode">Remember me?</p>
 				<div v-if="!registerMode">
-					<button v-on:click="logIn">LOG IN</button> <span id="error">{{ error }}</span>
+					<button v-on:click="logIn">LOG IN</button> <span id="error">{{ error }}</span><span id="success">{{ success }}</span>
 				</div>
 				<div v-if="registerMode">
 					<button v-on:click="register">REGISTER</button> <span id="error">{{ error }}</span>
@@ -149,6 +153,7 @@ export default {
             repeated: '',
             email: '',
             error: '',
+            success: '',
 			registerMode: false,
             keepLoggedIn: false,
             captchaId: ''
@@ -160,7 +165,7 @@ export default {
             if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
             if(!globals.getCookie('attempts')) document.cookie = 'attempts = 0';
 
-            if(globals.getCookie('logvalue')){
+            if(globals.getCookie('logvalue') || sessionStorage.getItem('logvalue')){
                 store.retrieveSession(globals.getCookie('logvalue')).then(response => {
                     this.$parent.$route.router.go({ path: "/" + store.username })
                 })
@@ -201,7 +206,8 @@ export default {
 
             this.error = ''
             store.register(this.username, this.password, this.email).then(response => {
-                if(response.succes){
+                if(response.success){
+                    this.success = response.response
                     alert('Validation email has been sent')
                 } else {
                     this.error = response.response

@@ -169,7 +169,7 @@ $border-style: 0.125rem solid #B6B6B6;
 					<div class="language-name">
 						<h2>{{list.language_2_tag}}</h2>
 					</div>
-					
+
 				</div>
 			</div>
 
@@ -194,13 +194,6 @@ export default {
 			list : null,
 			editMode: false,
 			ownList: null
-		}
-	},
-
-	ready() {
-		if (!globals.getCookie('logvalue') && store.username == "") {
-			// no one is logged in, redirect to the homepage
-			this.$route.router.go({ path: '/' })
 		}
 	},
 
