@@ -37,9 +37,6 @@ store.fetchToken = (keepLoggedIn) => {
         else if (sessionStorage.getItem('logvalue') || globals.getCookie('logvalue') && !store.username){
             store.retrieveSession(globals.getCookie('logvalue') || sessionStorage.getItem('logvalue')).then(response => {
                 store.username = globals.getCookie('username') ? globals.getCookie('username') : sessionStorage.getItem('username')
-                console.log('test username')
-                console.log('Sessionstorage: ' + (sessionStorage.getItem('username') || false) && true)
-                console.log(store.username)
                 store.cachedToken = response.token
             }).then(response => {
                 let selector = (Math.random()*1e128).toString(36)
