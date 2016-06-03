@@ -259,12 +259,10 @@ export default {
         },
 
         deleteTranslation: function(translation){
-            console.log('test')
             this.list.words.$remove(translation)
         },
 
         saveList: function() {
-            console.time('savelist')
             var words = []
 
             var sentences = document.getElementsByClassName('sentence-item')

@@ -4,7 +4,8 @@ var store = {}
 
 const config = {
     //ip: 'http://127.0.0.1:5000/',
-    ip: 'https://api.woording.com/',
+    //ip: 'http://192.168.99.100:32768/',
+	ip: 'https://api.woording.com/',
 }
 
 export default store
@@ -25,16 +26,12 @@ store.importedWords = []
  * @return {Promise} token
  */
 store.fetchToken = (keepLoggedIn) => {
-    console.log('fetchToken')
     return new Promise((resolve, reject) => {
         store.keepLoggedIn = keepLoggedIn
         // Token fetch functions
         if (globals.getCookie('logvalue') && !store.username){
-            console.log('cookie logvalue exists, it is: ' + globals.getCookie('logvalue'))
             store.retrieveSession(globals.getCookie('logvalue')).then(response => {
-                console.log('retrieved session in fetchtoken')
                 store.username = globals.getCookie('username')
-                console.log('store.username from cookies = ' + store.username)
                 store.cachedToken = response.token
             }).then(response => {
                 let selector = (Math.random()*1e128).toString(36)
@@ -51,16 +48,6 @@ store.fetchToken = (keepLoggedIn) => {
             }).catch(error => {
                 console.log(error)
             })
-        }
-        else if (!globals.getCookie('logvalue') && !store.username) {
-            console.log('cookie logvalue does not exist and no username')
-        }
-        else if (!globals.getCookie('logvalue') && store.username){
-            console.log('no logvalue but store.username exists')
-        }
-        else {
-            console.log(store.username)
-            console.log('else')
         }
 
         if (store.cachedToken != null) {
@@ -87,7 +74,10 @@ store.fetchToken = (keepLoggedIn) => {
                         console.log(response)
                     })
                 }
-                console.log(data)
+                else {
+                    //https://developer.mozilla.org/nl/docs/Web/API/Window/sessionStorage
+                }
+
                 resolve(data)
             }).catch(error => {
                 reject(error)
@@ -97,7 +87,6 @@ store.fetchToken = (keepLoggedIn) => {
 }
 
 store.storeSession = (username, token, selector) => {
-    console.log('storeSession')
     return new Promise((resolve, reject) => {
         if(!store.username || !token || !selector || !username){
             return
@@ -117,7 +106,6 @@ store.storeSession = (username, token, selector) => {
                 if(!response.success){
                     throw new Error(response.error)
                 }
-                console.log('cookie set stuff')
                 let date = new Date()
                 let days = 30
                 date.setTime(date.getTime()+(days*24*60*60*1000))
@@ -133,7 +121,6 @@ store.storeSession = (username, token, selector) => {
 }
 
 store.retrieveSession = selector => {
-    console.log('retrieveSession')
     return new Promise((resolve, reject) => {
         fetch(config.ip + 'retrieveSession', {
             method: 'POST',
@@ -148,7 +135,6 @@ store.retrieveSession = selector => {
         }).then(response => {
             resolve(response)
         }).catch(error => {
-            console.log('catch logged in so logvalue = 0')
             document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             reject(error)
         })
@@ -156,7 +142,6 @@ store.retrieveSession = selector => {
 }
 
 store.removeSession = () => {
-    console.log('removeSession')
     return new Promise((resolve, reject) => {
         fetch(config.ip + 'removeSession', {
             method: 'POST',
@@ -169,7 +154,6 @@ store.removeSession = () => {
         }).then(response => {
             return response.json()
         }).then(response => {
-            console.log('set cookies to 0')
             document.cookie = 'logvalue' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             document.cookie = 'username' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             resolve(response)
@@ -184,7 +168,6 @@ store.removeSession = () => {
  * @return {Promise} a promise containing the user data
  */
 store.fetchUser = (username) => {
-    console.log('fetchUser')
     return new Promise((resolve, reject) => {
         store.fetchToken().then( token => {
             fetch(config.ip + username, {

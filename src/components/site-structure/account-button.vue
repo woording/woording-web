@@ -138,25 +138,16 @@ export default {
 
 	methods : {
 		signOut: function() {
-            console.log('signout function called')
             store.removeSession().then(response => {
-                console.log('first promise')
                 store.username = ''
                 store.password = ''
                 store.cachedToken = null
                 store.called = false
                 this.shouldShowAccountMenu = false
                 this.username = ''
-                console.log('Username after first promise: ' + store.username)
                 location.reload()
             }).then(response => {
-                console.log('second promise')
-                console.log(response)
-                console.log('Username after second promise: ' + store.username)
                 this.$parent.$route.router.go({ path: "/" })
-                console.log('Username after router go ' + store.username)
-            /*}).then(response => {*/
-                /*location.reload()*/
             })
 		},
 		changePassword: function() {

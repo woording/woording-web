@@ -155,21 +155,16 @@ export default {
         }
     },
 
-    /*route: {*/
-        /*data () {*/
-            /*if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })*/
-            /*if(!globals.getCookie('attempts')) document.cookie = 'attempts = 0';*/
+    route: {
+        data () {
+            if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
+            if(!globals.getCookie('attempts')) document.cookie = 'attempts = 0';
 
-            /*if(globals.getCookie('logvalue')){*/
-                /*store.retrieveSession(globals.getCookie('logvalue')).then(response => {*/
-                    /*this.$parent.$route.router.go({ path: "/" + store.username })*/
-                /*})*/
-            /*}*/
-        /*}*/
-    /*},*/
-
-    events: {
-        'url-update': function(){
+            if(globals.getCookie('logvalue')){
+                store.retrieveSession(globals.getCookie('logvalue')).then(response => {
+                    this.$parent.$route.router.go({ path: "/" + store.username })
+                })
+            }
         }
     },
 
@@ -248,10 +243,6 @@ export default {
 
                 store.cachedToken = response.token
                 this.error = ''
-                /*document.cookie = "username = " + this.username + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"*/
-                /*if (this.keepLoggedIn){*/
-                    /*document.cookie = "rememberme = " + response.token + "; expires=Thu, 18 Dec 2037 12:00:00 UTC"*/
-                /*}*/
 
                 this.$parent.$route.router.go({ path: "/" + this.username })
             }).catch((error) => {
