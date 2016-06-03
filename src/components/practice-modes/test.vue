@@ -171,7 +171,7 @@
 	</div>
 
     <div v-show="displayMode == 'correctAnswer'">
-        <form v-on:submit="getNextWord">
+        <form v-on:submit.prevent="getNextWord">
             <p class="thingy">{{ currentWord.language_1_text }}</p>
             <p class="thingy" id="correctAnswer">Correct Answer: {{ currentWord.language_2_text }}</p>
             <p id="message"></p>
