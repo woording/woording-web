@@ -160,7 +160,7 @@ export default {
             if(store.username) this.$parent.$route.router.go({ path: "/" + store.username })
             if(!globals.getCookie('attempts')) document.cookie = 'attempts = 0';
 
-            if(globals.getCookie('logvalue')){
+            if(globals.getCookie('logvalue') || sessionStorage.getItem('logvalue')){
                 store.retrieveSession(globals.getCookie('logvalue')).then(response => {
                     this.$parent.$route.router.go({ path: "/" + store.username })
                 })
