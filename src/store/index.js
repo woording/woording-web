@@ -28,10 +28,18 @@ store.importedWords = []
 store.fetchToken = (keepLoggedIn) => {
     return new Promise((resolve, reject) => {
         store.keepLoggedIn = keepLoggedIn
+
+        if (store.cachedToken != null) {
+            resolve(store.cachedToken)
+        }
+
         // Token fetch functions
-        if (sessionStorage.getItem('logvalue') || globals.getCookie('logvalue') && !store.username){
+        else if (sessionStorage.getItem('logvalue') || globals.getCookie('logvalue') && !store.username){
             store.retrieveSession(globals.getCookie('logvalue') || sessionStorage.getItem('logvalue')).then(response => {
-                store.username = globals.getCookie('username') || sessionStorage.getItem('username')
+                store.username = globals.getCookie('username') ? globals.getCookie('username') : sessionStorage.getItem('username')
+                console.log('test username')
+                console.log('Sessionstorage: ' + (sessionStorage.getItem('username') || false) && true)
+                console.log(store.username)
                 store.cachedToken = response.token
             }).then(response => {
                 let selector = (Math.random()*1e128).toString(36)
@@ -50,9 +58,7 @@ store.fetchToken = (keepLoggedIn) => {
             })
         }
 
-        if (store.cachedToken != null) {
-            resolve(store.cachedToken)
-        } else {
+        else {
             if(!store.username){
                 return
             }
@@ -106,7 +112,7 @@ store.storeSession = (username, token, selector) => {
                     throw new Error(response.error)
                 }
 
-                if(store.keepLoggedIn){
+                if(store.keepLoggedIn || (!sessionStorage.getItem('logvalue') && store.keepLoggedIn)){
                     let date = new Date()
                     let days = 30
                     date.setTime(date.getTime()+(days*24*60*60*1000))
