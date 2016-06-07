@@ -132,6 +132,7 @@ export default {
                     this.email = response.email
                     this.shouldShowButton = true
                 })
+            }).catch(error => {
             })
         }
     },

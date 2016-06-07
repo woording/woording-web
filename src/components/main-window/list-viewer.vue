@@ -108,21 +108,6 @@ $border-style: 0.125rem solid #B6B6B6;
 		@media(min-width: 768px) {
 			padding: 1rem;
 		}
-
-		// button {
-		// 	padding: 10px;
-		// 	cursor: pointer;
-		// 	color: white;
-		// 	border-radius: 3px;
-		// 	border: 1px solid #ccc;
-		// 	color: black;
-		// 	background: white;
-
-		// 	&:hover {
-		// 		background: #ccc;
-		// 	}
-		// }
-
 	}
 
 	flex: 1;
@@ -154,10 +139,10 @@ $border-style: 0.125rem solid #B6B6B6;
 				<h1>{{ list.listname }}</h1>
 
 					<div id="controls">
-						<a class="emerald-flat-button control" id="practiceButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</a>
-						<a class="clouds-flat-button control" v-show="ownList" id="editButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</a>
-						<a class="clouds-flat-button control" v-show="ownList" id="deleteButton" v-on:click="deleteList">Delete</a>
-						<a class="clouds-flat-button control" v-show="!ownList" v-on:click="saveList">Save</a>
+						<a class="emerald-flat-button control" v-show="loggedIn" id="practiceButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/practice" }'>Practice</a>
+						<a class="clouds-flat-button control" v-show="ownList && loggedIn" id="editButton" v-link='{ path: "/" + $route.params.username + "/" + list.listname + "/edit" }'>Edit</a>
+						<a class="clouds-flat-button control" v-show="ownList && loggedIn" id="deleteButton" v-on:click="deleteList">Delete</a>
+						<a class="clouds-flat-button control" v-show="!ownList && loggedIn" v-on:click="saveList">Save</a>
 					</div>
 
 				<div class="language-name-container">
@@ -193,6 +178,7 @@ export default {
 		return {
 			list : null,
 			editMode: false,
+            loggedIn: false,
 			ownList: null
 		}
 	},
@@ -204,6 +190,10 @@ export default {
 
             store.fetchToken().then(response => {
                 this.ownList = username == store.username ? true : false
+            }).catch(error => {
+                console.log(error)
+            }).then(response => {
+                this.loggedIn = store.username != ''
             })
 
             if(listname){
@@ -215,7 +205,6 @@ export default {
     },
 
 	methods : {
-
 		deleteList: function() {
 			store.deletedList = this.list
 			store.deleteList(store.username, this.list).then((response) => {

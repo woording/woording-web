@@ -80,7 +80,12 @@ router.afterEach(function () {
 
 router.beforeEach(function(transition){
     if (!sessionStorage.getItem('logvalue') && !globals.getCookie('logvalue') && !store.username){
-        router.go({path : "/"})
+        if(!router.app.$route.params.listname){
+            console.log('no log in bro')
+            router.go({path : "/"})
+        } else {
+            console.log('list')
+        }
     }
     transition.next()
 })
