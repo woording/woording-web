@@ -6,7 +6,7 @@ const config = {
     //ip: 'http://127.0.0.1:5000/',
     //ip: 'http://192.168.99.100:32771/',
     // ip: 'https://api.woording.com/',
-    ip: 'woording-api'
+    ip: 'http://woording-api/'
 }
 
 export default store
