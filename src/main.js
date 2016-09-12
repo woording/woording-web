@@ -4,7 +4,7 @@ var VueRouter = require('vue-router')
 var VueResource = require('vue-resource')
 var Rx = require('rx')
 var VueRx = require('vue-rx')
-require('whatwg-fetch');
+var whatwgFetch = require('whatwg-fetch')
 
 Vue.use(VueRx, Rx)
 Vue.use(VueRouter)
@@ -76,7 +76,7 @@ router.map({
 
 
 router.afterEach(function () {
-}),
+})
 
 router.beforeEach(function(transition){
     if (!sessionStorage.getItem('logvalue') && !globals.getCookie('logvalue') && !store.username){
